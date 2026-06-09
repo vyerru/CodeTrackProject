@@ -41,30 +41,49 @@ npm run preview   # vite preview
 
 ## Architecture
 
-**Feature-based layout:**
+**Clean Architecture — 3 layer:**
+
 ```
 src/
-├── app/                          # Router, App entry
-├── features/
-│   ├── auth/                     # Login, Register, authStore
-│   ├── landing/                  # Landing page sections
-│   ├── articles/                 # Arsip & Detail Artikel
-│   ├── courses/                  # Katalog & Detail Course
-│   ├── commerce/                 # Cart, Checkout, History
-│   ├── user-dashboard/           # User Dashboard
-│   └── admin/                    # Admin Dashboard & semua Kelola* pages
+├── core/                          # Layer DOMAIN — pure TS, zero dependencies
+│   ├── domain/
+│   │   ├── entities/              # Interfaces: User, Course, Article, Transaction, Dashboard
+│   │   ├── repositories/          # Abstrak: ICourseRepository, IAuthRepository, dll
+│   │   └── di.ts                  # Dependency injection — injectRepositories() + repos getters
+│   └── utils/                     # Pure functions: formatRupiah, getLevelColor, dll
+│
+├── data/                          # Layer DATA — implementasi repository
+│   ├── repositories/              # MockCourseRepository, MockAuthRepository, dll
+│   └── sources/
+│       └── mock/                  # File JSON statis (users, courses, articles, dll)
+│
+├── features/                      # Layer PRESENTATION — React components & hooks
+│   ├── auth/
+│   ├── landing/
+│   ├── articles/
+│   ├── courses/
+│   ├── commerce/
+│   ├── user-dashboard/
+│   └── admin/
 ├── shared/
 │   ├── components/
 │   │   ├── layout/               # PublicLayout, UserLayout, AdminLayout, ProtectedRoute, Navbar, Footer
 │   │   ├── ui/                   # shadcn components
 │   │   └── common/               # CourseCard, StatCard, DataTable, dll
-│   ├── hooks/                    # useLocalStorage, useDebounce, dll
-│   ├── types/                    # Semua TypeScript interfaces
-│   └── utils/                    # formatRupiah, getLevelColor, dll
-└── data/                         # Mock JSON files
+│   ├── types/                    # Re-export dari core/domain/entities/
+│   └── utils/                    # Re-export dari core/utils/
+└── app/                          # Router, App entry
 ```
 
 Setiap feature folder berisi: `components/`, `pages/`, `hooks/`, `store/` (jika ada).
+
+**Dependency Rule:**
+```
+features/ (React)  →  core/domain/ (interfaces)  ←  data/ (implementations)
+```
+- Hooks panggil `repos.*` dari `core/domain/di.ts` — jangan import JSON langsung
+- Repository diganti 1 baris di `main.tsx` untuk beralih dari mock ke API
+- Entities & utils di `core/` — import dari situ (shared/ cuma re-export)
 
 ---
 
@@ -157,7 +176,9 @@ Baca file-file ini sebelum mengerjakan task yang relevan:
 ## Important Notes
 
 - Ini adalah **frontend-only project** — tidak ada backend, tidak ada API call nyata
-- Semua data dari file JSON di `src/data/` — query via TanStack Query dengan artificial delay
+- **Data API (wajib):** jangan pernah import file JSON langsung di hook/component. Gunakan `repos.*` dari `core/domain/di.ts` — contoh: `repos.course.findAll()`, `repos.auth.login()`, `repos.dashboard.getDashboardData()`
+- Semua mock repository ada di `data/repositories/` dengan artificial delay (300-800ms)
+- **Migrasi ke backend nanti:** ubah instansiasi di `main.tsx` — ganti `new MockXxxRepository()` → `new ApiXxxRepository()`, hooks tidak perlu diotak-atik
 - Jangan install atau gunakan `@mui/material` — sudah dihapus, gunakan shadcn/ui + Tailwind
 - Jangan gunakan `localStorage` langsung — gunakan Zustand persist middleware
 - Lazy load semua route dengan `React.lazy()` + `Suspense`

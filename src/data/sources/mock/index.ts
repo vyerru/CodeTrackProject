@@ -1,0 +1,5 @@
+export { default as users } from './users.json'
+export { default as courses } from './courses.json'
+export { default as articles } from './articles.json'
+export { default as transactions } from './transactions.json'
+export { default as userDashboard } from './user-dashboard.json'

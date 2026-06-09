@@ -1,0 +1,14 @@
+[
+  {
+    "email": "user@codetrack.id",
+    "password": "user123",
+    "name": "Budi Santoso",
+    "role": "user"
+  },
+  {
+    "email": "admin@codetrack.id",
+    "password": "admin123",
+    "name": "Admin User",
+    "role": "admin"
+  }
+]

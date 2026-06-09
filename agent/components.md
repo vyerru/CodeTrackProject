@@ -8,12 +8,12 @@ Daftar semua komponen yang ada atau perlu dibuat. Update file ini setiap kali ko
 
 | Komponen | File | Status | Dipakai di |
 |---|---|---|---|
-| Navbar | `Navbar.tsx` | ⬜ Todo | PublicLayout |
-| Footer | `Footer.tsx` | ⬜ Todo | PublicLayout |
-| PublicLayout | `PublicLayout.tsx` | ⬜ Todo | Public routes |
-| UserLayout | `UserLayout.tsx` | ⬜ Todo | User routes |
-| AdminLayout | `AdminLayout.tsx` | ⬜ Todo | Admin routes |
-| ProtectedRoute | `ProtectedRoute.tsx` | ⬜ Todo | Router |
+| Navbar | `Navbar.tsx` | ✅ Done | PublicLayout |
+| Footer | `Footer.tsx` | ✅ Done | PublicLayout |
+| PublicLayout | `PublicLayout.tsx` | ✅ Done | Public routes |
+| UserLayout | `UserLayout.tsx` | ✅ Done | User routes |
+| AdminLayout | `AdminLayout.tsx` | ✅ Done | Admin routes |
+| ProtectedRoute | `ProtectedRoute.tsx` | ✅ Done | Router |
 | AdminTopbar | `AdminTopbar.tsx` | ⬜ Todo | Admin pages |
 | AdminSidebar | `AdminSidebar.tsx` | ⬜ Todo | Admin pages |
 
@@ -45,47 +45,47 @@ Semua dari shadcn/ui — install via `npx shadcn add [component]`
 
 ## Shared — Common (`src/shared/components/common/`)
 
-| Komponen | Props | Dipakai di |
-|---|---|---|
-| `CourseCard` | `course: Course, variant?: 'grid'\|'list'` | Landing, Catalog, Dashboard |
-| `StatCard` | `icon, value, label, trend?, gradient?` | Admin KPI, User stats |
-| `DataTable` | `columns, data, loading?` | Semua halaman Kelola |
-| `PageHeader` | `title, breadcrumb?` | Admin sub-pages |
-| `EmptyState` | `title, description, action?` | Tabel kosong |
-| `LoadingSpinner` | `size?, fullPage?` | Lazy loading |
-| `AlertBanner` | `type, message, action?` | Admin dashboard |
-| `StatusBadge` | `status: TransactionStatus` | Tabel transaksi |
-| `LevelBadge` | `level: CourseLevel` | Course card |
+| Komponen | Props | Dipakai di | Status |
+|---|---|---|---|
+| `CourseCard` | `course: Course, variant?: 'grid'\|'list'` | Landing, Catalog, Dashboard | ✅ Done |
+| `StatCard` | `icon, value, label, trend?, gradient?` | Admin KPI, User stats | ⬜ Todo |
+| `DataTable` | `columns, data, loading?` | Semua halaman Kelola | ⬜ Todo |
+| `PageHeader` | `title, breadcrumb?` | Admin sub-pages | ⬜ Todo |
+| `EmptyState` | `title, description, action?` | Tabel kosong | ⬜ Todo |
+| `LoadingSpinner` | `size?, fullPage?` | Lazy loading | ⬜ Todo |
+| `AlertBanner` | `type, message, action?` | Admin dashboard | ⬜ Todo |
+| `StatusBadge` | `status: TransactionStatus` | Tabel transaksi | ⬜ Todo |
+| `LevelBadge` | `level: CourseLevel` | Course card | ✅ Done |
 
 ---
 
 ## Feature Components
 
 ### Landing (`src/features/landing/components/`)
-| Komponen | Keterangan |
-|---|---|
-| `HeroSection` | 2 kolom: teks + gambar, CTA buttons, stats |
-| `FeaturesSection` | 3 card fitur unggulan |
-| `TestimonialsSection` | Carousel testimonial dengan arrow nav |
-| `CoursesSection` | Grid 3 CourseCard, heading "Course Populer" |
-| `CTASection` | Banner gradient indigo-purple |
+| Komponen | Keterangan | Status |
+|---|---|---|
+| `HeroSection` | 2 kolom: teks + gambar, CTA buttons, stats | ✅ Done |
+| `FeaturesSection` | 3 card fitur unggulan | ✅ Done |
+| `TestimonialsSection` | Carousel testimonial dengan arrow nav | ✅ Done |
+| `CoursesSection` | Grid 3 CourseCard, heading "Course Populer" | ✅ Done |
+| `CTASection` | Banner gradient indigo-purple | ✅ Done |
 
 > `CoursesSection` menggunakan `CourseCard` dari `shared/components/common/`
 
 ### Auth (`src/features/auth/components/`)
-| Komponen | Keterangan |
-|---|---|
-| `LoginForm` | Form email + password + social login |
-| `RegisterForm` | Form lengkap + terms checkbox |
-| `SocialLoginButtons` | Google + GitHub buttons |
+| Komponen | Keterangan | Status |
+|---|---|---|
+| `LoginForm` | Form email + password + social login | ✅ Done |
+| `RegisterForm` | Form lengkap + terms checkbox | ✅ Done |
+| `SocialLoginButtons` | Google + GitHub buttons | ✅ Done |
 
 ### Courses (`src/features/courses/components/`)
-| Komponen | Keterangan |
-|---|---|
-| `CourseFilter` | Sidebar filter: level, harga, durasi, rating, fitur |
-| `CourseCategoryTabs` | Tab filter kategori horizontal |
-| `CourseGrid` | Wrapper grid dengan toggle grid/list |
-| `CourseListItem` | Tampilan list view untuk course |
+| Komponen | Keterangan | Status |
+|---|---|---|
+| `CourseFilter` | Sidebar filter: level, harga, durasi, rating, fitur | ✅ Done |
+| `CourseCategoryTabs` | Tab filter kategori horizontal | ✅ Done |
+| `CourseGrid` | Wrapper grid dengan toggle grid/list | ✅ Done |
+| `CourseListItem` | Tampilan list view untuk course | ⬜ Todo |
 
 ### Articles (`src/features/articles/components/`)
 | Komponen | Keterangan |
@@ -101,19 +101,19 @@ Semua dari shadcn/ui — install via `npx shadcn add [component]`
 | `PaymentMethodSelector` | Radio button Transfer/Kartu/E-Wallet |
 
 ### User Dashboard (`src/features/user-dashboard/components/`)
-| Komponen | Keterangan |
-|---|---|
-| `UserNavbar` | Navbar khusus user dengan dropdown avatar |
-| `WelcomeHeader` | Banner gradient + streak pill + CTA buttons |
-| `ContinueLearningCard` | Thumbnail + progress + CTA continue |
-| `InProgressItem` | Row course in-progress kecil |
-| `StreakCalendar` | Grid 12x7 warna intensity GitHub-style |
-| `MonthlyGoalsCard` | Goals list + circular progress, gradient card |
-| `DeadlineItem` | Course deadline dengan urgency badge |
-| `AchievementBadge` | Emoji badge + nama + tanggal |
-| `ForumTopicItem` | Judul + author + replies + views |
-| `QuickActionButton` | Button dengan hover indigo effect |
-| `RecentActivityItem` | Icon + teks + timestamp + connector line |
+| Komponen | File | Status |
+|---|---|---|
+| `WelcomeHeader` | `WelcomeHeader.tsx` | ✅ Done |
+| `StatCards` | `StatCards.tsx` | ✅ Done |
+| `ContinueLearningSection` | `ContinueLearningSection.tsx` | ✅ Done |
+| `RecommendedCoursesSection` | `RecommendedCoursesSection.tsx` | ✅ Done |
+| `StreakCalendar` | `StreakCalendar.tsx` | ✅ Done |
+| `RecentActivitySection` | `RecentActivitySection.tsx` | ✅ Done |
+| `MonthlyGoalsCard` | `MonthlyGoalsCard.tsx` | ✅ Done |
+| `UpcomingDeadlines` | `UpcomingDeadlines.tsx` | ✅ Done |
+| `AchievementsCard` | `AchievementsCard.tsx` | ✅ Done |
+| `CommunityCard` | `CommunityCard.tsx` | ✅ Done |
+| `QuickActionsCard` | `QuickActionsCard.tsx` | ✅ Done |
 
 ### Admin (`src/features/admin/components/`)
 | Komponen | Keterangan |

@@ -7,11 +7,11 @@ Semua nilai berikut diekstrak langsung dari kode Figma Make (Register, AdminDash
 ## Colors
 
 ### Primary
-| Token | Value | Penggunaan |
-|---|---|---|
-| `--color-primary` | `#4f39f6` | Button primary, link, active state, icon |
-| `--color-primary-dark` | `#4338ca` | Hover state button primary |
-| `--color-primary-navy` | `#312E81` | Admin topbar background |
+| Token | Value | Tailwind Eq | Penggunaan |
+|---|---|---|---|
+| `--color-primary` | `#4f39f6` | `indigo-600` (approx) | Button primary, link, active state, icon |
+| `--color-primary-dark` | `#4338ca` | `indigo-700` | Hover state button primary |
+| `--color-primary-navy` | `#312E81` | `indigo-900` | Admin topbar background |
 
 ### Semantic
 | Token | Value | Penggunaan |
@@ -252,3 +252,34 @@ border border-gray-200 rounded-lg
 // Hover
 hover:bg-indigo-600 hover:text-white hover:border-indigo-600
 ```
+
+---
+
+## Navbar
+
+```
+Height:         h-[72px]
+Background:     bg-white shadow-sm
+Text default:   text-gray-600
+Text hover:     text-gray-900
+Text active:    text-indigo-600
+Logo:           Code2 w-8 h-8 text-indigo-600
+Button Login:   px-6 py-2 border-2 border-gray-300 text-gray-700 rounded-lg
+                hover:border-gray-400 hover:bg-gray-50
+Button Trial:   px-6 py-2 bg-indigo-600 text-white rounded-lg shadow-sm
+                hover:bg-indigo-700
+Avatar:         w-9 h-9 rounded-full bg-indigo-600 text-white
+Cart badge:     w-5 h-5 bg-indigo-600 text-white rounded-full text-xs
+Notif dot:      w-2 h-2 bg-red-500 rounded-full
+Dropdown:       bg-white border border-gray-200 rounded-lg shadow-lg w-56
+```
+
+---
+
+## Icons
+
+- Library: `lucide-react` — semua icon PascalCase (e.g. `User`, `Mail`, `Star`)
+- **Social brand icons** (Twitter, GitHub, LinkedIn, Instagram): tidak tersedia di lucide-react versi ini — gunakan inline SVG (lihat `Footer.tsx`)
+- **GitHub icon** (non-social): gunakan inline SVG (lihat `RegisterPage.tsx` atau `FeaturesSection.tsx`)
+- Google logo: inline SVG (lihat `RegisterPage.tsx`)
+- Icon colors: default `#9ca3af` untuk input icons, `#4f39f6` untuk feature boxes
