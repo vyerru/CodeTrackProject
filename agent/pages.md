@@ -2,9 +2,9 @@
 
 ---
 
-## Route Structure
+## Route Structure & State Requirements (WAJIB DIPATUHI)
 
-### Public Routes — `PublicLayout` (Navbar + Footer)
+### 1. Public Routes — `PublicLayout` (Navbar + Footer)
 | Route | Component | File |
 |---|---|---|
 | `/` | LandingPage | `features/landing/pages/LandingPage.tsx` |
@@ -13,13 +13,27 @@
 | `/articles` | ArticlesPage | `features/articles/pages/ArticlesPage.tsx` |
 | `/articles/:slug` | ArticleDetailPage | `features/articles/pages/ArticleDetailPage.tsx` |
 
-### Auth Routes — No layout (full page)
+**Flow & State Constraints:**
+- **Katalog (`/courses`, `/articles`):** - WAJIB merender `PageSkeleton` atau `Skeleton` spesifik selama jeda jaringan.
+  - Jika `fetch` gagal, DILARANG menampilkan layar putih. WAJIB tampilkan `ErrorState` dengan tombol "Coba Lagi".
+- **Detail (`/:slug`):**
+  - WAJIB menangani kondisi **404 Not Found** secara spesifik jika `slug` tidak ditemukan di dalam Repositori. Tampilkan komponen ilustrasi "Konten Tidak Ditemukan" dengan tombol kembali ke katalog.
+
+---
+
+### 2. Auth Routes — No layout (full page)
 | Route | Component | File |
 |---|---|---|
 | `/auth/login` | LoginPage | `features/auth/pages/LoginPage.tsx` |
 | `/auth/register` | RegisterPage | `features/auth/pages/RegisterPage.tsx` |
 
-### User Routes — `ProtectedRoute (role: user)` + `UserLayout`
+**Flow & State Constraints:**
+- **Proteksi Eksekusi Ganda:** Seluruh *input* dan tombol *submit* WAJIB dikunci (`disabled={isLoading}`) selama proses autentikasi (menunggu *Promise*) berlangsung.
+- **Feedback:** Kegagalan jaringan atau kredensial salah WAJIB memunculkan `Toast` atau peringatan warna merah. Transisi ke `/dashboard` HANYA BOLEH terjadi setelah *Promise* sukses.
+
+---
+
+### 3. User Routes — `ProtectedRoute (role: user)` + `UserLayout`
 | Route | Component | File |
 |---|---|---|
 | `/dashboard` | UserDashboardPage | `features/user-dashboard/pages/UserDashboardPage.tsx` |
@@ -27,7 +41,13 @@
 | `/dashboard/checkout` | CheckoutPage | `features/commerce/pages/CheckoutPage.tsx` |
 | `/dashboard/history` | TransactionHistoryPage | `features/commerce/pages/TransactionHistoryPage.tsx` |
 
-### Admin Routes — `ProtectedRoute (role: admin)` + `AdminLayout`
+**Flow & State Constraints:**
+- **Empty States:** Jika keranjang (*cart*) kosong atau riwayat (*history*) transaksi nol, antarmuka WAJIB memunculkan komponen `EmptyState` dengan CTA untuk mencari kursus. Dilarang merender tabel atau daftar kosong.
+- **Keamanan Checkout (`/dashboard/checkout`):** Dilarang melakukan *redirect* paksa ke `/dashboard/history` sebelum `repos.transaction.create()` mengembalikan status sukses. Jika gagal bayar, munculkan galat di tempat.
+
+---
+
+### 4. Admin Routes — `ProtectedRoute (role: admin)` + `AdminLayout`
 | Route | Component | File |
 |---|---|---|
 | `/admin` | AdminDashboardPage | `features/admin/pages/AdminDashboardPage.tsx` |
@@ -35,6 +55,16 @@
 | `/admin/courses` | CourseManagementPage | `features/admin/pages/CourseManagementPage.tsx` |
 | `/admin/users` | UserManagementPage | `features/admin/pages/UserManagementPage.tsx` |
 | `/admin/transactions` | TransactionManagementPage | `features/admin/pages/TransactionManagementPage.tsx` |
+
+**Flow & State Constraints:**
+- Semua tabel data (`DataTable`) WAJIB memiliki status *loading* internal. Saat aksi admin dilakukan (misal: "Hapus Pengguna"), hanya baris terkait yang berstatus *loading* (atau *disable* tombolnya), bukan me-*refresh* seluruh halaman.
+
+---
+
+### 5. System Routes (Wajib Ada)
+| Route | Component | Keterangan |
+|---|---|---|
+| `*` (Catch-all) | `NotFoundPage.tsx` | WAJIB memetakan URL acak/liar ke halaman 404 yang elegan, dengan tombol pengaman navigasi kembali ke `/`. |
 
 ---
 
@@ -47,13 +77,15 @@
 
 ### UserLayout
 - File: `shared/components/layout/UserLayout.tsx`
-- Berisi: `<Outlet />` saja (navbar sudah ada di dalam UserDashboardPage)
+- Berisi: `<Navbar />` + `<Outlet />`
 - Dipakai: semua halaman user yang sudah login
+- Catatan: Navbar ada di layout agar semua halaman user (Dashboard, Cart, Checkout, History) mendapat navigasi yang konsisten
 
 ### AdminLayout
 - File: `shared/components/layout/AdminLayout.tsx`
-- Berisi: `<Outlet />` saja (topbar & sidebar ada di dalam AdminDashboardPage)
+- Berisi: `<AdminTopbar />` + `<AdminSidebar />` + `<Outlet />`
 - Dipakai: semua halaman admin
+- Catatan: Topbar & Sidebar ada di layout agar semua halaman admin mendapat navigasi yang konsisten
 
 ### AuthLayout
 - Tidak ada layout wrapper — halaman login/register full page mandiri
@@ -184,17 +216,18 @@ Sections berurutan:
 
 ## Navigasi Antar Halaman
 
-```
+*(Pastikan navigasi yang mengubah data hanya berpindah Halaman SETELAH proses asinkron selesai)*
+
+```text
 Landing → Courses          : klik "Lihat Course" atau menu Courses
 Landing → Login            : klik tombol Login di navbar
 Landing → Register         : klik "Mulai Gratis 7 Hari" atau "Start Free Trial"
-Login   → Dashboard        : setelah login sukses (role: user)
-Login   → Admin            : setelah login sukses (role: admin)
-Register → Login           : klik "Sign in"
+Login   → Dashboard        : [ASYNC] setelah login sukses (role: user)
+Login   → Admin            : [ASYNC] setelah login sukses (role: admin)
+Register → Login           : [ASYNC] setelah registrasi sukses
 Courses → Course Detail    : klik "Lihat Detail" pada CourseCard
-Course Detail → Cart       : klik "Beli Sekarang"
-Cart → Checkout            : klik "Checkout"
-Checkout → History         : setelah bayar sukses
+Course Detail → Cart       : klik "Beli Sekarang" atau "Tambah ke Keranjang"
+Cart → Checkout            : klik "Checkout" (hanya jika item > 0)
+Checkout → History         : [ASYNC] setelah proses pembayaran berhasil diverifikasi
 Dashboard → Courses        : klik "Browse Courses" atau "Continue Learning"
-Admin sidebar → sub pages  : klik menu item di sidebar
-```
+Admin sidebar → sub pages  : klik menu pada AdminSidebar

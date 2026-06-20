@@ -154,7 +154,7 @@ export default function CourseFilter({ filters, onChange, onReset }: Props) {
               <button
                 key={opt.value}
                 onClick={() => toggleRating(opt.value)}
-                className={`flex items-center gap-2 text-sm w-full text-left py-1 px-2 rounded transition-colors ${
+                className={`flex items-center gap-2 text-sm w-full text-left py-1 px-2 rounded transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none ${
                   filters.ratings.includes(opt.value) ? 'bg-indigo-50 text-indigo-700' : 'text-gray-600 hover:bg-gray-50'
                 }`}
               >
@@ -185,13 +185,13 @@ export default function CourseFilter({ filters, onChange, onReset }: Props) {
 
         <button
           onClick={() => onChange(filters)}
-          className="w-full bg-indigo-600 text-white rounded-lg py-2 text-sm font-medium hover:bg-indigo-700 transition-colors"
+          className="w-full bg-indigo-600 text-white rounded-lg py-2 text-sm font-medium hover:bg-indigo-700 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
         >
           Terapkan Filter
         </button>
         <button
           onClick={onReset}
-          className="w-full text-gray-500 text-sm text-center mt-2 hover:text-gray-700 transition-colors"
+          className="w-full text-gray-500 text-sm text-center mt-2 hover:text-gray-700 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
         >
           Reset Semua
         </button>

@@ -18,7 +18,7 @@ export default function UpcomingDeadlines({ deadlines }: Props) {
           <Clock className="text-indigo-600" size={20} />
           Upcoming Deadlines
         </h2>
-        <button className="text-sm text-indigo-600 font-medium hover:underline">View Calendar</button>
+        <button className="text-sm text-indigo-600 font-medium hover:underline focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none">View Calendar</button>
       </div>
 
       <div className="space-y-3">
@@ -40,7 +40,7 @@ export default function UpcomingDeadlines({ deadlines }: Props) {
             </div>
             <div className="flex items-center justify-between">
               <span className="text-xs text-gray-500">{d.progress}% completed</span>
-              <button className="text-xs border border-indigo-600 text-indigo-600 font-medium h-7 px-3 rounded-lg hover:bg-indigo-50 transition-colors">
+              <button className="text-xs border border-indigo-600 text-indigo-600 font-medium h-7 px-3 rounded-lg hover:bg-indigo-50 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none">
                 Continue
               </button>
             </div>

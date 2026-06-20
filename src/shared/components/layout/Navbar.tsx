@@ -49,9 +49,9 @@ export default function Navbar() {
 
   return (
     <nav className="sticky top-0 z-50 bg-white shadow-sm">
-      <div className="max-w-7xl mx-auto px-6 h-[72px] flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-6 h-18 flex items-center justify-between">
         {/* Logo */}
-        <button onClick={() => navigate('/')} className="flex items-center gap-2">
+        <button onClick={() => navigate('/')} className="flex items-center gap-2 focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none">
           <Code2 className="w-8 h-8 text-indigo-600" strokeWidth={2.5} />
           <span className="text-lg font-bold text-gray-900">CodeTrack</span>
         </button>
@@ -64,7 +64,7 @@ export default function Navbar() {
               to={item.path}
               end
               className={({ isActive }) =>
-                `text-sm font-medium transition-colors ${
+                `text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none ${
                   isActive && item.path !== '#'
                     ? 'text-indigo-600'
                     : 'text-gray-600 hover:text-gray-900'
@@ -84,7 +84,7 @@ export default function Navbar() {
               {user.role === 'user' && (
                 <button
                   onClick={() => navigate('/dashboard/cart')}
-                  className="relative p-2 text-gray-600 hover:text-indigo-600 transition-colors"
+                  className="relative p-2 text-gray-600 hover:text-indigo-600 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
                 >
                   <ShoppingCart className="w-6 h-6" />
                   {itemCount > 0 && (
@@ -96,7 +96,7 @@ export default function Navbar() {
               )}
 
               {/* Bell */}
-              <button className="relative p-2 text-gray-600 hover:text-indigo-600 transition-colors">
+              <button className="relative p-2 text-gray-600 hover:text-indigo-600 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none">
                 <Bell className="w-6 h-6" />
                 <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full" />
               </button>
@@ -105,7 +105,7 @@ export default function Navbar() {
               <div className="relative" ref={dropdownRef}>
                 <button
                   onClick={() => setDropdownOpen(!dropdownOpen)}
-                  className="w-9 h-9 rounded-full bg-indigo-600 text-white text-sm font-medium flex items-center justify-center hover:bg-indigo-700 transition-colors"
+                  className="w-9 h-9 rounded-full bg-indigo-600 text-white text-sm font-medium flex items-center justify-center hover:bg-indigo-700 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
                 >
                   {getInitials(user.name)}
                 </button>
@@ -143,13 +143,13 @@ export default function Navbar() {
             <>
               <button
                 onClick={() => navigate('/auth/login')}
-                className="px-6 py-2 border-2 border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:border-gray-400 hover:bg-gray-50 transition-all"
+                className="px-6 py-2 border-2 border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:border-gray-400 hover:bg-gray-50 transition-all focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
               >
                 Login
               </button>
               <button
                 onClick={() => navigate('/auth/register')}
-                className="px-6 py-2 bg-indigo-600 text-white rounded-lg text-sm font-medium hover:bg-indigo-700 transition-all shadow-sm"
+                className="px-6 py-2 bg-indigo-600 text-white rounded-lg text-sm font-medium hover:bg-indigo-700 transition-all shadow-sm focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
               >
                 Start Free Trial
               </button>
@@ -173,7 +173,7 @@ function DropdownItem({
   return (
     <button
       onClick={onClick}
-      className="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+      className="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
     >
       <span className="text-gray-500">{icon}</span>
       {label}

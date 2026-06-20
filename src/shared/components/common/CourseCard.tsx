@@ -39,7 +39,7 @@ export default function CourseCard({ course, variant = 'grid' }: Props) {
       return (
         <button
           onClick={(e) => { e.stopPropagation(); navigate(`/courses/${course.slug}`) }}
-          className="bg-green-500 text-white text-xs rounded-lg px-3 py-1.5 hover:bg-green-600 transition-colors"
+          className="bg-green-500 text-white text-xs rounded-lg px-3 py-1.5 hover:bg-green-600 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
         >
           Mulai Gratis
         </button>
@@ -48,7 +48,7 @@ export default function CourseCard({ course, variant = 'grid' }: Props) {
     return (
       <button
         onClick={(e) => { e.stopPropagation(); navigate(`/courses/${course.slug}`) }}
-        className="bg-indigo-600 text-white text-xs rounded-lg px-3 py-1.5 hover:bg-indigo-700 transition-colors"
+        className="bg-indigo-600 text-white text-xs rounded-lg px-3 py-1.5 hover:bg-indigo-700 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
       >
         Lihat Detail
       </button>
@@ -61,7 +61,7 @@ export default function CourseCard({ course, variant = 'grid' }: Props) {
         onClick={() => navigate(`/courses/${course.slug}`)}
         className="flex gap-4 border border-black/10 rounded-xl overflow-hidden bg-white hover:shadow-lg transition-all group cursor-pointer"
       >
-        <div className="relative w-60 h-36 flex-shrink-0">
+        <div className="relative w-60 aspect-video flex-shrink-0">
           <img src={course.thumbnail} alt={course.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" loading="lazy" />
           <div className="absolute top-2 left-2"><LevelBadge level={course.level} /></div>
         </div>
@@ -95,7 +95,7 @@ export default function CourseCard({ course, variant = 'grid' }: Props) {
       onClick={() => navigate(`/courses/${course.slug}`)}
       className="overflow-hidden rounded-xl border border-black/10 bg-white hover:shadow-lg transition-all group cursor-pointer"
     >
-      <div className="relative w-full h-48 overflow-hidden">
+      <div className="relative w-full aspect-video overflow-hidden">
         <img
           src={course.thumbnail}
           alt={course.title}
@@ -112,7 +112,7 @@ export default function CourseCard({ course, variant = 'grid' }: Props) {
         )}
         <button
           onClick={(e) => { e.stopPropagation() }}
-          className="absolute bottom-2 right-2 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-sm hover:scale-110 transition-transform"
+          className="absolute bottom-2 right-2 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-sm hover:scale-110 transition-transform focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
         >
           <Heart className="w-4 h-4 text-gray-400 hover:text-red-500 transition-colors" />
         </button>

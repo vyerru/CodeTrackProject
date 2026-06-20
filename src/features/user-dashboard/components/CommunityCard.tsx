@@ -13,7 +13,7 @@ export default function CommunityCard({ topics }: Props) {
           <Users className="text-indigo-600" size={20} />
           Community Activity
         </h2>
-        <button className="text-sm text-indigo-600 font-medium hover:underline">Join Forum</button>
+        <button className="text-sm text-indigo-600 font-medium hover:underline focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none">Join Forum</button>
       </div>
 
       <div className="space-y-1">

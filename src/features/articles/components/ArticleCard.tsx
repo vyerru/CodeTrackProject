@@ -11,7 +11,7 @@ interface Props {
 export default function ArticleCard({ article, onClick }: Props) {
   return (
     <div
-      className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300 cursor-pointer"
+      className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300 cursor-pointer focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
       onClick={onClick}
     >
       <div className="aspect-video relative">
@@ -30,7 +30,7 @@ export default function ArticleCard({ article, onClick }: Props) {
         <h3 className="text-gray-900 font-bold mb-2 line-clamp-2">
           {article.title}
         </h3>
-        <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+        <p className="text-gray-600 text-sm mb-4 line-clamp-3 max-w-prose">
           {article.excerpt}
         </p>
         <div className="flex items-center gap-2 text-xs text-gray-500">

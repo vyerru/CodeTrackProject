@@ -5,12 +5,12 @@ import { delay } from './helpers'
 
 export class MockArticleRepository implements IArticleRepository {
   async findAll(): Promise<Article[]> {
-    await delay(300)
+    await delay()
     return articles as Article[]
   }
 
   async findBySlug(slug: string): Promise<Article | null> {
-    await delay(200)
+    await delay()
     return (articles as Article[]).find(a => a.slug === slug) ?? null
   }
 }

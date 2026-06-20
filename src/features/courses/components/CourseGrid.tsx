@@ -53,15 +53,15 @@ export default function CourseGrid({
           <div className="flex gap-1">
             <button
               onClick={() => onViewModeChange('grid')}
-              className={`p-1.5 rounded transition-colors ${
-                viewMode === 'grid' ? 'bg-indigo-600 text-white' : 'text-gray-400 hover:text-gray-600'
-              }`}
-            >
-              <LayoutGrid size={18} />
-            </button>
-            <button
-              onClick={() => onViewModeChange('list')}
-              className={`p-1.5 rounded transition-colors ${
+                className={`p-1.5 rounded transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none ${
+                  viewMode === 'grid' ? 'bg-indigo-600 text-white' : 'text-gray-400 hover:text-gray-600'
+                }`}
+              >
+                <LayoutGrid size={18} />
+              </button>
+              <button
+                onClick={() => onViewModeChange('list')}
+                className={`p-1.5 rounded transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none ${
                 viewMode === 'list' ? 'bg-indigo-600 text-white' : 'text-gray-400 hover:text-gray-600'
               }`}
             >
@@ -91,7 +91,7 @@ export default function CourseGrid({
         <div className="text-center mt-8">
           <button
             onClick={onLoadMore}
-            className="border border-indigo-600 text-indigo-600 px-8 py-2.5 rounded-lg hover:bg-indigo-50 transition-colors text-sm font-medium"
+            className="border border-indigo-600 text-indigo-600 px-8 py-2.5 rounded-lg hover:bg-indigo-50 transition-colors text-sm font-medium focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
           >
             Load More Courses
           </button>

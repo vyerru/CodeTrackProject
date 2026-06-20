@@ -1,6 +1,6 @@
-# Data Schema — CodeTrack
+## Data Schema & Chaos Mocking — CodeTrack
 
-Semua tipe data dan struktur mock JSON yang digunakan di seluruh halaman.
+Skema data ini mencerminkan struktur sistem di dunia nyata. Tidak semua data itu indah, berukuran pas, dan lengkap. Komponen *front-end* WAJIB dirancang secara defensif untuk menangani anomali data.
 
 ---
 
@@ -21,8 +21,6 @@ type CourseCategory     =
   | 'Design'
 type ActivityType       = 'enrollment' | 'registration' | 'purchase' | 'completion' | 'review'
 type DeadlineUrgency    = 'high' | 'medium' | 'low'
-```
-
 ---
 
 ### User
@@ -31,7 +29,7 @@ interface User {
   id: string
   name: string
   email: string
-  avatar?: string           // URL dari i.pravatar.cc
+  avatar?: string | null    // WAJIB tangani null/undefined dengan fallback inisial
   role: UserRole
   createdAt: string         // ISO date string
 }
@@ -41,25 +39,21 @@ interface User {
 ```ts
 interface Course {
   id: string
-  slug: string              // kebab-case untuk URL
+  slug: string
   title: string
   description: string
   instructor: string
-  instructorAvatar?: string
-  thumbnail: string         // URL dari unsplash atau placeholder
-  price: number             // dalam Rupiah, contoh: 589000
-  originalPrice?: number    // harga sebelum diskon
-  discount?: number         // persentase, contoh: 40
-  rating: number            // 0.0 - 5.0
+  instructorAvatar?: string | null  // Sering kali instruktur tidak mengunggah foto
+  thumbnail: string                 // URL gambar yang rentan putus/gagal dimuat
+  price: number                     // Harga bisa mencapai jutaan/ratusan juta
+  originalPrice?: number | null
+  discount?: number | null
+  rating: number
   totalStudents: number
-  duration: number          // dalam jam
   level: CourseLevel
   category: CourseCategory
-  tags: string[]
   isBestseller?: boolean
   isFree?: boolean
-  isPublished: boolean
-  createdAt: string
 }
 ```
 
@@ -85,15 +79,15 @@ interface Article {
 ```ts
 interface Transaction {
   id: string
-  invoice: string           // format: INV/YYYYMMDD/XXXX
+  invoice: string
   userId: string
   customerName: string
   courseId: string
   courseTitle: string
-  amount: number            // dalam Rupiah
+  amount: number
   status: TransactionStatus
   createdAt: string
-  paymentMethod: string     // 'transfer' | 'credit_card' | 'ewallet'
+  paymentMethod: string
 }
 ```
 
@@ -208,6 +202,10 @@ interface KpiCard {
 
 ## Mock Data
 
+saat Anda merancang atau melakukan audit pada komponen CourseCard, ArticleCard, atau UserRow, Anda DILARANG menggunakan data ideal. Anda WAJIB menyuntikkan objek Chaos di bawah ini ke dalam fail JSON tiruan Anda.
+
+Jika tata letak (layout) Anda melebar, tumpang tindih, atau tombolnya terdorong keluar layar karena data ini, perbaiki komponen CSS Anda (gunakan truncate, line-clamp, flex-wrap, min-w-0), jangan ubah datanya.
+
 ### courses.json (contoh struktur)
 ```json
 [
@@ -234,6 +232,26 @@ interface KpiCard {
     "createdAt": "2024-01-15"
   }
 ]
+```
+
+```json
+{
+  "id": "999-chaos-course",
+  "slug": "chaos-testing-course-with-very-long-url-slug-that-might-break-layout-if-not-handled",
+  "title": "Ini Adalah Judul Kursus Yang Sangat Panjang Sekali Bahkan Melebihi Tiga Baris Teks Dan Seharusnya Dipotong Oleh Line Clamp Dua Atau Tiga Untuk Menghindari Kerusakan Layout Card",
+  "description": "Deskripsi ini sengaja dibuat sangat panjang untuk menguji apakah Anda menggunakan max-w-prose dan line-clamp yang benar atau Anda membiarkan teks ini tumpah ruah merusak hierarki visual dari halaman detail kursus Anda.",
+  "instructor": "Dr. Prof. Ir. Nama Instruktur Sangat Panjang Sekali M.Sc., Ph.D.",
+  "instructorAvatar": null,
+  "thumbnail": "[https://url-gambar-rusak-atau-sangat-lambat-sekali.com/image.jpg](https://url-gambar-rusak-atau-sangat-lambat-sekali.com/image.jpg)",
+  "price": 1250000000,
+  "originalPrice": 2500000000,
+  "discount": 50,
+  "rating": 0,
+  "totalStudents": 0,
+  "level": "Beginner",
+  "category": "Web Development",
+  "isBestseller": true
+}
 ```
 
 ### articles.json (contoh struktur)
@@ -275,6 +293,14 @@ interface KpiCard {
     "role": "admin",
     "createdAt": "2024-01-01T00:00:00Z"
   }
+  {
+  "id": "999-chaos-user",
+  "name": "Pengguna Dengan Nama Super Panjang Sekali Sampai Memecahkan Sidebar Dan Navbar CodeTrack",
+  "email": "email.super.panjang.sekali.yang.tidak.masuk.akal@subdomain.domain.co.id",
+  "avatar": null,
+  "role": "user",
+  "createdAt": "2026-12-31T23:59:59Z"
+}
 ]
 ```
 

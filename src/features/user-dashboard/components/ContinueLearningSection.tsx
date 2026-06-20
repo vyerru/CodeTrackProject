@@ -19,7 +19,7 @@ export default function ContinueLearningSection({ currentCourse, inProgressCours
         </h2>
         <button
           onClick={() => navigate('/courses')}
-          className="text-sm text-indigo-600 font-medium hover:underline"
+          className="text-sm text-indigo-600 font-medium hover:underline focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
         >
           View All
         </button>
@@ -31,7 +31,7 @@ export default function ContinueLearningSection({ currentCourse, inProgressCours
             <img
               src={currentCourse.thumbnail}
               alt={currentCourse.title}
-              className="w-[200px] h-[112px] object-cover rounded-lg"
+              className="w-[200px] aspect-video object-cover rounded-lg"
               loading="lazy"
             />
             <div className="absolute inset-0 bg-black/40 group-hover:bg-black/60 rounded-lg flex items-center justify-center transition-colors">
@@ -58,7 +58,7 @@ export default function ContinueLearningSection({ currentCourse, inProgressCours
             </div>
             <div className="flex items-center justify-between pt-1">
               <span className="text-sm text-gray-500">~{currentCourse.hoursLeft} hours left</span>
-              <button className="flex items-center gap-2 bg-indigo-600 text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors">
+              <button className="flex items-center gap-2 bg-indigo-600 text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none">
                 <PlayCircle size={16} />
                 Continue Learning
               </button>
@@ -76,7 +76,7 @@ export default function ContinueLearningSection({ currentCourse, inProgressCours
             <img
               src={course.thumbnail}
               alt={course.title}
-              className="w-20 h-11 object-cover rounded"
+              className="w-20 aspect-video object-cover rounded"
               loading="lazy"
             />
             <div className="flex-1 min-w-0">
@@ -88,7 +88,7 @@ export default function ContinueLearningSection({ currentCourse, inProgressCours
                 <span className="text-xs text-gray-500 shrink-0">{course.progress}%</span>
               </div>
             </div>
-            <button className="text-xs text-indigo-600 font-medium shrink-0 hover:underline">
+            <button className="text-xs text-indigo-600 font-medium shrink-0 hover:underline focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none">
               Continue
             </button>
           </div>

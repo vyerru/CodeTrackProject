@@ -60,7 +60,7 @@ export default function TestimonialsSection() {
         <div className="flex items-center justify-center gap-4 mt-6">
           <button
             onClick={prev}
-            className="w-9 h-9 rounded-full border border-black/10 flex items-center justify-center hover:bg-gray-100"
+            className="w-9 h-9 rounded-full border border-black/10 flex items-center justify-center hover:bg-gray-100 focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
           >
             <ChevronLeft size={18} className="text-[#495565]" />
           </button>
@@ -70,7 +70,7 @@ export default function TestimonialsSection() {
               <button
                 key={i}
                 onClick={() => setCurrent(i)}
-                className={`w-2 h-2 rounded-full transition-colors ${
+                className={`w-2 h-2 rounded-full transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none ${
                   i === current ? 'bg-[#4f39f6]' : 'bg-black/20'
                 }`}
               />
@@ -79,7 +79,7 @@ export default function TestimonialsSection() {
 
           <button
             onClick={next}
-            className="w-9 h-9 rounded-full border border-black/10 flex items-center justify-center hover:bg-gray-100"
+            className="w-9 h-9 rounded-full border border-black/10 flex items-center justify-center hover:bg-gray-100 focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
           >
             <ChevronRight size={18} className="text-[#495565]" />
           </button>

@@ -12,7 +12,7 @@ interface DemoUser {
 
 export class MockUserRepository implements IUserRepository {
   async findAll(role?: UserRole): Promise<User[]> {
-    await delay(400)
+    await delay()
     let list = users as DemoUser[]
     if (role) list = list.filter(u => u.role === role)
     return list.map((u, i) => ({
@@ -25,7 +25,7 @@ export class MockUserRepository implements IUserRepository {
   }
 
   async findById(id: string): Promise<User | null> {
-    await delay(200)
+    await delay()
     const list = users as DemoUser[]
     const idx = Number(id) - 1
     if (idx < 0 || idx >= list.length) return null

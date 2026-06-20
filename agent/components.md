@@ -2,20 +2,37 @@
 
 Daftar semua komponen yang ada atau perlu dibuat. Update file ini setiap kali komponen baru selesai dibuat.
 
+## Definition of Done (DoD) - Kriteria Kelulusan Wajib:
+
+**A. Compatibility & Fluid Constraints:**
+1. **Fluid Width:** Dilarang keras menggunakan ukuran tetap absolut (contoh: `w-[300px]`, `h-[500px]`) pada kontainer utama. WAJIB menggunakan persentase (`w-full`) atau batasan maksimum (`max-w-md`, dsb).
+2. **Multi-Viewport Test:** Komponen wajib utuh, tidak terpotong, dan tidak tumpang tindih pada resolusi:
+   - Mobile (`xs/sm`: 320px - 640px)
+   - Tablet (`md`: 768px)
+   - Desktop (`lg/xl`: 1024px ke atas)
+3. **Layouting:** Dilarang menggunakan margin manual (`ml-1`, `mr-4`, `mt-2`) untuk mengatur jarak elemen sejajar. WAJIB menggunakan pembungkus *Flex* atau *Grid* dengan utilitas `gap`.
+
+**B. Content & Asset Resilience (Ketahanan Visual):**
+4. **Layout Shift Prevention:** Setiap elemen `<img>` atau *thumbnail* WAJIB dibungkus kontainer dengan rasio aspek pasti (contoh: `aspect-video`, `aspect-square`) untuk mencegah *Cumulative Layout Shift* (CLS) saat gambar sedang diunduh.
+5. **Broken Image Handling:** Dilarang me-render gambar tanpa penanganan galat (seperti komponen `ImageWithFallback`). Jika URL gambar putus/gagal dimuat, antarmuka wajib menampilkan *placeholder* elegan, bukan ikon *broken image* bawaan peramban.
+
+**C. Ekstrem Data Handling:**
+6. **Text Overflow:** Komponen tidak boleh melebar merusak *layout* saat dirender dengan teks data dinamis (seperti judul kursus atau nama instruktur) sepanjang 200 karakter. Wajib ada proteksi `truncate` atau `line-clamp-X`.
+
 ---
 
 ## Shared — Layout (`src/shared/components/layout/`)
 
 | Komponen | File | Status | Dipakai di |
 |---|---|---|---|
-| Navbar | `Navbar.tsx` | ✅ Done | PublicLayout |
+| Navbar | `Navbar.tsx` | ✅ Done | PublicLayout, UserLayout |
 | Footer | `Footer.tsx` | ✅ Done | PublicLayout |
 | PublicLayout | `PublicLayout.tsx` | ✅ Done | Public routes |
-| UserLayout | `UserLayout.tsx` | ✅ Done | User routes |
-| AdminLayout | `AdminLayout.tsx` | ✅ Done | Admin routes |
+| UserLayout | `UserLayout.tsx` | ✅ Done | User routes (berisi Navbar + Outlet) |
+| AdminLayout | `AdminLayout.tsx` | ✅ Done | Admin routes (berisi AdminTopbar + AdminSidebar + Outlet) |
 | ProtectedRoute | `ProtectedRoute.tsx` | ✅ Done | Router |
-| AdminTopbar | `AdminTopbar.tsx` | ⬜ Todo | Admin pages |
-| AdminSidebar | `AdminSidebar.tsx` | ⬜ Todo | Admin pages |
+| AdminTopbar | `AdminTopbar.tsx` | ✅ Done | AdminLayout |
+| AdminSidebar | `AdminSidebar.tsx` | ✅ Done | AdminLayout |
 
 ---
 
@@ -51,10 +68,12 @@ Semua dari shadcn/ui — install via `npx shadcn add [component]`
 | `StatCard` | `icon, value, label, trend?, gradient?` | Admin KPI, User stats | ⬜ Todo |
 | `DataTable` | `columns, data, loading?` | Semua halaman Kelola | ⬜ Todo |
 | `PageHeader` | `title, breadcrumb?` | Admin sub-pages | ⬜ Todo |
-| `EmptyState` | `title, description, action?` | Tabel kosong | ⬜ Todo |
-| `LoadingSpinner` | `size?, fullPage?` | Lazy loading | ⬜ Todo |
+| `EmptyState` | `title, description, action?` | Tabel kosong, empty states | ✅ Done |
+| `ErrorState` | `message?, onRetry?` | Error handling semua halaman | ✅ Done |
+| `LoadingSpinner` | `size?, fullPage?` | Loading state | ✅ Done |
 | `AlertBanner` | `type, message, action?` | Admin dashboard | ⬜ Todo |
 | `StatusBadge` | `status: TransactionStatus` | Tabel transaksi | ⬜ Todo |
+| `NotFoundPage` | — | Catch-all route `*` | ✅ Done |
 | `LevelBadge` | `level: CourseLevel` | Course card | ✅ Done |
 
 ---
@@ -85,7 +104,7 @@ Semua dari shadcn/ui — install via `npx shadcn add [component]`
 | `CourseFilter` | Sidebar filter: level, harga, durasi, rating, fitur | ✅ Done |
 | `CourseCategoryTabs` | Tab filter kategori horizontal | ✅ Done |
 | `CourseGrid` | Wrapper grid dengan toggle grid/list | ✅ Done |
-| `CourseListItem` | Tampilan list view untuk course | ⬜ Todo |
+| `CourseListItem` | Tampilan list view untuk course | ⬜ Todo (low priority) |
 
 ### Articles (`src/features/articles/components/`)
 | Komponen | Keterangan |
@@ -139,8 +158,9 @@ Semua dari shadcn/ui — install via `npx shadcn add [component]`
 ---
 
 ## Status Legend
-- ✅ Done — komponen sudah selesai dibuat
-- 🔄 In Progress — sedang dikerjakan
-- ⬜ Todo — belum dibuat
+- ✅ **Done** — Telah lulus 6 Kriteria Audit (DoD) tanpa cacat.
+- ⚠️ **Pending Audit** — Komponen ada, tapi belum diuji dengan simulasi asinkron, data ekstrem, dan layar seluler. Jangan anggap selesai.
+- ⬜ **Todo** — Belum dikerjakan.
+- 🚨 **Wajib Dibuat** — Komponen kritikal untuk ketahanan *front-end* yang sebelumnya Anda abaikan.
 
 > Update status di sini setiap kali menyelesaikan komponen.

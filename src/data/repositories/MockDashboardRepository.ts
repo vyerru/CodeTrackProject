@@ -6,7 +6,7 @@ import { delay } from './helpers'
 export class MockDashboardRepository implements IDashboardRepository {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async getDashboardData(_userId: string): Promise<DashboardData> {
-    await delay(800)
+    await delay()
     return userDashboard as DashboardData
   }
 }

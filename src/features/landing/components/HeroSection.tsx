@@ -12,20 +12,20 @@ export default function HeroSection() {
             <span className="text-[#4f39f6]">Consistency & Community</span>
           </h1>
 
-          <p className="text-lg text-[#495565] max-w-lg">
+          <p className="text-lg text-[#495565] max-w-lg leading-relaxed">
             Belajar coding dengan sistem produktivitas, tracking progress, dan komunitas yang supportive.
           </p>
 
           <div className="flex items-center gap-4">
             <button
               onClick={() => navigate('/auth/register')}
-              className="bg-[#4f39f6] hover:bg-[#4f39f6]/95 text-white font-medium rounded-lg px-6 py-3 text-sm shadow-[0px_10px_20px_-10px_rgba(79,57,246,0.7)]"
+              className="bg-[#4f39f6] hover:bg-[#4f39f6]/95 text-white font-medium rounded-lg px-6 py-3 text-sm shadow-[0px_10px_20px_-10px_rgba(79,57,246,0.7)] focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
             >
               Mulai Gratis 7 Hari
             </button>
             <button
               onClick={() => navigate('/courses')}
-              className="border border-[#4f39f6] text-[#4f39f6] font-medium rounded-lg px-6 py-3 text-sm hover:bg-[#4f39f6]/5"
+              className="border border-[#4f39f6] text-[#4f39f6] font-medium rounded-lg px-6 py-3 text-sm hover:bg-[#4f39f6]/5 focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
             >
               Lihat Course
             </button>

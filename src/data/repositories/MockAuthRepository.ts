@@ -11,7 +11,7 @@ interface DemoUser {
 
 export class MockAuthRepository implements IAuthRepository {
   async login(params: LoginParams): Promise<LoginResult | null> {
-    await delay(800)
+    await delay()
     const user = (users as DemoUser[]).find(
       u => u.email === params.email && u.password === params.password
     )
@@ -25,7 +25,7 @@ export class MockAuthRepository implements IAuthRepository {
   }
 
   async register(params: RegisterParams): Promise<LoginResult> {
-    await delay(800)
+    await delay()
     return {
       id: crypto.randomUUID(),
       name: params.name,

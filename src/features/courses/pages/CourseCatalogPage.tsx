@@ -1,129 +1,13 @@
 import { useState, useMemo } from 'react'
 import { Search, X } from 'lucide-react'
+import { useAsync } from '@/shared/hooks/useAsync'
+import { repos } from '@/core/domain/di'
 import type { Course } from '@/shared/types'
 import CourseCategoryTabs from '../components/CourseCategoryTabs'
 import CourseFilter from '../components/CourseFilter'
 import CourseGrid from '../components/CourseGrid'
-
-const allCourses: Course[] = [
-  {
-    id: '1', slug: 'complete-web-development-bootcamp',
-    title: 'Complete Web Development Bootcamp 2024',
-    description: '',
-    instructor: 'Sarah Martinez',
-    instructorAvatar: 'https://i.pravatar.cc/150?img=5',
-    thumbnail: 'https://images.unsplash.com/photo-1593720213428-28a5b9e94613?w=600&h=300&fit=crop',
-    price: 299000, originalPrice: 499000, discount: 40,
-    rating: 4.8, totalStudents: 12450, duration: 32,
-    level: 'Beginner', category: 'Web Development',
-    tags: [], isBestseller: true, isFree: false,
-    isPublished: true, createdAt: '2024-01-15',
-  },
-  {
-    id: '2', slug: 'react-native-mobile-apps',
-    title: 'React Native: Build Mobile Apps dari Nol',
-    description: '',
-    instructor: 'Ahmad Rizky',
-    instructorAvatar: 'https://i.pravatar.cc/150?img=8',
-    thumbnail: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=300&fit=crop',
-    price: 399000, originalPrice: 599000, discount: 33,
-    rating: 4.7, totalStudents: 8920, duration: 24,
-    level: 'Intermediate', category: 'Mobile Development',
-    tags: [], isBestseller: true, isFree: false,
-    isPublished: true, createdAt: '2024-02-01',
-  },
-  {
-    id: '3', slug: 'data-science-python',
-    title: 'Data Science with Python - Pemula hingga Expert',
-    description: '',
-    instructor: 'Dr. Linda Chen',
-    instructorAvatar: 'https://i.pravatar.cc/150?img=9',
-    thumbnail: 'https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=600&h=300&fit=crop',
-    price: 449000, originalPrice: 699000, discount: 36,
-    rating: 4.9, totalStudents: 15680, duration: 40,
-    level: 'Beginner', category: 'Data Science',
-    tags: [], isBestseller: true, isFree: false,
-    isPublished: true, createdAt: '2024-03-01',
-  },
-  {
-    id: '4', slug: 'nodejs-backend-mastery',
-    title: 'Node.js & Express: Backend Development Mastery',
-    description: '',
-    instructor: 'David Wong',
-    instructorAvatar: 'https://i.pravatar.cc/150?img=7',
-    thumbnail: 'https://images.unsplash.com/photo-1627398242454-45a1465c2479?w=600&h=300&fit=crop',
-    price: 349000, originalPrice: undefined, discount: undefined,
-    rating: 4.6, totalStudents: 9340, duration: 28,
-    level: 'Intermediate', category: 'Backend Development',
-    tags: [], isBestseller: false, isFree: false,
-    isPublished: true, createdAt: '2024-04-01',
-  },
-  {
-    id: '5', slug: 'aws-cloud-practitioner',
-    title: 'AWS Cloud Practitioner - Gratis',
-    description: '',
-    instructor: 'Michael Johnson',
-    instructorAvatar: 'https://i.pravatar.cc/150?img=3',
-    thumbnail: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&h=300&fit=crop',
-    price: 0, originalPrice: undefined, discount: undefined,
-    rating: 4.5, totalStudents: 18750, duration: 15,
-    level: 'Beginner', category: 'Cloud Computing',
-    tags: [], isBestseller: false, isFree: true,
-    isPublished: true, createdAt: '2024-05-01',
-  },
-  {
-    id: '6', slug: 'devops-docker-kubernetes',
-    title: 'DevOps Engineering: CI/CD Pipeline dengan Jenkins',
-    description: '',
-    instructor: 'Ahmad Rizky',
-    instructorAvatar: 'https://i.pravatar.cc/150?img=8',
-    thumbnail: 'https://images.unsplash.com/photo-1605745341112-85968b19335b?w=600&h=300&fit=crop',
-    price: 499000, originalPrice: undefined, discount: undefined,
-    rating: 4.7, totalStudents: 5420, duration: 22,
-    level: 'Advanced', category: 'DevOps',
-    tags: [], isBestseller: false, isFree: false,
-    isPublished: true, createdAt: '2024-06-01',
-  },
-  {
-    id: '7', slug: 'fullstack-javascript',
-    title: 'Fullstack JavaScript Developer Path',
-    description: '',
-    instructor: 'Sarah Martinez',
-    instructorAvatar: 'https://i.pravatar.cc/150?img=5',
-    thumbnail: 'https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?w=600&h=300&fit=crop',
-    price: 599000, originalPrice: 999000, discount: 40,
-    rating: 4.8, totalStudents: 11230, duration: 50,
-    level: 'Intermediate', category: 'Web Development',
-    tags: [], isBestseller: false, isFree: false,
-    isPublished: true, createdAt: '2024-07-01',
-  },
-  {
-    id: '8', slug: 'python-absolute-beginners',
-    title: 'Python for Absolute Beginners',
-    description: '',
-    instructor: 'Dr. Linda Chen',
-    instructorAvatar: 'https://i.pravatar.cc/150?img=9',
-    thumbnail: 'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=600&h=300&fit=crop',
-    price: 0, originalPrice: undefined, discount: undefined,
-    rating: 4.6, totalStudents: 22450, duration: 12,
-    level: 'Beginner', category: 'Backend Development',
-    tags: [], isBestseller: false, isFree: true,
-    isPublished: true, createdAt: '2024-08-01',
-  },
-  {
-    id: '9', slug: 'modern-javascript',
-    title: 'Modern JavaScript: ES6+ & Beyond',
-    description: '',
-    instructor: 'David Wong',
-    instructorAvatar: 'https://i.pravatar.cc/150?img=7',
-    thumbnail: 'https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=600&h=300&fit=crop',
-    price: 249000, originalPrice: 399000, discount: 38,
-    rating: 4.7, totalStudents: 14560, duration: 18,
-    level: 'Intermediate', category: 'Web Development',
-    tags: [], isBestseller: false, isFree: false,
-    isPublished: true, createdAt: '2024-09-01',
-  },
-]
+import ErrorState from '@/shared/components/common/ErrorState'
+import LoadingSpinner from '@/shared/components/common/LoadingSpinner'
 
 const defaultFilters = {
   levels: [] as string[],
@@ -134,6 +18,10 @@ const defaultFilters = {
 }
 
 export default function CourseCatalogPage() {
+  const { data: allCourses, isLoading, error, refetch } = useAsync<Course[]>(
+    () => repos.course.findAll()
+  )
+
   const [bannerVisible, setBannerVisible] = useState(true)
   const [activeCategory, setActiveCategory] = useState('Semua Course')
   const [searchQuery, setSearchQuery] = useState('')
@@ -143,6 +31,7 @@ export default function CourseCatalogPage() {
   const [visibleCount, setVisibleCount] = useState(6)
 
   const filtered = useMemo(() => {
+    if (!allCourses) return []
     let result = [...allCourses]
 
     if (activeCategory !== 'Semua Course') {
@@ -187,7 +76,7 @@ export default function CourseCatalogPage() {
     }
 
     return result
-  }, [activeCategory, searchQuery, sortBy, filters])
+  }, [allCourses, activeCategory, searchQuery, sortBy, filters])
 
   const visibleCourses = filtered.slice(0, visibleCount)
   const hasMore = visibleCount < filtered.length
@@ -200,6 +89,9 @@ export default function CourseCatalogPage() {
     setFilters(defaultFilters)
   }
 
+  if (isLoading) return <LoadingSpinner fullPage />
+  if (error) return <ErrorState message={error} onRetry={refetch} />
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Banner Promo */}
@@ -210,12 +102,12 @@ export default function CourseCatalogPage() {
               🎉 Free Trial 7 Hari untuk Course Premium
             </span>
             <div className="flex items-center gap-3">
-              <button className="bg-white text-indigo-600 rounded-lg px-4 py-1.5 text-sm font-medium hover:bg-gray-100 transition-colors">
+              <button className="bg-white text-indigo-600 rounded-lg px-4 py-1.5 text-sm font-medium hover:bg-gray-100 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none">
                 Mulai Sekarang
               </button>
               <button
                 onClick={() => setBannerVisible(false)}
-                className="text-white/80 hover:text-white transition-colors"
+                className="text-white/80 hover:text-white transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
               >
                 <X size={18} />
               </button>
@@ -226,7 +118,7 @@ export default function CourseCatalogPage() {
 
       {/* Page Header */}
       <div className="bg-white py-12 border-b border-black/10">
-        <div className="max-w-7xl mx-auto px-6 text-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl font-bold text-gray-900">Katalog Course</h1>
           <p className="text-gray-500 mt-2">
             Pilih course yang sesuai dengan tujuan karir dan level skill kamu
@@ -258,7 +150,7 @@ export default function CourseCatalogPage() {
       <CourseCategoryTabs active={activeCategory} onChange={setActiveCategory} />
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-6 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex gap-8">
           <CourseFilter filters={filters} onChange={setFilters} onReset={resetFilters} />
           <CourseGrid

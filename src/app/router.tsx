@@ -23,6 +23,7 @@ const ArticleManagementPage = lazy(() => import('@/features/admin/pages/ArticleM
 const CourseManagementPage = lazy(() => import('@/features/admin/pages/CourseManagementPage'))
 const UserManagementPage = lazy(() => import('@/features/admin/pages/UserManagementPage'))
 const TransactionManagementPage = lazy(() => import('@/features/admin/pages/TransactionManagementPage'))
+const NotFoundPage = lazy(() => import('@/features/not-found/pages/NotFoundPage'))
 
 const S = (Component: React.LazyExoticComponent<any>) => (
   <Suspense fallback={<PageSkeleton />}><Component /></Suspense>
@@ -70,6 +71,6 @@ export const router = createBrowserRouter([
   },
   {
     path: '*',
-    element: <div className="min-h-screen flex items-center justify-center text-gray-500">404 - Page Not Found</div>
+    element: <NotFoundPage />
   }
 ])

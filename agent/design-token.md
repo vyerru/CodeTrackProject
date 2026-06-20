@@ -7,40 +7,40 @@ Semua nilai berikut diekstrak langsung dari kode Figma Make (Register, AdminDash
 ## Colors
 
 ### Primary
-| Token | Value | Tailwind Eq | Penggunaan |
-|---|---|---|---|
-| `--color-primary` | `#4f39f6` | `indigo-600` (approx) | Button primary, link, active state, icon |
-| `--color-primary-dark` | `#4338ca` | `indigo-700` | Hover state button primary |
-| `--color-primary-navy` | `#312E81` | `indigo-900` | Admin topbar background |
+| Tailwind Class | Value | Penggunaan |
+|---|---|---|
+| `bg-indigo-600` / `text-indigo-600` | `#4f39f6` | Button primary, link, active state, icon |
+| `bg-indigo-700` / `text-indigo-700` | `#4338ca` | Hover state button primary |
+| `bg-indigo-900` / `text-indigo-900` | `#312E81` | Admin topbar background |
 
 ### Semantic
-| Token | Value | Penggunaan |
+| Tailwind Class | Value | Penggunaan |
 |---|---|---|
-| `--color-success` | `#10B981` | Badge success, revenue chart line, trend up |
-| `--color-warning` | `#F59E0B` | Badge pending, warning alert border |
-| `--color-danger` | `#EF4444` | Badge failed, notif dot, urgent badge |
-| `--color-info` | `#3B82F6` | Badge info, referral chart, forecast text |
+| `bg-green-500` / `text-green-600` | `#10B981` | Badge success, revenue chart line, trend up |
+| `bg-amber-500` / `text-amber-500` | `#F59E0B` | Badge pending, warning alert border |
+| `bg-red-500` / `text-red-600` | `#EF4444` | Badge failed, notif dot, urgent badge |
+| `bg-blue-500` / `text-blue-600` | `#3B82F6` | Badge info, referral chart, forecast text |
 
 ### Backgrounds
-| Token | Value | Penggunaan |
+| Tailwind Class | Value | Penggunaan |
 |---|---|---|
-| `--color-bg-page` | `#F9FAFB` | `bg-gray-50`, semua halaman |
-| `--color-bg-surface` | `#FFFFFF` | Card, navbar, sidebar |
-| `--color-bg-input` | `#f3f3f5` | Input field background |
+| `bg-gray-50` | `#F9FAFB` | Semua halaman |
+| `bg-white` | `#FFFFFF` | Card, navbar, sidebar |
+| `bg-[#f3f3f5]` | `#f3f3f5` | Input field background |
 
 ### Text
-| Token | Value | Penggunaan |
+| Tailwind Class | Value | Penggunaan |
 |---|---|---|
-| `--color-text-primary` | `#111827` | Heading, konten utama |
-| `--color-text-label` | `#354152` | Form label |
-| `--color-text-body` | `#495565` | Body paragraph |
-| `--color-text-muted` | `#697282` | Hint, caption, secondary info |
-| `--color-text-placeholder` | `#717182` | Input placeholder |
+| `text-gray-900` | `#111827` | Heading, konten utama |
+| `text-gray-700` | `#354152` | Form label |
+| `text-gray-600` | `#495565` | Body paragraph |
+| `text-gray-500` | `#697282` | Hint, caption, secondary info |
+| `text-gray-400` | `#717182` | Input placeholder |
 
 ### Border
-| Token | Value |
+| Tailwind Class | Value |
 |---|---|
-| `--color-border` | `rgba(0,0,0,0.1)` |
+| `border-black/10` | `rgba(0,0,0,0.1)` |
 
 ---
 
@@ -71,13 +71,13 @@ Health card:   from-white to-amber-50   | icon: bg-amber-100  text-amber-600
 
 ## Chart Colors
 
-| Nama | Value | Penggunaan |
-|---|---|---|
-| `--color-chart-1` | `#6366F1` | Direct traffic, primary chart |
-| `--color-chart-2` | `#10B981` | Google/revenue line & area |
-| `--color-chart-3` | `#F59E0B` | Social media |
-| `--color-chart-4` | `#3B82F6` | Referral |
-| `--color-chart-5` | `#8B5CF6` | Email |
+| Nama | Value | Tailwind | Penggunaan |
+|---|---|---|---|
+| Chart 1 | `#6366F1` | `text-indigo-500` | Direct traffic, primary chart |
+| Chart 2 | `#10B981` | `text-green-500` | Google/revenue line & area |
+| Chart 3 | `#F59E0B` | `text-amber-500` | Social media |
+| Chart 4 | `#3B82F6` | `text-blue-500` | Referral |
+| Chart 5 | `#8B5CF6` | `text-purple-500` | Email |
 
 ---
 
@@ -226,9 +226,9 @@ focus-visible:ring-0 focus-visible:ring-offset-0
 
 ### Button Primary
 ```tsx
-bg-[#4f39f6] hover:bg-[#4f39f6]/95
+bg-indigo-600 hover:bg-indigo-700
 text-white rounded-lg
-shadow: 0px 10px 20px -10px rgba(79,57,246,0.7)
+shadow-[0px_10px_20px_-10px_rgba(79,57,246,0.7)]
 ```
 
 ### Button Outline (indigo)
@@ -282,4 +282,23 @@ Dropdown:       bg-white border border-gray-200 rounded-lg shadow-lg w-56
 - **Social brand icons** (Twitter, GitHub, LinkedIn, Instagram): tidak tersedia di lucide-react versi ini — gunakan inline SVG (lihat `Footer.tsx`)
 - **GitHub icon** (non-social): gunakan inline SVG (lihat `RegisterPage.tsx` atau `FeaturesSection.tsx`)
 - Google logo: inline SVG (lihat `RegisterPage.tsx`)
-- Icon colors: default `#9ca3af` untuk input icons, `#4f39f6` untuk feature boxes
+- Icon colors: default `text-gray-400` untuk input icons, `text-indigo-600` untuk feature boxes
+
+## 1. Page Layout Structure (Layout & Struktur Laman)
+- **Container Utama:** Semua halaman utama WAJIB dibungkus dengan `<main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">`. Dilarang menempelkan konten mentah ke tepi layar.
+- **Section Spacing:** Jarak antar *section* vertikal WAJIB menggunakan `gap-y-8` atau `gap-y-12` dari level halaman/pembungkus luar. Dilarang menggunakan margin-top/bottom tebakan.
+- **Absolute Positioning Ban:** Dilarang keras menggunakan `absolute` untuk mengatur elemen struktural. `absolute` hanya untuk dekorasi kecil, *badge*, atau modal.
+
+## 2. Color Hierarchy & Semantic Strictness (Color)
+- **Warna Aksi Khusus:** Sukses (`bg-green-*`/`text-green-*`), Peringatan (`bg-amber-*`/`text-amber-*`), dan Bahaya (`bg-red-*`/`text-red-*`) HANYA BOLEH untuk status transaksi, validasi, atau penghapusan data. Dilarang untuk dekorasi.
+- **Contrast & Legibility:** Teks di atas warna utama (`bg-indigo-600`) wajib `text-white`.
+- **Muted Elements:** Teks sekunder (tanggal, deskripsi mikro) WAJIB menggunakan `text-gray-500` untuk membedakannya dari data utama (judul, harga `text-gray-900`).
+
+## 3. Typography Constraints (Tipografi)
+- **Minimum Size Limit:** Ukuran dasar keterbacaan adalah `text-sm`. Jangan gunakan `text-xs` untuk teks yang harus dibaca panjang, HANYA gunakan `text-xs` untuk *badge*, label *input*, atau metadata kecil.
+- **Line Length:** Lebar paragraf (terutama di fitur Artikel/Deskripsi Kursus) TIDAK BOLEH melebihi 75 karakter. WAJIB dibatasi dengan utilitas `max-w-prose`.
+- **Leading (Line Height):** Teks paragraf dinamis wajib `leading-relaxed`. Judul (H1/H2) wajib `leading-tight`.
+
+## 4. Interaction States (Wajib)
+- **Focus Visible:** Elemen interaktif harus memiliki `focus-visible:ring-2` untuk navigasi *keyboard*.
+- **Disabled State:** Harus memiliki `opacity-50 cursor-not-allowed pointer-events-none`.

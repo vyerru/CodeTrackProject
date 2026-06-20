@@ -22,7 +22,7 @@ export default function QuickActionsCard() {
           return (
             <button
               key={i}
-              className="w-full flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-indigo-600 hover:text-white hover:border-indigo-600 transition-all group"
+              className="w-full flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-indigo-600 hover:text-white hover:border-indigo-600 transition-all group focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
             >
               <div className="flex items-center gap-3">
                 <Icon size={18} className="text-gray-600 group-hover:text-white transition-colors" />

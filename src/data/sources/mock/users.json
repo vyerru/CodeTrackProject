@@ -10,5 +10,11 @@
     "password": "admin123",
     "name": "Admin User",
     "role": "admin"
+  },
+  {
+    "email": "email.super.panjang.sekali.yang.tidak.masuk.akal@subdomain.domain.co.id",
+    "password": "chaos123",
+    "name": "Pengguna Dengan Nama Super Panjang Sekali Sampai Memecahkan Sidebar Dan Navbar CodeTrack",
+    "role": "user"
   }
 ]

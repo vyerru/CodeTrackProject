@@ -103,22 +103,22 @@ React local state:
 ## Routing
 
 ```
-/                     PublicLayout → LandingPage
-/courses              PublicLayout → CourseCatalogPage
-/courses/:slug        PublicLayout → CourseDetailPage
-/articles             PublicLayout → ArticlesPage
-/articles/:slug       PublicLayout → ArticleDetailPage
-/auth/login           (no layout)  → LoginPage
-/auth/register        (no layout)  → RegisterPage
-/dashboard            ProtectedRoute(user) + UserLayout → UserDashboardPage
-/dashboard/cart       ProtectedRoute(user) + UserLayout → CartPage
-/dashboard/checkout   ProtectedRoute(user) + UserLayout → CheckoutPage
-/dashboard/history    ProtectedRoute(user) + UserLayout → TransactionHistoryPage
-/admin                ProtectedRoute(admin) + AdminLayout → AdminDashboardPage
-/admin/articles       ProtectedRoute(admin) + AdminLayout → ArticleManagementPage
-/admin/courses        ProtectedRoute(admin) + AdminLayout → CourseManagementPage
-/admin/users          ProtectedRoute(admin) + AdminLayout → UserManagementPage
-/admin/transactions   ProtectedRoute(admin) + AdminLayout → TransactionManagementPage
+/                     PublicLayout (Navbar + Outlet + Footer)     → LandingPage
+/courses              PublicLayout                                 → CourseCatalogPage
+/courses/:slug        PublicLayout                                 → CourseDetailPage
+/articles             PublicLayout                                 → ArticlesPage
+/articles/:slug       PublicLayout                                 → ArticleDetailPage
+/auth/login           (no layout)                                  → LoginPage
+/auth/register        (no layout)                                  → RegisterPage
+/dashboard            ProtectedRoute(user) + UserLayout (Navbar + Outlet) → UserDashboardPage
+/dashboard/cart       "                                             → CartPage
+/dashboard/checkout   "                                             → CheckoutPage
+/dashboard/history    "                                             → TransactionHistoryPage
+/admin                ProtectedRoute(admin) + AdminLayout (Topbar + Sidebar + Outlet) → AdminDashboardPage
+/admin/articles       "                                             → ArticleManagementPage
+/admin/courses        "                                             → CourseManagementPage
+/admin/users          "                                             → UserManagementPage
+/admin/transactions   "                                             → TransactionManagementPage
 ```
 
 Redirect rules:
@@ -142,10 +142,10 @@ Hardcode di `LoginPage.tsx` untuk demo — tidak ada backend.
 ## CSS & Styling
 
 - Tailwind v4 dengan `@import "tailwindcss"` di `src/index.css` (tidak ada `tailwind.config.js`)
-- CSS variables di `src/index.css` — lihat `design-tokens.md` untuk nilai lengkap
-- Primary color: `#4f39f6`
-- Background page: `#F9FAFB` (gray-50)
-- Font: Geist Variable
+- Semua warna menggunakan Tailwind utility classes langsung (`bg-indigo-600`, `text-gray-900`, dll) — lihat `design-tokens.md` untuk mapping lengkap
+- Primary color: `indigo-600` (`#4f39f6`)
+- Background page: `bg-gray-50` (`#F9FAFB`)
+- Font: Geist Variable — via `@fontsource-variable/geist`
 
 ---
 
@@ -173,12 +173,10 @@ Baca file-file ini sebelum mengerjakan task yang relevan:
 
 ---
 
-## Important Notes
+## Important Rules & Flow Constraints (WAJIB DIPATUHI)
 
-- Ini adalah **frontend-only project** — tidak ada backend, tidak ada API call nyata
-- **Data API (wajib):** jangan pernah import file JSON langsung di hook/component. Gunakan `repos.*` dari `core/domain/di.ts` — contoh: `repos.course.findAll()`, `repos.auth.login()`, `repos.dashboard.getDashboardData()`
-- Semua mock repository ada di `data/repositories/` dengan artificial delay (300-800ms)
-- **Migrasi ke backend nanti:** ubah instansiasi di `main.tsx` — ganti `new MockXxxRepository()` → `new ApiXxxRepository()`, hooks tidak perlu diotak-atik
-- Jangan install atau gunakan `@mui/material` — sudah dihapus, gunakan shadcn/ui + Tailwind
-- Jangan gunakan `localStorage` langsung — gunakan Zustand persist middleware
-- Lazy load semua route dengan `React.lazy()` + `Suspense`
+1. **Simulasi Jaringan Ekstrem (Flow):** Simulator jaringan HUKUMNYA HARAM disetel ke 0. Konfigurasi di `main.tsx` wajib: `setNetworkConfig({ minDelay: 800, maxDelay: 3000, failureRate: 0.25 })`.
+2. **Wajib `useAsync`:** Semua pengambilan data harus melewati alat asinkron dan wajib mengelola 3 state mutlak: `isLoading`, `error`, dan `data`.
+3. **Kewajiban Zero-Dead-End (Flow):** - Jika data kosong (`[]`), WAJIB render `EmptyState` dengan tombol CTA kembali.
+   - Dilarang membiarkan layar *freeze* saat transisi rute; WAJIB gunakan `Suspense` fallback atau kerangka (*skeleton*).
+4. **Definisi "Disabled State" (Flow):** Semua form dan tombol aksi WAJIB dimatikan (`disabled={isLoading}`) saat permintaan jaringan berjalan. Dilarang keras memungkinkan *double-click* pada tombol submit.

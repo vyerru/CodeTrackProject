@@ -32,7 +32,7 @@ export default function ArticlesPage() {
       <section className="bg-gradient-to-br from-indigo-50 via-white to-purple-50/20 py-16">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 mb-4">
+            <h1 className="text-3xl font-bold text-gray-900 mb-4 leading-tight">
               Artikel & Tips Coding
             </h1>
             <p className="text-gray-600 max-w-2xl mx-auto">
@@ -62,7 +62,7 @@ export default function ArticlesPage() {
               <button
                 key={category}
                 onClick={() => setActiveCategory(category)}
-                className={`px-6 py-2 rounded-full whitespace-nowrap transition-all text-sm ${
+                className={`px-6 py-2 rounded-full whitespace-nowrap transition-all text-sm focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none ${
                   activeCategory === category
                     ? 'bg-indigo-600 text-white shadow-md'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -108,7 +108,7 @@ export default function ArticlesPage() {
                       <button
                         onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
                         disabled={currentPage === 1}
-                        className="p-2 rounded-lg border border-gray-300 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="p-2 rounded-lg border border-gray-300 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
                       >
                         <ChevronLeft className="w-5 h-5" />
                       </button>
@@ -117,7 +117,7 @@ export default function ArticlesPage() {
                         <button
                           key={page}
                           onClick={() => setCurrentPage(page)}
-                          className={`min-w-[40px] h-10 px-3 rounded-lg transition-all text-sm ${
+                          className={`min-w-[40px] h-10 px-3 rounded-lg transition-all text-sm focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none ${
                             currentPage === page
                               ? 'bg-indigo-600 text-white'
                               : 'border border-gray-300 hover:bg-gray-50'
@@ -130,7 +130,7 @@ export default function ArticlesPage() {
                       <button
                         onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
                         disabled={currentPage === totalPages}
-                        className="p-2 rounded-lg border border-gray-300 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="p-2 rounded-lg border border-gray-300 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
                       >
                         <ChevronRight className="w-5 h-5" />
                       </button>

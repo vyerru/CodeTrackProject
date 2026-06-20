@@ -20,7 +20,7 @@ export default function RecentActivitySection({ activities }: Props) {
           <ActivityIcon />
           Recent Activity
         </h2>
-        <button className="text-sm text-indigo-600 font-medium hover:underline">View All</button>
+        <button className="text-sm text-indigo-600 font-medium hover:underline focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none">View All</button>
       </div>
 
       <div className="space-y-1">

@@ -68,7 +68,7 @@ export default function RegisterPage() {
       className="min-h-screen flex items-center justify-center px-4"
       style={{ background: 'linear-gradient(117deg, #eef2ff 0%, #ffffff 50%, #faf5ff 100%)' }}
     >
-      <div className="w-full max-w-[448px] bg-white rounded-[14px] shadow-[0px_8px_10px_-6px_#0000001a,0px_20px_25px_-5px_#0000001a] p-8">
+      <div className="w-full max-w-md bg-white rounded-[14px] shadow-[0px_8px_10px_-6px_#0000001a,0px_20px_25px_-5px_#0000001a] p-8">
         <div className="flex justify-center mb-6">
           <div className="w-14 h-14 rounded-2xl bg-[#4f39f6] flex items-center justify-center shadow-[0px_10px_20px_-10px_rgba(79,57,246,0.7)]">
             <UserPlus className="text-white" size={26} />
@@ -111,7 +111,7 @@ export default function RegisterPage() {
               <button
                 type="button"
                 onClick={() => setRoleOpen(!roleOpen)}
-                className="w-full h-9 pl-10 pr-3 text-sm bg-[#f3f3f5] rounded-lg border border-transparent text-left text-[#495565] focus:outline-none"
+                className="w-full h-9 pl-10 pr-3 text-sm bg-[#f3f3f5] rounded-lg border border-transparent text-left text-[#495565] focus:outline-none outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
               >
                 {selectedRole}
               </button>
@@ -125,7 +125,7 @@ export default function RegisterPage() {
                         setValue('role', r, { shouldValidate: true })
                         setRoleOpen(false)
                       }}
-                      className={`w-full px-4 py-2 text-sm text-left hover:bg-[#f3f3f5] first:rounded-t-lg last:rounded-b-lg ${
+                      className={`w-full px-4 py-2 text-sm text-left hover:bg-[#f3f3f5] first:rounded-t-lg last:rounded-b-lg focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none ${
                         selectedRole === r ? 'text-[#4f39f6] font-medium' : 'text-[#495565]'
                       }`}
                     >
@@ -151,7 +151,7 @@ export default function RegisterPage() {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-[#9ca3af]"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-[#9ca3af] focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
                 tabIndex={-1}
               >
                 {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
@@ -175,7 +175,7 @@ export default function RegisterPage() {
               <button
                 type="button"
                 onClick={() => setShowConfirm(!showConfirm)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-[#9ca3af]"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-[#9ca3af] focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
                 tabIndex={-1}
               >
                 {showConfirm ? <EyeOff size={16} /> : <Eye size={16} />}
@@ -191,15 +191,15 @@ export default function RegisterPage() {
               <input
                 type="checkbox"
                 {...register('agreed')}
-                className="mt-0.5 accent-[#4f39f6]"
+                className="mt-0.5 accent-[#4f39f6] focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
               />
               <span className="text-sm text-[#495565]">
                 I agree to{' '}
-                <a href="#" className="text-[#4f39f6] font-medium">
+                <a href="#" className="text-[#4f39f6] font-medium focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none">
                   Terms of Service
                 </a>{' '}
                 and{' '}
-                <a href="#" className="text-[#4f39f6] font-medium">
+                <a href="#" className="text-[#4f39f6] font-medium focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none">
                   Privacy Policy
                 </a>
               </span>
@@ -212,7 +212,7 @@ export default function RegisterPage() {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full bg-[#4f39f6] hover:bg-[#4f39f6]/95 disabled:opacity-60 text-white rounded-lg min-h-11 text-sm font-medium shadow-[0px_10px_20px_-10px_rgba(79,57,246,0.7)] flex items-center justify-center gap-2"
+            className="w-full bg-[#4f39f6] hover:bg-[#4f39f6]/95 disabled:opacity-60 text-white rounded-lg min-h-11 text-sm font-medium shadow-[0px_10px_20px_-10px_rgba(79,57,246,0.7)] flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
           >
             {isLoading && <Loader2 size={16} className="animate-spin" />}
             {isLoading ? 'Creating account...' : 'Create Account'}
@@ -228,14 +228,14 @@ export default function RegisterPage() {
         <div className="flex gap-3">
           <button
             type="button"
-            className="flex-1 h-10 flex items-center justify-center gap-2 border border-black/10 rounded-lg text-sm text-[#495565] hover:bg-[#f3f3f5]"
+            className="flex-1 h-10 flex items-center justify-center gap-2 border border-black/10 rounded-lg text-sm text-[#495565] hover:bg-[#f3f3f5] focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
           >
             <GoogleLogo />
             Google
           </button>
           <button
             type="button"
-            className="flex-1 h-10 flex items-center justify-center gap-2 border border-black/10 rounded-lg text-sm text-[#495565] hover:bg-[#f3f3f5]"
+            className="flex-1 h-10 flex items-center justify-center gap-2 border border-black/10 rounded-lg text-sm text-[#495565] hover:bg-[#f3f3f5] focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
           >
             <GitHubLogo />
             GitHub
@@ -247,7 +247,7 @@ export default function RegisterPage() {
           <button
             type="button"
             onClick={() => navigate('/auth/login')}
-            className="text-[#4f39f6] font-medium hover:underline"
+            className="text-[#4f39f6] font-medium hover:underline focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
           >
             Sign in
           </button>
@@ -257,7 +257,7 @@ export default function RegisterPage() {
           <button
             type="button"
             onClick={() => navigate('/')}
-            className="text-xs text-[#697282] hover:text-[#495565]"
+            className="text-xs text-[#697282] hover:text-[#495565] focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
           >
             ← Back to Home
           </button>

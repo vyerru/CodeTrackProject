@@ -24,17 +24,17 @@ export default function Footer() {
             <h3 className="text-white font-semibold mb-4">Produk</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <button onClick={() => navigate('/courses')} className="text-gray-400 hover:text-white transition-colors">
+                <button onClick={() => navigate('/courses')} className="text-gray-400 hover:text-white transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none">
                   Courses
                 </button>
               </li>
               <li>
-                <button onClick={() => navigate('/articles')} className="text-gray-400 hover:text-white transition-colors">
+                <button onClick={() => navigate('/articles')} className="text-gray-400 hover:text-white transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none">
                   Artikel
                 </button>
               </li>
               <li>
-                <button onClick={() => navigate('#')} className="text-gray-400 hover:text-white transition-colors">
+                <button onClick={() => navigate('#')} className="text-gray-400 hover:text-white transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none">
                   Komunitas
                 </button>
               </li>
@@ -47,7 +47,7 @@ export default function Footer() {
             <ul className="space-y-2 text-sm">
               {['About', 'Careers', 'Contact'].map((item) => (
                 <li key={item}>
-                  <button onClick={() => navigate('#')} className="text-gray-400 hover:text-white transition-colors">
+                  <button onClick={() => navigate('#')} className="text-gray-400 hover:text-white transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none">
                     {item}
                   </button>
                 </li>
@@ -81,10 +81,10 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-gray-400">&copy; 2025 CodeTrack. All rights reserved.</p>
           <div className="flex gap-6 text-sm">
-            <button onClick={() => navigate('#')} className="text-gray-400 hover:text-white transition-colors">
+            <button onClick={() => navigate('#')} className="text-gray-400 hover:text-white transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none">
               Privacy Policy
             </button>
-            <button onClick={() => navigate('#')} className="text-gray-400 hover:text-white transition-colors">
+            <button onClick={() => navigate('#')} className="text-gray-400 hover:text-white transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none">
               Terms of Service
             </button>
           </div>
@@ -100,7 +100,7 @@ function SocialButton({ children, href, target }: { children: React.ReactNode; h
       href={href}
       target={target}
       rel={target === '_blank' ? 'noopener noreferrer' : undefined}
-      className="w-10 h-10 bg-gray-700 rounded-lg flex items-center justify-center hover:bg-indigo-600 transition-all"
+      className="w-10 h-10 bg-gray-700 rounded-lg flex items-center justify-center hover:bg-indigo-600 transition-all focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
     >
       {children}
     </a>

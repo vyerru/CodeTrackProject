@@ -2,7 +2,7 @@ import { Trophy, Zap, Flame, Target, Sun } from 'lucide-react'
 import type { Badge, NextBadge } from '@/shared/types'
 
 const badgeIcons = [
-  <Zap key="zap" size={24} className="text-amber-600" />,
+  <Zap key="zap" size={24} className="text-indigo-600" />,
   <Flame key="flame" size={24} className="text-orange-500" />,
   <Target key="target" size={24} className="text-blue-600" />,
   <Sun key="sun" size={24} className="text-yellow-500" />,
@@ -18,10 +18,10 @@ export default function AchievementsCard({ badges, nextBadge }: Props) {
     <div className="bg-white border border-black/10 rounded-xl p-5">
       <div className="flex items-center justify-between mb-4">
         <h2 className="flex items-center gap-2 text-lg font-bold text-gray-900">
-          <Trophy className="text-amber-600" size={20} />
+          <Trophy className="text-indigo-600" size={20} />
           Recent Achievements
         </h2>
-        <button className="text-sm text-indigo-600 font-medium hover:underline">View All</button>
+        <button className="text-sm text-indigo-600 font-medium hover:underline focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none">View All</button>
       </div>
 
       <div className="grid grid-cols-2 gap-3 mb-4">

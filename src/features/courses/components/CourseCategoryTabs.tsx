@@ -23,7 +23,7 @@ export default function CourseCategoryTabs({ active, onChange }: Props) {
             <button
               key={cat}
               onClick={() => onChange(cat)}
-              className={`whitespace-nowrap rounded-full px-4 py-1.5 text-sm transition-colors ${
+              className={`whitespace-nowrap rounded-full px-4 py-1.5 text-sm transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none ${
                 active === cat
                   ? 'bg-indigo-600 text-white'
                   : 'text-gray-600 hover:bg-gray-100'

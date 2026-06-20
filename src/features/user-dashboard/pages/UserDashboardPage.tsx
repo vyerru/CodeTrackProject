@@ -1,4 +1,3 @@
-import Navbar from '@/shared/components/layout/Navbar'
 import WelcomeHeader from '../components/WelcomeHeader'
 import StatCards from '../components/StatCards'
 import ContinueLearningSection from '../components/ContinueLearningSection'
@@ -30,7 +29,6 @@ export default function UserDashboardPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navbar />
       <WelcomeHeader completionPercent={data.stats.overallCompletion} streak={data.stats.currentStreak} />
       <StatCards stats={data.stats} />
       <div className="max-w-7xl mx-auto px-6 pb-12">

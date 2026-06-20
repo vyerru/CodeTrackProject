@@ -22,7 +22,7 @@ export default function RecommendedCoursesSection({ courses }: Props) {
         </div>
         <button
           onClick={() => navigate('/courses')}
-          className="text-sm text-indigo-600 font-medium hover:underline shrink-0"
+          className="text-sm text-indigo-600 font-medium hover:underline shrink-0 focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
         >
           See All
         </button>
@@ -33,13 +33,13 @@ export default function RecommendedCoursesSection({ courses }: Props) {
           <div
             key={i}
             onClick={() => navigate('/courses')}
-            className="bg-white border border-black/10 rounded-xl overflow-hidden hover:shadow-lg transition-shadow group cursor-pointer"
+            className="bg-white border border-black/10 rounded-xl overflow-hidden hover:shadow-lg transition-shadow group cursor-pointer focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
           >
             <div className="relative overflow-hidden">
               <img
                 src={course.thumbnail}
                 alt={course.title}
-                className="w-full h-[140px] object-cover group-hover:scale-105 transition-transform duration-300"
+                className="w-full aspect-video object-cover group-hover:scale-105 transition-transform duration-300"
                 loading="lazy"
               />
               <span className="absolute top-2 left-2 bg-indigo-600 text-white text-xs font-medium px-2 py-0.5 rounded">
@@ -62,7 +62,7 @@ export default function RecommendedCoursesSection({ courses }: Props) {
               </div>
               <div className="flex items-center justify-between pt-1">
                 <span className="font-semibold text-indigo-600">{formatRupiah(course.price)}</span>
-                <button className="text-xs border border-indigo-600 text-indigo-600 font-medium px-3 py-1.5 rounded-lg hover:bg-indigo-50 transition-colors">
+                <button className="text-xs border border-indigo-600 text-indigo-600 font-medium px-3 py-1.5 rounded-lg hover:bg-indigo-50 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none">
                   View Course
                 </button>
               </div>

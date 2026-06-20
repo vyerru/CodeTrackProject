@@ -30,14 +30,14 @@ export default function WelcomeHeader({ completionPercent, streak }: Props) {
           <div className="flex flex-col gap-3">
             <button
               onClick={() => navigate('/courses')}
-              className="flex items-center gap-2 bg-white text-indigo-600 font-medium h-12 px-6 rounded-lg hover:bg-gray-100 transition-colors"
+              className="flex items-center gap-2 bg-white text-indigo-600 font-medium h-12 px-6 rounded-lg hover:bg-gray-100 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
             >
               <PlayCircle size={20} />
               Continue Learning
             </button>
             <button
               onClick={() => navigate('/courses')}
-              className="flex items-center gap-2 border-2 border-white text-white font-medium h-12 px-6 rounded-lg hover:bg-white hover:text-indigo-600 transition-colors"
+              className="flex items-center gap-2 border-2 border-white text-white font-medium h-12 px-6 rounded-lg hover:bg-white hover:text-indigo-600 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
             >
               <Compass size={20} />
               Find New Courses

@@ -22,7 +22,7 @@ export default function FeaturesSection() {
   return (
     <section className="bg-white py-20">
       <div className="max-w-5xl mx-auto px-6">
-        <h2 className="text-2xl font-bold text-center text-[#111827] mb-12">
+        <h2 className="text-2xl font-bold text-center text-[#111827] mb-12 leading-tight">
           Kenapa CodeTrack Berbeda?
         </h2>
 
@@ -33,7 +33,7 @@ export default function FeaturesSection() {
                 <f.icon className="text-[#4f39f6]" size={24} />
               </div>
               <h3 className="font-semibold text-[#111827]">{f.title}</h3>
-              <p className="text-sm text-[#495565]">{f.description}</p>
+              <p className="text-sm text-[#495565] leading-relaxed">{f.description}</p>
             </div>
           ))}
         </div>

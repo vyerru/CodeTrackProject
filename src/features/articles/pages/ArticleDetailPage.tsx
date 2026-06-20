@@ -27,7 +27,7 @@ export default function ArticleDetailPage() {
           <p className="text-gray-400 mb-6">Halaman yang kamu cari tidak tersedia.</p>
           <button
             onClick={() => navigate('/articles')}
-            className="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors font-medium"
+            className="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors font-medium focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
           >
             Kembali ke Artikel
           </button>
@@ -47,9 +47,9 @@ export default function ArticleDetailPage() {
         <div className="max-w-7xl mx-auto px-6">
           {/* Breadcrumb */}
           <nav className="flex items-center gap-2 text-sm text-gray-500 mb-8 pt-4">
-            <button onClick={() => navigate('/')} className="hover:text-indigo-600 transition-colors">Home</button>
+            <button onClick={() => navigate('/')} className="hover:text-indigo-600 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none">Home</button>
             <ChevronRight size={14} />
-            <button onClick={() => navigate('/articles')} className="hover:text-indigo-600 transition-colors">Artikel</button>
+            <button onClick={() => navigate('/articles')} className="hover:text-indigo-600 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none">Artikel</button>
             <ChevronRight size={14} />
             <span className="text-gray-400">{article.category}</span>
           </nav>
@@ -67,7 +67,7 @@ export default function ArticleDetailPage() {
           {/* Meta Row */}
           <div className="flex flex-wrap items-center gap-6 text-sm text-gray-500 mb-6">
             <div className="flex items-center gap-2">
-              <img src={article.authorAvatar} alt={article.author} className="w-8 h-8 rounded-full" />
+              <img src={article.authorAvatar} alt={article.author} className="w-8 h-8 rounded-full aspect-square" />
               <span className="font-medium text-gray-700">{article.author}</span>
             </div>
             <div className="flex items-center gap-1.5">
@@ -98,7 +98,7 @@ export default function ArticleDetailPage() {
             </ShareButton>
             <button
               onClick={handleCopyLink}
-              className="w-9 h-9 bg-gray-200 rounded-lg flex items-center justify-center hover:bg-indigo-600 hover:text-white transition-all text-gray-600"
+              className="w-9 h-9 bg-gray-200 rounded-lg flex items-center justify-center hover:bg-indigo-600 hover:text-white transition-all text-gray-600 focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
               aria-label="Copy link"
             >
               {copied ? <Check size={16} /> : <Link2 size={16} />}
@@ -118,7 +118,7 @@ export default function ArticleDetailPage() {
           <div className="grid grid-cols-1 lg:grid-cols-[65%_35%] gap-10">
             {/* Left Column */}
             <div>
-              <div className="prose prose-lg max-w-none">
+              <div className="prose prose-lg max-w-prose">
                 {paragraphs.map((para, i) => (
                   <p key={i} className="text-gray-600 leading-relaxed mb-6 text-lg">
                     {para}
@@ -132,11 +132,11 @@ export default function ArticleDetailPage() {
                   <ImageWithFallback
                     src={article.authorAvatar ?? ''}
                     alt={article.author}
-                    className="w-16 h-16 rounded-full object-cover flex-shrink-0"
+                    className="w-16 h-16 rounded-full object-cover flex-shrink-0 aspect-square"
                   />
                   <div>
                     <h3 className="text-lg font-semibold text-gray-900">{article.author}</h3>
-                    <p className="text-gray-500 text-sm mt-1">Penulis dan kontributor di CodeTrack</p>
+                    <p className="text-gray-500 text-sm mt-1 leading-relaxed">Penulis dan kontributor di CodeTrack</p>
                   </div>
                 </div>
               </div>
@@ -165,12 +165,12 @@ export default function ArticleDetailPage() {
                       <button
                         key={related.id}
                         onClick={() => navigate(`/articles/${related.slug}`)}
-                        className="flex gap-3 text-left group w-full"
+                        className="flex gap-3 text-left group w-full focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
                       >
                         <ImageWithFallback
                           src={related.thumbnail}
                           alt={related.title}
-                          className="w-20 h-16 rounded-lg object-cover flex-shrink-0"
+                          className="w-20 aspect-video rounded-lg object-cover flex-shrink-0"
                         />
                         <div className="flex-1 min-w-0">
                           <h4 className="text-sm font-medium text-gray-900 group-hover:text-indigo-600 transition-colors line-clamp-2">
@@ -196,7 +196,7 @@ export default function ArticleDetailPage() {
                     placeholder="Email kamu"
                     className="flex-1 px-3 py-2 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white/50"
                   />
-                  <button className="px-4 py-2 bg-white text-indigo-600 rounded-lg text-sm font-semibold hover:bg-indigo-50 transition-colors">
+                  <button className="px-4 py-2 bg-white text-indigo-600 rounded-lg text-sm font-semibold hover:bg-indigo-50 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none">
                     Subscribe
                   </button>
                 </div>
@@ -216,12 +216,12 @@ export default function ArticleDetailPage() {
                       window.scrollTo(0, 0)
                       navigate(`/articles/${related.slug}`)
                     }}
-                    className="bg-white rounded-xl border border-black/5 overflow-hidden text-left group"
+                    className="bg-white rounded-xl border border-black/5 overflow-hidden text-left group focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
                   >
                     <ImageWithFallback
                       src={related.thumbnail}
                       alt={related.title}
-                      className="w-full h-44 object-cover"
+                      className="w-full aspect-video object-cover"
                     />
                     <div className="p-5">
                       <span className={`inline-block px-2 py-0.5 text-white text-xs font-semibold rounded-full ${getCategoryColor(related.category)}`}>
@@ -230,7 +230,7 @@ export default function ArticleDetailPage() {
                       <h3 className="font-semibold text-gray-900 mt-2 group-hover:text-indigo-600 transition-colors line-clamp-2">
                         {related.title}
                       </h3>
-                      <p className="text-sm text-gray-500 mt-2 line-clamp-2">{related.excerpt}</p>
+                      <p className="text-sm text-gray-500 mt-2 line-clamp-2 leading-relaxed">{related.excerpt}</p>
                       <div className="flex items-center gap-3 mt-4 text-xs text-gray-400">
                         <span>{related.formattedDate}</span>
                         <span>·</span>
@@ -254,7 +254,7 @@ function ShareButton({ children, href }: { children: React.ReactNode; href: stri
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="w-9 h-9 bg-gray-200 rounded-lg flex items-center justify-center hover:bg-indigo-600 hover:text-white transition-all text-gray-600"
+      className="w-9 h-9 bg-gray-200 rounded-lg flex items-center justify-center hover:bg-indigo-600 hover:text-white transition-all text-gray-600 focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
     >
       {children}
     </a>

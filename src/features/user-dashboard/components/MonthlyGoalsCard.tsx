@@ -16,7 +16,7 @@ export default function MonthlyGoalsCard({ goals }: Props) {
           <Target size={20} />
           <h2 className="text-lg font-bold">Monthly Goals</h2>
         </div>
-        <button className="hover:bg-white/20 p-2 rounded-lg transition-colors">
+        <button className="hover:bg-white/20 p-2 rounded-lg transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none">
           <Settings size={18} />
         </button>
       </div>

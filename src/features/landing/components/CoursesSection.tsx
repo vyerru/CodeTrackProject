@@ -87,7 +87,7 @@ export default function CoursesSection() {
         <div className="text-center mt-10">
           <button
             onClick={() => navigate('/courses')}
-            className="border border-[#4f39f6] text-[#4f39f6] font-medium rounded-lg px-8 py-3 text-sm hover:bg-[#4f39f6]/5"
+            className="border border-[#4f39f6] text-[#4f39f6] font-medium rounded-lg px-8 py-3 text-sm hover:bg-[#4f39f6]/5 focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
           >
             Lihat Semua Course
           </button>

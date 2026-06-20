@@ -254,5 +254,27 @@
     "isFree": false,
     "isPublished": true,
     "createdAt": "2024-11-01"
+  },
+  {
+    "id": "999-chaos",
+    "slug": "chaos-testing-course-with-very-long-url-slug-that-might-break-layout-if-not-handled",
+    "title": "Ini Adalah Judul Kursus Yang Sangat Panjang Sekali Bahkan Melebihi Tiga Baris Teks Dan Seharusnya Dipotong Oleh Line Clamp Dua Atau Tiga Untuk Menghindari Kerusakan Layout Card",
+    "description": "Deskripsi ini sengaja dibuat sangat panjang untuk menguji apakah Anda menggunakan max-w-prose dan line-clamp yang benar atau Anda membiarkan teks ini tumpah ruah merusak hierarki visual dari halaman detail kursus Anda.",
+    "instructor": "Dr. Prof. Ir. Nama Instruktur Sangat Panjang Sekali M.Sc., Ph.D.",
+    "instructorAvatar": null,
+    "thumbnail": "https://url-gambar-rusak-atau-sangat-lambat-sekali.com/image.jpg",
+    "price": 12500000000000000000000000,
+    "originalPrice": 25000000000000000000000000,
+    "discount": 50,
+    "rating": 0,
+    "totalStudents": 0,
+    "duration": 999,
+    "level": "Beginner",
+    "category": "Web Development",
+    "tags": ["CHAOS", "TEST"],
+    "isBestseller": true,
+    "isFree": false,
+    "isPublished": true,
+    "createdAt": "2026-01-01"
   }
 ]
