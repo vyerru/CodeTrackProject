@@ -47,7 +47,7 @@ const featureOptions = [
   { value: 'forum', label: 'Forum Diskusi' },
 ]
 
-export default function CourseFilter({ filters, onChange, onReset }: Props) {
+function FilterForm({ filters, onChange, onReset }: Props) {
   const toggleLevel = (value: string) => {
     const next = filters.levels.includes(value)
       ? filters.levels.filter((v) => v !== value)
@@ -86,116 +86,128 @@ export default function CourseFilter({ filters, onChange, onReset }: Props) {
     ))
 
   return (
-    <aside className="w-64 flex-shrink-0">
+    <div>
+      <h3 className="font-semibold text-gray-900 mb-4">Filter</h3>
+
+      {/* Level */}
+      <div className="mb-6">
+        <h4 className="text-sm font-medium text-gray-700 mb-2">Level</h4>
+        <div className="space-y-2">
+          {levelOptions.map((opt) => (
+            <label key={opt.value} className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={filters.levels.includes(opt.value)}
+                onChange={() => toggleLevel(opt.value)}
+                className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+              />
+              <span>{opt.label}</span>
+              <span className="text-gray-400">({opt.count})</span>
+            </label>
+          ))}
+        </div>
+      </div>
+
+      {/* Harga */}
+      <div className="mb-6">
+        <h4 className="text-sm font-medium text-gray-700 mb-2">Harga</h4>
+        <div className="space-y-2">
+          {priceOptions.map((opt) => (
+            <label key={opt.value} className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
+              <input
+                type="radio"
+                name="price"
+                checked={filters.price === opt.value}
+                onChange={() => setPrice(opt.value)}
+                className="border-gray-300 text-indigo-600 focus:ring-indigo-500"
+              />
+              <span>{opt.label}</span>
+            </label>
+          ))}
+        </div>
+      </div>
+
+      {/* Durasi */}
+      <div className="mb-6">
+        <h4 className="text-sm font-medium text-gray-700 mb-2">Durasi</h4>
+        <div className="space-y-2">
+          {durationOptions.map((opt) => (
+            <label key={opt.value} className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={filters.durations.includes(opt.value)}
+                onChange={() => toggleDuration(opt.value)}
+                className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+              />
+              <span>{opt.label}</span>
+            </label>
+          ))}
+        </div>
+      </div>
+
+      {/* Rating */}
+      <div className="mb-6">
+        <h4 className="text-sm font-medium text-gray-700 mb-2">Rating</h4>
+        <div className="space-y-2">
+          {ratingOptions.map((opt) => (
+            <button
+              key={opt.value}
+              onClick={() => toggleRating(opt.value)}
+              className={`flex items-center gap-2 text-sm w-full text-left py-1 px-2 rounded transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none ${
+                filters.ratings.includes(opt.value) ? 'bg-indigo-50 text-indigo-700' : 'text-gray-600 hover:bg-gray-50'
+              }`}
+            >
+              <span className="flex items-center gap-0.5">{renderStars(opt.stars)}</span>
+              <span>{opt.label}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Fitur */}
+      <div className="mb-6">
+        <h4 className="text-sm font-medium text-gray-700 mb-2">Fitur</h4>
+        <div className="space-y-2">
+          {featureOptions.map((opt) => (
+            <label key={opt.value} className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={filters.features.includes(opt.value)}
+                onChange={() => toggleFeature(opt.value)}
+                className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+              />
+              <span>{opt.label}</span>
+            </label>
+          ))}
+        </div>
+      </div>
+
+      <button
+        onClick={() => onChange(filters)}
+        className="w-full bg-indigo-600 text-white rounded-lg py-2 text-sm font-medium hover:bg-indigo-700 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
+      >
+        Terapkan Filter
+      </button>
+      <button
+        onClick={onReset}
+        className="w-full text-gray-500 text-sm text-center mt-2 hover:text-gray-700 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
+      >
+        Reset Semua
+      </button>
+    </div>
+  )
+}
+
+// Desktop sidebar
+export default function CourseFilter(props: Props) {
+  return (
+    <aside className="hidden lg:block w-64 flex-shrink-0">
       <div className="sticky top-36">
-        <h3 className="font-semibold text-gray-900 mb-4">Filter</h3>
-
-        {/* Level */}
-        <div className="mb-6">
-          <h4 className="text-sm font-medium text-gray-700 mb-2">Level</h4>
-          <div className="space-y-2">
-            {levelOptions.map((opt) => (
-              <label key={opt.value} className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={filters.levels.includes(opt.value)}
-                  onChange={() => toggleLevel(opt.value)}
-                  className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                />
-                <span>{opt.label}</span>
-                <span className="text-gray-400">({opt.count})</span>
-              </label>
-            ))}
-          </div>
-        </div>
-
-        {/* Harga */}
-        <div className="mb-6">
-          <h4 className="text-sm font-medium text-gray-700 mb-2">Harga</h4>
-          <div className="space-y-2">
-            {priceOptions.map((opt) => (
-              <label key={opt.value} className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
-                <input
-                  type="radio"
-                  name="price"
-                  checked={filters.price === opt.value}
-                  onChange={() => setPrice(opt.value)}
-                  className="border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                />
-                <span>{opt.label}</span>
-              </label>
-            ))}
-          </div>
-        </div>
-
-        {/* Durasi */}
-        <div className="mb-6">
-          <h4 className="text-sm font-medium text-gray-700 mb-2">Durasi</h4>
-          <div className="space-y-2">
-            {durationOptions.map((opt) => (
-              <label key={opt.value} className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={filters.durations.includes(opt.value)}
-                  onChange={() => toggleDuration(opt.value)}
-                  className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                />
-                <span>{opt.label}</span>
-              </label>
-            ))}
-          </div>
-        </div>
-
-        {/* Rating */}
-        <div className="mb-6">
-          <h4 className="text-sm font-medium text-gray-700 mb-2">Rating</h4>
-          <div className="space-y-2">
-            {ratingOptions.map((opt) => (
-              <button
-                key={opt.value}
-                onClick={() => toggleRating(opt.value)}
-                className={`flex items-center gap-2 text-sm w-full text-left py-1 px-2 rounded transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none ${
-                  filters.ratings.includes(opt.value) ? 'bg-indigo-50 text-indigo-700' : 'text-gray-600 hover:bg-gray-50'
-                }`}
-              >
-                <span className="flex items-center gap-0.5">{renderStars(opt.stars)}</span>
-                <span>{opt.label}</span>
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Fitur */}
-        <div className="mb-6">
-          <h4 className="text-sm font-medium text-gray-700 mb-2">Fitur</h4>
-          <div className="space-y-2">
-            {featureOptions.map((opt) => (
-              <label key={opt.value} className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={filters.features.includes(opt.value)}
-                  onChange={() => toggleFeature(opt.value)}
-                  className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                />
-                <span>{opt.label}</span>
-              </label>
-            ))}
-          </div>
-        </div>
-
-        <button
-          onClick={() => onChange(filters)}
-          className="w-full bg-indigo-600 text-white rounded-lg py-2 text-sm font-medium hover:bg-indigo-700 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
-        >
-          Terapkan Filter
-        </button>
-        <button
-          onClick={onReset}
-          className="w-full text-gray-500 text-sm text-center mt-2 hover:text-gray-700 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
-        >
-          Reset Semua
-        </button>
+        <FilterForm {...props} />
       </div>
     </aside>
   )
 }
+
+// Mobile sheet content (reusable)
+export { FilterForm }

@@ -1,5 +1,6 @@
-import { LayoutGrid, List } from 'lucide-react'
+import { LayoutGrid, List, SlidersHorizontal } from 'lucide-react'
 import CourseCard from '@/shared/components/common/CourseCard'
+import EmptyState from '@/shared/components/common/EmptyState'
 import type { Course } from '@/shared/types'
 
 interface Props {
@@ -11,6 +12,8 @@ interface Props {
   onViewModeChange: (mode: 'grid' | 'list') => void
   onLoadMore: () => void
   hasMore: boolean
+  onFilterClick?: () => void
+  onResetFilters?: () => void
 }
 
 const sortOptions = [
@@ -29,15 +32,28 @@ export default function CourseGrid({
   onViewModeChange,
   onLoadMore,
   hasMore,
+  onFilterClick,
+  onResetFilters,
 }: Props) {
   return (
     <div className="flex-1">
       {/* Toolbar */}
       <div className="flex items-center justify-between mb-6">
         <span className="text-sm text-gray-500">
-          Menampilkan {courses.length} dari {totalCount} course
+          {totalCount > 0
+            ? `Menampilkan ${courses.length} dari ${totalCount} course`
+            : 'Tidak ada course yang cocok'}
         </span>
         <div className="flex items-center gap-3">
+          {onFilterClick && (
+            <button
+              onClick={onFilterClick}
+              className="lg:hidden p-1.5 rounded text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
+              aria-label="Buka filter"
+            >
+              <SlidersHorizontal size={18} />
+            </button>
+          )}
           <span className="text-sm text-gray-600">Urutkan:</span>
           <select
             value={sortBy}
@@ -50,7 +66,7 @@ export default function CourseGrid({
               </option>
             ))}
           </select>
-          <div className="flex gap-1">
+          <div className="hidden md:flex gap-1">
             <button
               onClick={() => onViewModeChange('grid')}
                 className={`p-1.5 rounded transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none ${
@@ -72,7 +88,13 @@ export default function CourseGrid({
       </div>
 
       {/* Course Cards */}
-      {viewMode === 'grid' ? (
+      {courses.length === 0 ? (
+        <EmptyState
+          title="Tidak ada course ditemukan"
+          description="Coba ubah filter atau kata kunci pencarian untuk mendapatkan hasil yang berbeda."
+          action={onResetFilters ? { label: 'Reset Filter', onClick: onResetFilters } : undefined}
+        />
+      ) : viewMode === 'grid' ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {courses.map((course) => (
             <CourseCard key={course.id} course={course} variant="grid" />

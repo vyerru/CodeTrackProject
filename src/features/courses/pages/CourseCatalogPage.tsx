@@ -4,10 +4,16 @@ import { useAsync } from '@/shared/hooks/useAsync'
 import { repos } from '@/core/domain/di'
 import type { Course } from '@/shared/types'
 import CourseCategoryTabs from '../components/CourseCategoryTabs'
-import CourseFilter from '../components/CourseFilter'
+import CourseFilter, { FilterForm } from '../components/CourseFilter'
 import CourseGrid from '../components/CourseGrid'
 import ErrorState from '@/shared/components/common/ErrorState'
 import LoadingSpinner from '@/shared/components/common/LoadingSpinner'
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+} from '@/shared/components/ui/sheet'
 
 const defaultFilters = {
   levels: [] as string[],
@@ -29,6 +35,7 @@ export default function CourseCatalogPage() {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
   const [filters, setFilters] = useState(defaultFilters)
   const [visibleCount, setVisibleCount] = useState(6)
+  const [filterOpen, setFilterOpen] = useState(false)
 
   const filtered = useMemo(() => {
     if (!allCourses) return []
@@ -96,13 +103,13 @@ export default function CourseCatalogPage() {
     <div className="min-h-screen bg-gray-50">
       {/* Banner Promo */}
       {bannerVisible && (
-        <div className="bg-indigo-600 text-white py-3 px-6">
-          <div className="flex items-center justify-between max-w-7xl mx-auto">
-            <span className="text-sm font-medium">
+        <div className="bg-indigo-600 text-white py-3 px-4 sm:px-6">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-2 max-w-7xl mx-auto">
+            <span className="text-xs sm:text-sm font-medium text-center sm:text-left">
               🎉 Free Trial 7 Hari untuk Course Premium
             </span>
-            <div className="flex items-center gap-3">
-              <button className="bg-white text-indigo-600 rounded-lg px-4 py-1.5 text-sm font-medium hover:bg-gray-100 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none">
+            <div className="flex items-center gap-3 flex-shrink-0">
+              <button className="bg-white text-indigo-600 rounded-lg px-3 sm:px-4 py-1.5 text-xs sm:text-sm font-medium hover:bg-gray-100 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none">
                 Mulai Sekarang
               </button>
               <button
@@ -117,10 +124,10 @@ export default function CourseCatalogPage() {
       )}
 
       {/* Page Header */}
-      <div className="bg-white py-12 border-b border-black/10">
+      <div className="bg-white py-8 md:py-12 border-b border-black/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl font-bold text-gray-900">Katalog Course</h1>
-          <p className="text-gray-500 mt-2">
+          <h1 className="text-2xl md:text-4xl font-bold text-gray-900">Katalog Course</h1>
+          <p className="text-sm md:text-base text-gray-500 mt-2">
             Pilih course yang sesuai dengan tujuan karir dan level skill kamu
           </p>
 
@@ -136,12 +143,12 @@ export default function CourseCatalogPage() {
           </div>
 
           {/* Stats */}
-          <div className="mt-6 flex justify-center gap-8 text-sm text-gray-500">
-            <span>150+ Courses Available</span>
-            <span>·</span>
-            <span>10,000+ Students Enrolled</span>
-            <span>·</span>
-            <span>95% Completion Rate</span>
+          <div className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-1 text-xs sm:text-sm text-gray-500">
+            <span>150+ Courses</span>
+            <span className="text-gray-300 hidden sm:inline">·</span>
+            <span>10,000+ Students</span>
+            <span className="text-gray-300 hidden sm:inline">·</span>
+            <span>95% Completion</span>
           </div>
         </div>
       </div>
@@ -149,9 +156,19 @@ export default function CourseCatalogPage() {
       {/* Category Tabs */}
       <CourseCategoryTabs active={activeCategory} onChange={setActiveCategory} />
 
+      {/* Mobile Filter Sheet */}
+      <Sheet open={filterOpen} onOpenChange={setFilterOpen}>
+        <SheetContent side="left" className="overflow-y-auto w-[85vw] max-w-sm">
+          <SheetHeader className="mb-4">
+            <SheetTitle>Filter</SheetTitle>
+          </SheetHeader>
+          <FilterForm filters={filters} onChange={setFilters} onReset={resetFilters} />
+        </SheetContent>
+      </Sheet>
+
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex gap-8">
+        <div className="flex flex-col lg:flex-row lg:gap-8">
           <CourseFilter filters={filters} onChange={setFilters} onReset={resetFilters} />
           <CourseGrid
             courses={visibleCourses}
@@ -162,6 +179,8 @@ export default function CourseCatalogPage() {
             onViewModeChange={setViewMode}
             onLoadMore={handleLoadMore}
             hasMore={hasMore}
+            onFilterClick={() => setFilterOpen(true)}
+            onResetFilters={resetFilters}
           />
         </div>
       </div>
