@@ -52,11 +52,16 @@ export default function AdminSidebar() {
   }
 
   return (
-    <aside className="w-[18%] fixed left-0 top-0 h-screen bg-white border-r border-black/10 z-30 pt-6">
-      <div className="px-4 space-y-6 overflow-y-auto h-full pb-6">
+    <aside className="w-full h-full bg-white border-r border-border flex flex-col pt-6">
+      <div className="px-4 space-y-6 overflow-y-auto flex-1 pb-6">
+        {/* Logo */}
+        <div className="px-3 mb-6">
+          <h2 className="text-lg font-bold text-foreground">CodeTrack</h2>
+        </div>
+
         {menuSections.map((section) => (
           <div key={section.label}>
-            <div className="text-xs font-semibold text-gray-400 uppercase tracking-wider px-3 mb-2">
+            <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wider px-3 mb-2">
               {section.label}
             </div>
             <div className="space-y-1">
@@ -66,10 +71,10 @@ export default function AdminSidebar() {
                   <button
                     key={item.label}
                     onClick={() => item.path !== '#' && navigate(item.path)}
-                    className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none ${
+                    className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all focus-visible:ring-2 focus-visible:ring-ring outline-none ${
                       active
-                        ? 'bg-indigo-600 text-white'
-                        : 'text-gray-700 hover:bg-indigo-50'
+                        ? 'bg-primary text-primary-foreground'
+                        : 'text-muted-foreground hover:bg-muted hover:text-foreground'
                     }`}
                   >
                     <item.icon className="w-4 h-4 flex-shrink-0" />

@@ -31,8 +31,8 @@ export default function UserDashboardPage() {
     <div className="min-h-screen bg-gray-50">
       <WelcomeHeader completionPercent={data.stats.overallCompletion} streak={data.stats.currentStreak} />
       <StatCards stats={data.stats} />
-      <div className="max-w-7xl mx-auto px-6 pb-12">
-        <div className="grid grid-cols-[65%_35%] gap-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+        <div className="grid grid-cols-1 lg:grid-cols-[65%_35%] gap-6 lg:gap-8">
           <div className="space-y-6">
             <ContinueLearningSection
               currentCourse={data.currentCourse}

@@ -1,304 +1,415 @@
-# Design Tokens — CodeTrack
+# Design System — CodeTrack
 
-Semua nilai berikut diekstrak langsung dari kode Figma Make (Register, AdminDashboard, UserDashboard).
+> Design tokens and component patterns extracted from Figma Make (Register, AdminDashboard, UserDashboard).
+> Last updated: 2026-06-21
 
 ---
 
-## Colors
+## Table of Contents
 
-### Primary
-| Tailwind Class | Value | Penggunaan |
-|---|---|---|
-| `bg-indigo-600` / `text-indigo-600` | `#4f39f6` | Button primary, link, active state, icon |
-| `bg-indigo-700` / `text-indigo-700` | `#4338ca` | Hover state button primary |
-| `bg-indigo-900` / `text-indigo-900` | `#312E81` | Admin topbar background |
+1. [Brand Palette](#1-brand-palette)
+2. [Semantic Color Roles](#2-semantic-color-roles)
+3. [Typography](#3-typography)
+4. [Spacing & Layout](#4-spacing--layout)
+5. [Border Radius](#5-border-radius)
+6. [Shadows](#6-shadows)
+7. [Gradients](#7-gradients)
+8. [Chart Colors](#8-chart-colors)
+9. [Badges & Status Colors](#9-badges--status-colors)
+10. [Component Pattern Library](#10-component-pattern-library)
+11. [Interaction States](#11-interaction-states)
+12. [Icon Usage](#12-icon-usage)
 
-### Semantic
-| Tailwind Class | Value | Penggunaan |
-|---|---|---|
-| `bg-green-500` / `text-green-600` | `#10B981` | Badge success, revenue chart line, trend up |
-| `bg-amber-500` / `text-amber-500` | `#F59E0B` | Badge pending, warning alert border |
-| `bg-red-500` / `text-red-600` | `#EF4444` | Badge failed, notif dot, urgent badge |
-| `bg-blue-500` / `text-blue-600` | `#3B82F6` | Badge info, referral chart, forecast text |
+---
 
-### Backgrounds
-| Tailwind Class | Value | Penggunaan |
-|---|---|---|
-| `bg-gray-50` | `#F9FAFB` | Semua halaman |
-| `bg-white` | `#FFFFFF` | Card, navbar, sidebar |
-| `bg-[#f3f3f5]` | `#f3f3f5` | Input field background |
+## 1. Brand Palette
 
-### Text
-| Tailwind Class | Value | Penggunaan |
+These are the **primitive** colour values. Always reference them through their semantic role (Section 2), not by hex value directly, unless you are defining a token in `index.css`.
+
+| Token | Hex | Tailwind Equivalent | Usage |
+|---|---|---|---|
+| `--color-brand-600` | `#4f39f6` | `indigo-600` | Primary actions, active states, links |
+| `--color-brand-700` | `#4338ca` | `indigo-700` | Hover state for primary buttons |
+| `--color-brand-900` | `#312E81` | `indigo-900` | Admin topbar background |
+| `--color-base-white` | `#FFFFFF` | `white` | Cards, navbars, sidebars |
+| `--color-base-bg` | `#F9FAFB` | `gray-50` | Page backgrounds |
+| `--color-input-bg` | `#f3f3f5` | — | Input field background |
+| `--color-border-lt` | `rgba(0,0,0,0.1)` | `border-black/10` | Subtle borders |
+
+---
+
+## 2. Semantic Color Roles
+
+These tokens map primitive colours to functional roles. Use these classes directly in components — never hardcode hex values.
+
+### Foreground (Text)
+
+| Role | Class | Value | Used For |
+|---|---|---|---|
+| Primary | `text-foreground` | `#111827` / `gray-900` | Headings, primary content |
+| Secondary | `text-muted-foreground` | `#697282` / `gray-500` | Hints, captions, secondary info |
+| On Primary | `text-primary-foreground` | `white` | Text on `bg-primary` backgrounds |
+| Body | `text-gray-700` | `#354152` | Form labels, body paragraphs |
+| Placeholder | `text-gray-400` | `#717182` / `gray-400` | Input placeholders |
+
+### Background
+
+| Role | Class | Used For |
 |---|---|---|
-| `text-gray-900` | `#111827` | Heading, konten utama |
-| `text-gray-700` | `#354152` | Form label |
-| `text-gray-600` | `#495565` | Body paragraph |
-| `text-gray-500` | `#697282` | Hint, caption, secondary info |
-| `text-gray-400` | `#717182` | Input placeholder |
+| Page | `bg-muted` / `bg-gray-50` | All pages |
+| Card | `bg-card` / `bg-white` | Cards, Navbar, Sidebar |
+| Primary | `bg-primary` / `bg-indigo-600` | CTAs, active states |
+| Input | `bg-muted` / `bg-[#f3f3f5]` | Input fields |
+| Brand Hover | `hover:bg-primary/95` or `hover:bg-indigo-700` | Button hover |
 
 ### Border
-| Tailwind Class | Value |
-|---|---|
-| `border-black/10` | `rgba(0,0,0,0.1)` |
+
+| Role | Class | Value |
+|---|---|---|
+| Subtle | `border-border` / `border-black/10` | `rgba(0,0,0,0.1)` |
+| Strong | `border-gray-200` | `#E5E7EB` |
+
+### Semantic Feedback Colors
+
+| Status | Role | Badge Class | Background Class | Text Class |
+|---|---|---|---|---|
+| Success | Positive | `bg-green-500 text-white` | `bg-green-50` | `text-green-600` / `text-green-900` |
+| Warning | Pending | `bg-amber-500 text-white` | `bg-amber-50` | `text-amber-500` / `text-amber-900` |
+| Error | Critical | `bg-red-500 text-white` | `bg-red-50` | `text-red-600` / `text-red-500` |
+| Info | Informational | `bg-blue-500 text-white` | `bg-blue-50` | `text-blue-600` / `text-blue-900` |
+
+> **⚠️ Usage constraint:** Green, amber, red, and blue backgrounds should serve **semantic purposes only** — status badges, validation, alerts, and data deletion. Avoid using them for decorative/stylistic purposes.
 
 ---
 
-## Gradients
+## 3. Typography
+
+### Typeface
 
 ```css
-/* Register page background */
-background: linear-gradient(117deg, #eef2ff 0%, #ffffff 50%, #faf5ff 100%);
-
-/* User dashboard welcome header */
-background: linear-gradient(to right, #4f46e5, #7c3aed);
-
-/* User dashboard monthly goals card */
-background: linear-gradient(to bottom right, #4f46e5, #7c3aed);
-
-/* Admin dashboard header */
-background: linear-gradient(to right, #ffffff, #eef2ff);
-
-/* Admin KPI cards */
-Revenue card:  from-white to-green-50   | icon: bg-green-100  text-green-600
-Users card:    from-white to-blue-50    | icon: bg-blue-100   text-blue-600
-Courses card:  from-white to-indigo-50  | icon: bg-indigo-100 text-indigo-600
-Students card: from-white to-purple-50  | icon: bg-purple-100 text-purple-600
-Health card:   from-white to-amber-50   | icon: bg-amber-100  text-amber-600
+font-family: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
 ```
 
----
+Imported via `@fontsource-variable/geist`.
 
-## Chart Colors
+### Type Scale
 
-| Nama | Value | Tailwind | Penggunaan |
+| Name | Size | Class | Usage |
 |---|---|---|---|
-| Chart 1 | `#6366F1` | `text-indigo-500` | Direct traffic, primary chart |
-| Chart 2 | `#10B981` | `text-green-500` | Google/revenue line & area |
-| Chart 3 | `#F59E0B` | `text-amber-500` | Social media |
-| Chart 4 | `#3B82F6` | `text-blue-500` | Referral |
-| Chart 5 | `#8B5CF6` | `text-purple-500` | Email |
-
----
-
-## Badge Colors
-
-### Course Level
-```
-Beginner:     bg-green-100 text-green-700
-Intermediate: bg-blue-100  text-blue-700
-Advanced:     bg-purple-100 text-purple-700
-```
-
-### Transaction Status
-```
-success: bg-green-500 text-white
-pending: bg-amber-500 text-white
-failed:  bg-red-500   text-white
-```
-
-### Deadline Urgency
-```
-high:   bg-red-500   text-white
-medium: bg-amber-500 text-white
-low:    bg-gray-400  text-white
-```
-
-### User Role
-```
-student:    Badge variant="outline"
-instructor: Badge variant="outline"
-admin:      bg-indigo-500 text-white
-```
-
-### Course Status
-```
-Published: bg-green-500 text-white
-Draft:     bg-gray-400  text-white
-```
-
----
-
-## Typography
-
-Font: `'Geist Variable'` — import via `@fontsource-variable/geist`
-
-### Font Sizes
-```
-text-xs:   0.75rem  — badge, timestamp, hint, caption
-text-sm:   0.875rem — body text, label, table content
-text-base: 1rem     — paragraph
-text-lg:   1.125rem — card title, section subtitle
-text-xl:   1.25rem  — section heading
-text-2xl:  1.5rem   — page section heading
-text-3xl:  1.875rem — stat number (user), page heading
-text-4xl:  2.25rem  — welcome heading (user dashboard)
-text-5xl:  3rem     — KPI number (admin dashboard)
-```
+| Caption | 0.75rem (12px) | `text-xs` | Badges, timestamps, hints, metadata |
+| Body Small | 0.875rem (14px) | `text-sm` | Body text, labels, table content |
+| Body | 1rem (16px) | `text-base` | Paragraphs |
+| Card Title | 1.125rem (18px) | `text-lg` | Card titles, section subtitles |
+| Section Heading | 1.25rem (20px) | `text-xl` | Section headings |
+| Page Heading | 1.5rem (24px) | `text-2xl` | Page section headings |
+| Stat Number | 1.875rem (30px) | `text-3xl` | Dashboard stats, page headings |
+| Welcome Heading | 2.25rem (36px) | `text-4xl` | User dashboard welcome |
+| KPI Number | 3rem (48px) | `text-5xl` | Admin dashboard KPI numbers |
 
 ### Font Weights
-```
-font-normal:   form label, body text
-font-medium:   button, nav link, card title
-font-semibold: stat value, price, badge text
-font-bold:     heading utama
-```
+
+| Weight | Class | Usage |
+|---|---|---|
+| 400 (Normal) | `font-normal` | Form labels, body text |
+| 500 (Medium) | `font-medium` | Buttons, nav links, card titles |
+| 600 (Semibold) | `font-semibold` | Stat values, prices, badge text |
+| 700 (Bold) | `font-bold` | Main headings |
+
+### Line Heights
+
+| Context | Class | Rule |
+|---|---|---|
+| Headings (H1/H2) | `leading-tight` | Tight tracking for large type |
+| Body paragraphs | `leading-relaxed` | Comfortable reading rhythm |
+| Prose max-width | `max-w-prose` (~65ch) | Articles, course descriptions |
+
+### Constraints
+
+| Rule | Standard |
+|---|---|
+| Minimum readable size | `text-sm` (14px). `text-xs` only for badges, labels, metadata. |
+| Paragraph line length | Must not exceed ~75 characters. Use `max-w-prose`. |
+| Dynamic text protection | Always use `truncate` or `line-clamp-{N}` for dynamic data (titles, names). |
 
 ---
 
-## Border Radius
+## 4. Spacing & Layout
+
+### Page Container
+
+| Context | Class |
+|---|---|
+| Public & User pages | `max-w-7xl mx-auto px-4 sm:px-6 lg:px-8` |
+| Auth pages | Full-page centred (`max-w-md` card) |
+| Admin content | `p-6` (no max-width — fills available space) |
+
+### Section Spacing
+
+| Relationship | Standard |
+|---|---|
+| Between vertical sections | `gap-y-8` or `gap-y-12` on the wrapper |
+| Between sibling elements | `gap-{size}` via Flex/Grid — never manual margins |
+| Card padding | `p-5` or `p-7` |
+
+### Admin Panel Layout
 
 ```
-rounded-lg:   button, input, sidebar item, alert
-rounded-xl:   card umum, icon box, KPI inner
-rounded-2xl:  KPI card admin (p-7)
-rounded-full: badge, avatar, pill, notif dot
-rounded-[14px]: auth card (Register, Login)
+Topbar:         h-16
+Sidebar:        w-[18%], fixed, border-right
+Content area:   ml-[18%] (desktop)
+Content pad:    p-6
 ```
+
+### Grid Templates
+
+| Context | Grid |
+|---|---|
+| Admin KPI cards | `grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5` |
+| Admin main | `grid-cols-1 lg:grid-cols-[65%_35%]` |
+| Admin secondary | `grid-cols-1 md:grid-cols-3` |
+| User stats | `grid-cols-1 sm:grid-cols-2 lg:grid-cols-4` |
+| User main | `grid-cols-1 lg:grid-cols-[65%_35%]` |
+| Course catalog | `grid-cols-1 md:grid-cols-2 lg:grid-cols-3` (with sidebar filter) |
+| Admin data tables | `grid-cols-1 lg:grid-cols-2` |
+
+### Layout Prohibitions
+
+- ❌ **Absolute positioning** for structural elements — reserved for overlays, modals, and decorative badges only.
+- ❌ **Fixed pixel dimensions** on main containers (`w-[300px]`, `h-[500px]`) — use relative units + `max-w-*` constraints.
+- ❌ **Manual margins** (`ml-4`, `mt-2`, `mr-4`) for aligning sibling elements — use Flex/Grid `gap-*`.
 
 ---
 
-## Shadows
+## 5. Border Radius
 
-```
-shadow-sm:   card default
-shadow-md:   KPI card admin
-shadow-lg:   card hover state
-shadow-[0px_8px_10px_-6px_#0000001a,0px_20px_25px_-5px_#0000001a]: auth card
---shadow-primary: 0px 10px 20px -10px rgba(79,57,246,0.7)  — icon box primary
-```
-
----
-
-## Layout
-
-### Admin Panel
-```
-Topbar height:    h-16
-Topbar bg:        #312E81
-Sidebar width:    w-[18%]  fixed, top-16
-Content width:    ml-[18%] w-[82%]
-Content padding:  p-6
-```
-
-### Public & User Pages
-```
-Max width:     max-w-7xl mx-auto
-Padding x:     px-6
-```
-
-### Grid Layouts
-```
-Admin KPI cards:        grid-cols-5
-Admin main content:     grid-cols-[65%_35%]
-Admin secondary:        grid-cols-3
-Admin data tables:      grid-cols-2
-Admin analytics:        grid-cols-3
-
-User stats:             grid-cols-4
-User main content:      grid-cols-[65%_35%]
-User recommended:       grid-cols-2
-
-Course catalog:         grid-cols-3 (dengan sidebar filter)
-Quick actions (admin):  grid-cols-2
-```
+| Name | Class | Value | Usage |
+|---|---|---|---|
+| Default | `rounded-lg` | 8px | Buttons, inputs, sidebar items, alerts |
+| Card | `rounded-xl` | 12px | Cards, icon boxes, KPI inner |
+| Large Card | `rounded-2xl` | 16px | KPI cards (admin, p-7) |
+| Full | `rounded-full` | 9999px | Badges, avatars, pills, notification dots |
+| Auth Card | `rounded-[14px]` | 14px | Login/Register card container |
 
 ---
 
-## Component Patterns
+## 6. Shadows
 
-### Sidebar Item (Admin)
+| Name | Value | Usage |
+|---|---|---|
+| `shadow-sm` | Default Tailwind | Card default |
+| `shadow-md` | Default Tailwind | KPI cards (admin) |
+| `shadow-lg` | Default Tailwind | Card hover, dropdowns |
+| Auth card shadow | `0px 8px 10px -6px #0000001a, 0px 20px 25px -5px #0000001a` | Login/Register card |
+| Primary glow | `0px 10px 20px -10px rgba(79,57,246,0.7)` | Primary icon box |
+
+---
+
+## 7. Gradients
+
+| Context | Gradient |
+|---|---|
+| Auth page background | `linear-gradient(117deg, #eef2ff 0%, #ffffff 50%, #faf5ff 100%)` |
+| User welcome header | `linear-gradient(to right, #4f46e5, #7c3aed)` |
+| User monthly goals card | `linear-gradient(to bottom right, #4f46e5, #7c3aed)` |
+| Admin dashboard header | `linear-gradient(to right, #ffffff, #eef2ff)` |
+| KPI — Revenue | `from-white to-green-50` |
+| KPI — Users | `from-white to-blue-50` |
+| KPI — Courses | `from-white to-indigo-50` |
+| KPI — Students | `from-white to-purple-50` |
+| KPI — Health | `from-white to-amber-50` |
+
+---
+
+## 8. Chart Colors
+
+| Name | Hex | Tailwind | Data Series |
+|---|---|---|---|
+| Chart 1 | `#6366F1` | `indigo-500` | Direct traffic, primary series |
+| Chart 2 | `#10B981` | `green-500` | Google / revenue line & area |
+| Chart 3 | `#F59E0B` | `amber-500` | Social media |
+| Chart 4 | `#3B82F6` | `blue-500` | Referral |
+| Chart 5 | `#8B5CF6` | `purple-500` | Email |
+
+---
+
+## 9. Badges & Status Colors
+
+### Course Level
+
+| Level | Tailwind Classes |
+|---|---|
+| Beginner | `bg-green-100 text-green-700` |
+| Intermediate | `bg-blue-100 text-blue-700` |
+| Advanced | `bg-purple-100 text-purple-700` |
+
+### Transaction Status
+
+| Status | Tailwind Classes |
+|---|---|
+| Success | `bg-green-500 text-white` |
+| Pending | `bg-amber-500 text-white` |
+| Failed | `bg-red-500 text-white` |
+
+### Deadline Urgency
+
+| Urgency | Tailwind Classes |
+|---|---|
+| High | `bg-red-500 text-white` |
+| Medium | `bg-amber-500 text-white` |
+| Low | `bg-gray-400 text-white` |
+
+### Course Status
+
+| Status | Tailwind Classes |
+|---|---|
+| Published | `bg-green-500 text-white` |
+| Draft | `bg-gray-400 text-white` |
+
+### User Role
+
+| Role | Tailwind Classes |
+|---|---|
+| Student | `Badge variant="outline"` |
+| Instructor | `Badge variant="outline"` |
+| Admin | `bg-indigo-500 text-white` |
+
+---
+
+## 10. Component Pattern Library
+
+### Button — Primary
+
 ```tsx
-// Active state
-bg-indigo-600 text-white border-l-4 border-indigo-800
+<button className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg
+                   text-sm font-medium shadow-sm
+                   disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none
+                   focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none
+                   transition-colors">
+  Label
+</button>
+```
 
-// Inactive state
-text-gray-700 hover:bg-indigo-50
+### Button — Outline (Indigo)
+
+```tsx
+<button className="border border-indigo-600 text-indigo-600 hover:bg-indigo-50
+                   rounded-lg text-sm font-medium
+                   focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none
+                   transition-colors">
+  Label
+</button>
+```
+
+### Button — Social (Navbar)
+
+```tsx
+<button className="px-6 py-2 border-2 border-gray-300 text-gray-700 rounded-lg
+                   text-sm font-medium hover:border-gray-400 hover:bg-gray-50
+                   focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none
+                   transition-all">
+  Login
+</button>
+
+<button className="px-6 py-2 bg-indigo-600 text-white rounded-lg
+                   text-sm font-medium hover:bg-indigo-700 shadow-sm
+                   focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none
+                   transition-all">
+  Start Free Trial
+</button>
 ```
 
 ### Input Field
+
 ```tsx
-h-9 rounded-lg border border-transparent
-bg-[#f3f3f5] pl-10 pr-3 text-sm
-text-[#717182] placeholder:text-[#717182]
-focus-visible:ring-0 focus-visible:ring-offset-0
+<div className="relative">
+  <Icon className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={16} />
+  <input className="w-full h-9 pl-10 pr-3 text-sm
+                    bg-muted rounded-lg border border-transparent
+                    text-foreground placeholder:text-muted-foreground
+                    focus-visible:ring-0 focus-visible:ring-offset-0 focus:outline-none" />
+</div>
 ```
 
-### Button Primary
+### Sidebar Item (Admin)
+
 ```tsx
-bg-indigo-600 hover:bg-indigo-700
-text-white rounded-lg
-shadow-[0px_10px_20px_-10px_rgba(79,57,246,0.7)]
+// Active
+<button className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg
+                   text-sm font-medium
+                   bg-primary text-primary-foreground
+                   focus-visible:ring-2 focus-visible:ring-ring outline-none
+                   transition-all">
+  <Icon className="w-4 h-4" />
+  <span>Label</span>
+</button>
+
+// Inactive
+<button className="... text-muted-foreground hover:bg-muted hover:text-foreground
+                   focus-visible:ring-2 focus-visible:ring-ring outline-none
+                   transition-all">
+  <Icon className="w-4 h-4" />
+  <span>Label</span>
+</button>
 ```
 
-### Button Outline (indigo)
-```tsx
-border-indigo-600 text-indigo-600
-hover:bg-indigo-50
+### Navbar
+
+```
+Height:       h-[72px]
+Background:   bg-white shadow-sm
+Text base:    text-gray-600
+Text hover:   text-gray-900
+Text active:  text-indigo-600
+Logo:         Code2 w-8 h-8 text-indigo-600
+Avatar:       w-9 h-9 rounded-full bg-indigo-600 text-white
+Cart badge:   w-5 h-5 bg-indigo-600 text-white rounded-full text-xs
+Notif dot:    w-2 h-2 bg-red-500 rounded-full
+Dropdown:     bg-white border border-gray-200 rounded-lg shadow-lg w-56
 ```
 
 ### Alert / Notification Bar
-```tsx
-success: bg-green-50  border-l-4 border-green-500  text-green-900
-warning: bg-amber-50  border-l-4 border-amber-500  text-amber-900
-info:    bg-blue-50   border-l-4 border-blue-500   text-blue-900
-```
 
-### Quick Action Button (hover effect)
 ```tsx
-// Default
-border border-gray-200 rounded-lg
+// Success
+<div className="bg-green-50 border-l-4 border-green-500 text-green-900 p-4 rounded-lg">
+  ...
+</div>
 
-// Hover
-hover:bg-indigo-600 hover:text-white hover:border-indigo-600
+// Warning
+<div className="bg-amber-50 border-l-4 border-amber-500 text-amber-900 p-4 rounded-lg">
+  ...
+</div>
+
+// Info
+<div className="bg-blue-50 border-l-4 border-blue-500 text-blue-900 p-4 rounded-lg">
+  ...
+</div>
 ```
 
 ---
 
-## Navbar
+## 11. Interaction States
 
-```
-Height:         h-[72px]
-Background:     bg-white shadow-sm
-Text default:   text-gray-600
-Text hover:     text-gray-900
-Text active:    text-indigo-600
-Logo:           Code2 w-8 h-8 text-indigo-600
-Button Login:   px-6 py-2 border-2 border-gray-300 text-gray-700 rounded-lg
-                hover:border-gray-400 hover:bg-gray-50
-Button Trial:   px-6 py-2 bg-indigo-600 text-white rounded-lg shadow-sm
-                hover:bg-indigo-700
-Avatar:         w-9 h-9 rounded-full bg-indigo-600 text-white
-Cart badge:     w-5 h-5 bg-indigo-600 text-white rounded-full text-xs
-Notif dot:      w-2 h-2 bg-red-500 rounded-full
-Dropdown:       bg-white border border-gray-200 rounded-lg shadow-lg w-56
-```
+All interactive elements **must** implement these states:
+
+| State | Implementation |
+|---|---|
+| **Default** | Base styling per component pattern |
+| **Hover** | `hover:` variant — colour shift, background change |
+| **Focus** | `focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none` — keyboard navigation ring |
+| **Active/Pressed** | `active:` variant — darker shade or scale |
+| **Disabled** | `disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none` |
+| **Loading** | Show spinner (`Loader2` icon with `animate-spin`) + `disabled:opacity-60` |
 
 ---
 
-## Icons
+## 12. Icon Usage
 
-- Library: `lucide-react` — semua icon PascalCase (e.g. `User`, `Mail`, `Star`)
-- **Social brand icons** (Twitter, GitHub, LinkedIn, Instagram): tidak tersedia di lucide-react versi ini — gunakan inline SVG (lihat `Footer.tsx`)
-- **GitHub icon** (non-social): gunakan inline SVG (lihat `RegisterPage.tsx` atau `FeaturesSection.tsx`)
-- Google logo: inline SVG (lihat `RegisterPage.tsx`)
-- Icon colors: default `text-gray-400` untuk input icons, `text-indigo-600` untuk feature boxes
-
-## 1. Page Layout Structure (Layout & Struktur Laman)
-- **Container Utama:** Semua halaman utama WAJIB dibungkus dengan `<main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">`. Dilarang menempelkan konten mentah ke tepi layar.
-- **Section Spacing:** Jarak antar *section* vertikal WAJIB menggunakan `gap-y-8` atau `gap-y-12` dari level halaman/pembungkus luar. Dilarang menggunakan margin-top/bottom tebakan.
-- **Absolute Positioning Ban:** Dilarang keras menggunakan `absolute` untuk mengatur elemen struktural. `absolute` hanya untuk dekorasi kecil, *badge*, atau modal.
-
-## 2. Color Hierarchy & Semantic Strictness (Color)
-- **Warna Aksi Khusus:** Sukses (`bg-green-*`/`text-green-*`), Peringatan (`bg-amber-*`/`text-amber-*`), dan Bahaya (`bg-red-*`/`text-red-*`) HANYA BOLEH untuk status transaksi, validasi, atau penghapusan data. Dilarang untuk dekorasi.
-- **Contrast & Legibility:** Teks di atas warna utama (`bg-indigo-600`) wajib `text-white`.
-- **Muted Elements:** Teks sekunder (tanggal, deskripsi mikro) WAJIB menggunakan `text-gray-500` untuk membedakannya dari data utama (judul, harga `text-gray-900`).
-
-## 3. Typography Constraints (Tipografi)
-- **Minimum Size Limit:** Ukuran dasar keterbacaan adalah `text-sm`. Jangan gunakan `text-xs` untuk teks yang harus dibaca panjang, HANYA gunakan `text-xs` untuk *badge*, label *input*, atau metadata kecil.
-- **Line Length:** Lebar paragraf (terutama di fitur Artikel/Deskripsi Kursus) TIDAK BOLEH melebihi 75 karakter. WAJIB dibatasi dengan utilitas `max-w-prose`.
-- **Leading (Line Height):** Teks paragraf dinamis wajib `leading-relaxed`. Judul (H1/H2) wajib `leading-tight`.
-
-## 4. Interaction States (Wajib)
-- **Focus Visible:** Elemen interaktif harus memiliki `focus-visible:ring-2` untuk navigasi *keyboard*.
-- **Disabled State:** Harus memiliki `opacity-50 cursor-not-allowed pointer-events-none`.
+| Concern | Standard |
+|---|---|
+| Library | `lucide-react` — all PascalCase (`User`, `Mail`, `Star`) |
+| Input icon color | `text-muted-foreground` |
+| Feature box icon color | `text-indigo-600` |
+| Social brand icons | Inline SVG (Twitter/X, GitHub, LinkedIn, Instagram — not available in lucide-react) |
+| Google logo | Inline SVG (see `LoginPage.tsx` or `RegisterPage.tsx`) |
+| GitHub icon | Inline SVG (see `RegisterPage.tsx` or `FeaturesSection.tsx`) |

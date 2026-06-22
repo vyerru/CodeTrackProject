@@ -27,17 +27,17 @@ export default function WelcomeHeader({ completionPercent, streak }: Props) {
               <span className="text-sm font-medium">{streak} Day Streak!</span>
             </div>
           </div>
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
             <button
               onClick={() => navigate('/courses')}
-              className="flex items-center gap-2 bg-white text-indigo-600 font-medium h-12 px-6 rounded-lg hover:bg-gray-100 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
+              className="flex items-center justify-center gap-2 bg-white text-indigo-600 font-medium h-12 px-6 rounded-lg hover:bg-gray-100 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none w-full sm:w-auto"
             >
               <PlayCircle size={20} />
               Continue Learning
             </button>
             <button
               onClick={() => navigate('/courses')}
-              className="flex items-center gap-2 border-2 border-white text-white font-medium h-12 px-6 rounded-lg hover:bg-white hover:text-indigo-600 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
+              className="flex items-center justify-center gap-2 border-2 border-white text-white font-medium h-12 px-6 rounded-lg hover:bg-white hover:text-indigo-600 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none w-full sm:w-auto"
             >
               <Compass size={20} />
               Find New Courses

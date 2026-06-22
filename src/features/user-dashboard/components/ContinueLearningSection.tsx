@@ -26,12 +26,12 @@ export default function ContinueLearningSection({ currentCourse, inProgressCours
       </div>
 
       <div className="bg-white border border-black/10 rounded-xl p-5 hover:shadow-lg transition-shadow mb-4">
-        <div className="flex gap-5">
-          <div className="relative group w-[200px] shrink-0">
+        <div className="flex flex-col sm:flex-row gap-5">
+          <div className="relative group shrink-0 w-full sm:max-w-[200px]">
             <img
               src={currentCourse.thumbnail}
               alt={currentCourse.title}
-              className="w-[200px] aspect-video object-cover rounded-lg"
+              className="w-full aspect-video max-w-[200px] object-cover rounded-lg"
               loading="lazy"
             />
             <div className="absolute inset-0 bg-black/40 group-hover:bg-black/60 rounded-lg flex items-center justify-center transition-colors">

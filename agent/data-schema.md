@@ -1,51 +1,66 @@
-## Data Schema & Chaos Mocking — CodeTrack
+# Data Schema & Testing Contracts — CodeTrack
 
-Skema data ini mencerminkan struktur sistem di dunia nyata. Tidak semua data itu indah, berukuran pas, dan lengkap. Komponen *front-end* WAJIB dirancang secara defensif untuk menangani anomali data.
+> Type definitions, mock data structure, utility functions, and chaos-testing data contracts.
+> Components must be designed **defensively** to handle the edge cases documented here.
+> Last updated: 2026-06-21
 
 ---
 
-## TypeScript Types
+## Table of Contents
 
-### Base Types
-```ts
+1. [TypeScript Type Definitions](#1-typescript-type-definitions)
+2. [Utility Functions](#2-utility-functions)
+3. [Mock Data Contract](#3-mock-data-contract)
+4. [Chaos-Testing Data](#4-chaos-testing-data)
+5. [Demo Credentials](#5-demo-credentials)
+
+---
+
+## 1. TypeScript Type Definitions
+
+### Core Primitives
+
+```typescript
 type UserRole           = 'user' | 'admin'
 type CourseLevel        = 'Beginner' | 'Intermediate' | 'Advanced'
 type TransactionStatus  = 'success' | 'pending' | 'failed'
-type CourseCategory     = 
-  | 'Web Development' 
-  | 'Mobile Development' 
-  | 'Data Science' 
-  | 'Backend Development' 
-  | 'DevOps' 
+type CourseCategory     =
+  | 'Web Development'
+  | 'Mobile Development'
+  | 'Data Science'
+  | 'Backend Development'
+  | 'DevOps'
   | 'Cloud Computing'
   | 'Design'
 type ActivityType       = 'enrollment' | 'registration' | 'purchase' | 'completion' | 'review'
 type DeadlineUrgency    = 'high' | 'medium' | 'low'
----
+```
 
 ### User
-```ts
+
+```typescript
 interface User {
   id: string
   name: string
   email: string
-  avatar?: string | null    // WAJIB tangani null/undefined dengan fallback inisial
+  avatar?: string | null          // Must handle null/undefined → fallback to initials
   role: UserRole
-  createdAt: string         // ISO date string
+  createdAt: string               // ISO 8601 date string
 }
 ```
 
 ### Course
-```ts
+
+```typescript
 interface Course {
   id: string
   slug: string
   title: string
   description: string
   instructor: string
-  instructorAvatar?: string | null  // Sering kali instruktur tidak mengunggah foto
-  thumbnail: string                 // URL gambar yang rentan putus/gagal dimuat
-  price: number                     // Harga bisa mencapai jutaan/ratusan juta
+  instructorAvatar?: string | null   // Often missing — handle fallback
+  thumbnail: string                   // URL — prone to failure, use ImageWithFallback
+  price: number                       // Can reach millions/billions — format with formatRupiah()
   originalPrice?: number | null
   discount?: number | null
   rating: number
@@ -54,11 +69,16 @@ interface Course {
   category: CourseCategory
   isBestseller?: boolean
   isFree?: boolean
+  duration?: number                   // Hours
+  tags?: string[]
+  isPublished?: boolean
+  createdAt?: string
 }
 ```
 
 ### Article
-```ts
+
+```typescript
 interface Article {
   id: string
   slug: string
@@ -67,8 +87,8 @@ interface Article {
   content: string
   author: string
   authorAvatar?: string
-  publishedAt: string
-  readTime: number          // dalam menit
+  publishedAt: string               // ISO 8601 date string
+  readTime: number                  // In minutes
   thumbnail: string
   category: string
   tags: string[]
@@ -76,7 +96,8 @@ interface Article {
 ```
 
 ### Transaction
-```ts
+
+```typescript
 interface Transaction {
   id: string
   invoice: string
@@ -86,39 +107,34 @@ interface Transaction {
   courseTitle: string
   amount: number
   status: TransactionStatus
-  createdAt: string
+  createdAt: string                 // ISO 8601 date string
   paymentMethod: string
 }
 ```
 
-### Enrolled Course (untuk user dashboard)
-```ts
+### Dashboard-Specific Types
+
+```typescript
 interface EnrolledCourse {
   courseId: string
-  progress: number          // 0-100
+  progress: number                  // 0–100
   currentLesson: string
   enrolledAt: string
   completedAt?: string
 }
-```
 
-### User Stats (untuk user dashboard)
-```ts
 interface UserStats {
   coursesEnrolled: number
   coursesInProgress: number
-  overallCompletion: number   // 0-100
-  learningTimeThisMonth: number // dalam jam
-  learningTimeIncrease: number  // persentase vs bulan lalu
+  overallCompletion: number          // 0–100
+  learningTimeThisMonth: number      // In hours
+  learningTimeIncrease: number       // Percentage vs. last month
   certificatesEarned: number
   certificatesToUnlock: number
-  currentStreak: number       // dalam hari
-  longestStreak: number       // dalam hari
+  currentStreak: number              // In days
+  longestStreak: number              // In days
 }
-```
 
-### Monthly Goal
-```ts
 interface MonthlyGoal {
   id: string
   title: string
@@ -126,44 +142,32 @@ interface MonthlyGoal {
   target: number
   type: 'courses' | 'hours' | 'certificates' | 'streak'
 }
-```
 
-### Badge / Achievement
-```ts
 interface Badge {
   id: string
   name: string
-  icon: string              // emoji
-  date: string              // contoh: "Dec 10"
+  icon: string                      // Emoji character
+  date: string                      // e.g. "Dec 10"
   description?: string
 }
-```
 
-### Forum Topic
-```ts
 interface ForumTopic {
   id: string
   title: string
   author: string
   replies: number
   views: number
-  time: string              // relative time, contoh: "2 hours ago"
+  time: string                      // Relative time, e.g., "2 hours ago"
   category: string
 }
-```
 
-### Recent Activity (user dashboard)
-```ts
 interface UserActivity {
   id: string
   type: 'completed' | 'certificate' | 'quiz' | 'forum'
   title: string
   time: string
 }
-```
 
-### Recent Activity (admin dashboard)
-```ts
 interface AdminActivity {
   id: number
   type: ActivityType
@@ -172,10 +176,7 @@ interface AdminActivity {
   time: string
   avatar: string
 }
-```
 
-### Upcoming Deadline
-```ts
 interface Deadline {
   id: string
   course: string
@@ -183,16 +184,13 @@ interface Deadline {
   progress: number
   urgency: DeadlineUrgency
 }
-```
 
-### KPI Card (admin)
-```ts
 interface KpiCard {
   label: string
   value: string
   icon: LucideIcon
-  trend?: number            // persentase, positif = naik
-  gradient: string          // Tailwind gradient class
+  trend?: number                    // Positive = upward trend
+  gradient: string                  // Tailwind gradient class
   iconBg: string
   iconColor: string
 }
@@ -200,39 +198,111 @@ interface KpiCard {
 
 ---
 
-## Mock Data
+## 2. Utility Functions
 
-saat Anda merancang atau melakukan audit pada komponen CourseCard, ArticleCard, atau UserRow, Anda DILARANG menggunakan data ideal. Anda WAJIB menyuntikkan objek Chaos di bawah ini ke dalam fail JSON tiruan Anda.
+All defined in `core/utils/` and re-exported via `shared/utils/`.
 
-Jika tata letak (layout) Anda melebar, tumpang tindih, atau tombolnya terdorong keluar layar karena data ini, perbaiki komponen CSS Anda (gunakan truncate, line-clamp, flex-wrap, min-w-0), jangan ubah datanya.
+| Function | Signature | Returns | Example |
+|---|---|---|---|
+| `formatRupiah` | `(amount: number) => string` | Long-form IDR | `"Rp 589.000"` |
+| `formatRupiahShort` | `(amount: number) => string` | Short-form IDR | `"Rp 589k"` / `"Rp 1.2M"` |
+| `getLevelColor` | `(level: CourseLevel) => string` | Tailwind classes | `"bg-green-100 text-green-700"` |
+| `getStatusColor` | `(status: TransactionStatus) => string` | Tailwind classes | `"bg-green-500 text-white"` |
+| `getRelativeTime` | `(dateString: string) => string` | Relative string | `"2 hours ago"`, `"1 day ago"` |
 
-### courses.json (contoh struktur)
+---
+
+## 3. Mock Data Contract
+
+Mock data files live in `src/data/sources/mock/`. Each file must include both **ideal** records and **chaos** records (see Section 4 below).
+
+### Courses (`courses.json`)
+
 ```json
-[
-  {
-    "id": "1",
-    "slug": "complete-web-development-bootcamp",
-    "title": "Complete Web Development Bootcamp 2024",
-    "description": "Pelajari HTML, CSS, JavaScript, React, Node.js dan bangun project nyata",
-    "instructor": "Sarah Martinez",
-    "instructorAvatar": "https://i.pravatar.cc/150?img=5",
-    "thumbnail": "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=400&h=225&fit=crop",
-    "price": 299000,
-    "originalPrice": 499000,
-    "discount": 40,
-    "rating": 4.8,
-    "totalStudents": 12450,
-    "duration": 32,
-    "level": "Beginner",
-    "category": "Web Development",
-    "tags": ["HTML", "CSS", "JavaScript", "React"],
-    "isBestseller": true,
-    "isFree": false,
-    "isPublished": true,
-    "createdAt": "2024-01-15"
-  }
-]
+{
+  "id": "1",
+  "slug": "complete-web-development-bootcamp",
+  "title": "Complete Web Development Bootcamp 2024",
+  "description": "Pelajari HTML, CSS, JavaScript, React, Node.js dan bangun project nyata",
+  "instructor": "Sarah Martinez",
+  "instructorAvatar": "https://i.pravatar.cc/150?img=5",
+  "thumbnail": "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=400&h=225&fit=crop",
+  "price": 299000,
+  "originalPrice": 499000,
+  "discount": 40,
+  "rating": 4.8,
+  "totalStudents": 12450,
+  "duration": 32,
+  "level": "Beginner",
+  "category": "Web Development",
+  "tags": ["HTML", "CSS", "JavaScript", "React"],
+  "isBestseller": true,
+  "isFree": false,
+  "isPublished": true,
+  "createdAt": "2024-01-15"
+}
 ```
+
+### Articles (`articles.json`)
+
+```json
+{
+  "id": "1",
+  "slug": "belajar-react-hooks",
+  "title": "Panduan Lengkap React Hooks untuk Pemula",
+  "excerpt": "React Hooks mengubah cara kita menulis komponen React...",
+  "content": "...",
+  "author": "Sarah Martinez",
+  "authorAvatar": "https://i.pravatar.cc/150?img=5",
+  "publishedAt": "2024-12-10",
+  "readTime": 8,
+  "thumbnail": "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&h=400&fit=crop",
+  "category": "Web Development",
+  "tags": ["React", "JavaScript", "Frontend"]
+}
+```
+
+### Users (`users.json`)
+
+```json
+{
+  "id": "1",
+  "name": "Budi Santoso",
+  "email": "budi.s@email.com",
+  "avatar": "https://i.pravatar.cc/150?img=11",
+  "role": "user",
+  "createdAt": "2024-12-15T05:00:00Z"
+}
+```
+
+### Transactions (`transactions.json`)
+
+```json
+{
+  "id": "1",
+  "invoice": "INV/20241215/0012",
+  "userId": "1",
+  "customerName": "John Doe",
+  "courseId": "1",
+  "courseTitle": "Complete Web Development Bootcamp",
+  "amount": 589000,
+  "status": "success",
+  "createdAt": "2024-12-15T09:00:00Z",
+  "paymentMethod": "transfer"
+}
+```
+
+---
+
+## 4. Chaos-Testing Data
+
+> **Required reading for all component audits.**
+>
+> When designing or auditing `CourseCard`, `ArticleCard`, `UserRow`, or any data-driven component, you **must** inject these chaos records into the mock data to verify layout resilience.
+>
+> If the layout breaks (overflow, overlap, buttons pushed out), **fix the component CSS** — do not modify the test data.
+
+### Chaos Course
 
 ```json
 {
@@ -242,7 +312,7 @@ Jika tata letak (layout) Anda melebar, tumpang tindih, atau tombolnya terdorong 
   "description": "Deskripsi ini sengaja dibuat sangat panjang untuk menguji apakah Anda menggunakan max-w-prose dan line-clamp yang benar atau Anda membiarkan teks ini tumpah ruah merusak hierarki visual dari halaman detail kursus Anda.",
   "instructor": "Dr. Prof. Ir. Nama Instruktur Sangat Panjang Sekali M.Sc., Ph.D.",
   "instructorAvatar": null,
-  "thumbnail": "[https://url-gambar-rusak-atau-sangat-lambat-sekali.com/image.jpg](https://url-gambar-rusak-atau-sangat-lambat-sekali.com/image.jpg)",
+  "thumbnail": "https://url-gambar-rusak-atau-sangat-lambat-sekali.com/image.jpg",
   "price": 1250000000,
   "originalPrice": 2500000000,
   "discount": 50,
@@ -254,46 +324,10 @@ Jika tata letak (layout) Anda melebar, tumpang tindih, atau tombolnya terdorong 
 }
 ```
 
-### articles.json (contoh struktur)
-```json
-[
-  {
-    "id": "1",
-    "slug": "belajar-react-hooks",
-    "title": "Panduan Lengkap React Hooks untuk Pemula",
-    "excerpt": "React Hooks mengubah cara kita menulis komponen React...",
-    "content": "...",
-    "author": "Sarah Martinez",
-    "authorAvatar": "https://i.pravatar.cc/150?img=5",
-    "publishedAt": "2024-12-10",
-    "readTime": 8,
-    "thumbnail": "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&h=400&fit=crop",
-    "category": "Web Development",
-    "tags": ["React", "JavaScript", "Frontend"]
-  }
-]
-```
+### Chaos User
 
-### users.json (contoh struktur)
 ```json
-[
-  {
-    "id": "1",
-    "name": "Budi Santoso",
-    "email": "budi.s@email.com",
-    "avatar": "https://i.pravatar.cc/150?img=11",
-    "role": "user",
-    "createdAt": "2024-12-15T05:00:00Z"
-  },
-  {
-    "id": "2",
-    "name": "Admin User",
-    "email": "admin@codetrack.id",
-    "avatar": null,
-    "role": "admin",
-    "createdAt": "2024-01-01T00:00:00Z"
-  }
-  {
+{
   "id": "999-chaos-user",
   "name": "Pengguna Dengan Nama Super Panjang Sekali Sampai Memecahkan Sidebar Dan Navbar CodeTrack",
   "email": "email.super.panjang.sekali.yang.tidak.masuk.akal@subdomain.domain.co.id",
@@ -301,60 +335,30 @@ Jika tata letak (layout) Anda melebar, tumpang tindih, atau tombolnya terdorong 
   "role": "user",
   "createdAt": "2026-12-31T23:59:59Z"
 }
-]
 ```
 
-### transactions.json (contoh struktur)
-```json
-[
-  {
-    "id": "1",
-    "invoice": "INV/20241215/0012",
-    "userId": "1",
-    "customerName": "John Doe",
-    "courseId": "1",
-    "courseTitle": "Complete Web Development Bootcamp",
-    "amount": 589000,
-    "status": "success",
-    "createdAt": "2024-12-15T09:00:00Z",
-    "paymentMethod": "transfer"
-  }
-]
-```
+### What Chaos Data Tests
+
+| Property | Chaos Value | What It Tests |
+|---|---|---|
+| `title` | 200+ characters | `line-clamp-2` / `truncate` protection |
+| `description` | 400+ characters | `max-w-prose`, `line-clamp`, overflow |
+| `instructor` | Very long name with titles | Overflow in card/row layout |
+| `instructorAvatar` | `null` | Avatar fallback to initials |
+| `thumbnail` | Broken URL | `ImageWithFallback` fallback display |
+| `price` | 1.25 billion | `formatRupiah()` with large numbers |
+| `rating` | `0` | Zero-value rendering (stars, display) |
+| `totalStudents` | `0` | Zero-value rendering |
+| `email` | Very long email | Table column overflow |
+| `createdAt` | Future date | Date formatting edge case |
 
 ---
 
-## Utility Functions
+## 5. Demo Credentials
 
-```ts
-// Format harga Rupiah panjang: Rp 589.000
-formatRupiah(amount: number): string
+Hardcoded in `LoginPage.tsx` for demo purposes. No backend or persistence.
 
-// Format harga Rupiah pendek: Rp 589k / Rp 1.2M
-formatRupiahShort(amount: number): string
-
-// Warna badge level course
-getLevelColor(level: CourseLevel): string
-// Returns Tailwind classes: 'bg-green-100 text-green-700' dst
-
-// Warna badge status transaksi
-getStatusColor(status: TransactionStatus): string
-// Returns Tailwind classes: 'bg-green-500 text-white' dst
-
-// Relative time dari ISO string
-getRelativeTime(dateString: string): string
-// Returns: "2 hours ago", "1 day ago", dst
-```
-
----
-
-## Demo Auth Credentials
-
-Untuk keperluan demo login tanpa backend:
-
-```
-User:  email: user@codetrack.id   | password: user123   | role: user
-Admin: email: admin@codetrack.id  | password: admin123  | role: admin
-```
-
-Credentials ini di-hardcode di `features/auth/pages/LoginPage.tsx` untuk demo.
+| Role | Email | Password |
+|---|---|---|
+| User | `user@codetrack.id` | `user123` |
+| Admin | `admin@codetrack.id` | `admin123` |

@@ -1,10 +1,24 @@
 # Pages & Routes — CodeTrack
 
+> Complete route map, page content specifications, and navigation flow.
+> Last updated: 2026-06-21
+
 ---
 
-## Route Structure & State Requirements (WAJIB DIPATUHI)
+## Table of Contents
 
-### 1. Public Routes — `PublicLayout` (Navbar + Footer)
+1. [Route Structure & State Contracts](#1-route-structure--state-contracts)
+2. [Layout Architecture](#2-layout-architecture)
+3. [Page Content Specifications](#3-page-content-specifications)
+4. [Navigation Flow](#4-navigation-flow)
+5. [Redirect Rules](#5-redirect-rules)
+
+---
+
+## 1. Route Structure & State Contracts
+
+### 1.1 Public Routes — `PublicLayout` (Navbar + Footer)
+
 | Route | Component | File |
 |---|---|---|
 | `/` | LandingPage | `features/landing/pages/LandingPage.tsx` |
@@ -13,27 +27,24 @@
 | `/articles` | ArticlesPage | `features/articles/pages/ArticlesPage.tsx` |
 | `/articles/:slug` | ArticleDetailPage | `features/articles/pages/ArticleDetailPage.tsx` |
 
-**Flow & State Constraints:**
-- **Katalog (`/courses`, `/articles`):** - WAJIB merender `PageSkeleton` atau `Skeleton` spesifik selama jeda jaringan.
-  - Jika `fetch` gagal, DILARANG menampilkan layar putih. WAJIB tampilkan `ErrorState` dengan tombol "Coba Lagi".
-- **Detail (`/:slug`):**
-  - WAJIB menangani kondisi **404 Not Found** secara spesifik jika `slug` tidak ditemukan di dalam Repositori. Tampilkan komponen ilustrasi "Konten Tidak Ditemukan" dengan tombol kembali ke katalog.
+**State contracts:**
+- **List pages** (`/courses`, `/articles`): Must render `PageSkeleton` or specific skeletons during fetch. On fetch failure: **must** display `ErrorState` with a "Coba Lagi" (retry) button — never a white screen.
+- **Detail pages** (`/:slug`): Must handle 404 explicitly when `slug` is not found in the repository. Display a "Konten Tidak Ditemukan" illustration with a "Kembali ke Katalog" button.
 
----
+### 1.2 Auth Routes — No Layout (Full Page)
 
-### 2. Auth Routes — No layout (full page)
 | Route | Component | File |
 |---|---|---|
 | `/auth/login` | LoginPage | `features/auth/pages/LoginPage.tsx` |
 | `/auth/register` | RegisterPage | `features/auth/pages/RegisterPage.tsx` |
 
-**Flow & State Constraints:**
-- **Proteksi Eksekusi Ganda:** Seluruh *input* dan tombol *submit* WAJIB dikunci (`disabled={isLoading}`) selama proses autentikasi (menunggu *Promise*) berlangsung.
-- **Feedback:** Kegagalan jaringan atau kredensial salah WAJIB memunculkan `Toast` atau peringatan warna merah. Transisi ke `/dashboard` HANYA BOLEH terjadi setelah *Promise* sukses.
+**State contracts:**
+- **Double-submit prevention:** All inputs and submit buttons **must** be `disabled={isLoading}` while the auth promise is pending.
+- **Feedback:** Network failure or wrong credentials **must** show an inline error message (red text or toast). Navigation to `/dashboard` **must only** occur after the auth promise resolves successfully.
+- **Loading state:** Submit button shows a spinner icon + text change ("Signing in...") while loading.
 
----
+### 1.3 User Routes — `ProtectedRoute(role: user)` + `UserLayout`
 
-### 3. User Routes — `ProtectedRoute (role: user)` + `UserLayout`
 | Route | Component | File |
 |---|---|---|
 | `/dashboard` | UserDashboardPage | `features/user-dashboard/pages/UserDashboardPage.tsx` |
@@ -41,13 +52,12 @@
 | `/dashboard/checkout` | CheckoutPage | `features/commerce/pages/CheckoutPage.tsx` |
 | `/dashboard/history` | TransactionHistoryPage | `features/commerce/pages/TransactionHistoryPage.tsx` |
 
-**Flow & State Constraints:**
-- **Empty States:** Jika keranjang (*cart*) kosong atau riwayat (*history*) transaksi nol, antarmuka WAJIB memunculkan komponen `EmptyState` dengan CTA untuk mencari kursus. Dilarang merender tabel atau daftar kosong.
-- **Keamanan Checkout (`/dashboard/checkout`):** Dilarang melakukan *redirect* paksa ke `/dashboard/history` sebelum `repos.transaction.create()` mengembalikan status sukses. Jika gagal bayar, munculkan galat di tempat.
+**State contracts:**
+- **Empty states:** If the cart is empty or transaction history is zero, **must** render `EmptyState` with a CTA to browse courses. Never render an empty table or empty list.
+- **Checkout safety:** Do **not** redirect to `/dashboard/history` before `repos.transaction.create()` returns a success status. On payment failure, display the error in-place — don't redirect.
 
----
+### 1.4 Admin Routes — `ProtectedRoute(role: admin)` + `AdminLayout`
 
-### 4. Admin Routes — `ProtectedRoute (role: admin)` + `AdminLayout`
 | Route | Component | File |
 |---|---|---|
 | `/admin` | AdminDashboardPage | `features/admin/pages/AdminDashboardPage.tsx` |
@@ -56,178 +66,189 @@
 | `/admin/users` | UserManagementPage | `features/admin/pages/UserManagementPage.tsx` |
 | `/admin/transactions` | TransactionManagementPage | `features/admin/pages/TransactionManagementPage.tsx` |
 
-**Flow & State Constraints:**
-- Semua tabel data (`DataTable`) WAJIB memiliki status *loading* internal. Saat aksi admin dilakukan (misal: "Hapus Pengguna"), hanya baris terkait yang berstatus *loading* (atau *disable* tombolnya), bukan me-*refresh* seluruh halaman.
+**State contracts:**
+- **DataTable loading:** All admin tables must have internal loading states. When an admin action is performed (e.g., "Delete User"), only the affected row enters a loading/disabled state — the full page **must not** refresh.
+- **Lazy loading:** All admin pages use `React.lazy` with `<Suspense fallback={<PageSkeleton />}>`.
 
----
+### 1.5 System Routes
 
-### 5. System Routes (Wajib Ada)
-| Route | Component | Keterangan |
+| Route | Component | Description |
 |---|---|---|
-| `*` (Catch-all) | `NotFoundPage.tsx` | WAJIB memetakan URL acak/liar ke halaman 404 yang elegan, dengan tombol pengaman navigasi kembali ke `/`. |
+| `*` (catch-all) | `NotFoundPage` | Elegant 404 page with a "Kembali ke Beranda" navigation button. |
 
 ---
 
-## Layouts
+## 2. Layout Architecture
 
 ### PublicLayout
-- File: `shared/components/layout/PublicLayout.tsx`
-- Berisi: `<Navbar />` + `<Outlet />` + `<Footer />`
-- Dipakai: semua halaman publik
+```
+Path:    src/shared/components/layout/PublicLayout.tsx
+Render:  <Navbar /> + <Outlet /> + <Footer />
+Used:    All public pages
+```
 
 ### UserLayout
-- File: `shared/components/layout/UserLayout.tsx`
-- Berisi: `<Navbar />` + `<Outlet />`
-- Dipakai: semua halaman user yang sudah login
-- Catatan: Navbar ada di layout agar semua halaman user (Dashboard, Cart, Checkout, History) mendapat navigasi yang konsisten
+```
+Path:    src/shared/components/layout/UserLayout.tsx
+Render:  <Navbar /> + <Outlet />
+Used:    All authenticated user pages (Dashboard, Cart, Checkout, History)
+Note:    Navbar persists across all user routes for consistent navigation.
+         Transition animation on route change (framer-motion).
+```
 
 ### AdminLayout
-- File: `shared/components/layout/AdminLayout.tsx`
-- Berisi: `<AdminTopbar />` + `<AdminSidebar />` + `<Outlet />`
-- Dipakai: semua halaman admin
-- Catatan: Topbar & Sidebar ada di layout agar semua halaman admin mendapat navigasi yang konsisten
-
-### AuthLayout
-- Tidak ada layout wrapper — halaman login/register full page mandiri
-
----
-
-## Redirect Rules (ProtectedRoute)
-
 ```
-Belum login         → redirect ke /auth/login
-Login sebagai user  → akses /admin → redirect ke /dashboard
-Login sebagai admin → akses /dashboard → redirect ke /admin
+Path:    src/shared/components/layout/AdminLayout.tsx
+Render:  <AdminTopbar /> + <AdminSidebar /> + <Outlet />
+Used:    All admin pages
+Note:    Topbar & Sidebar persist across all admin routes.
+         Sidebar collapses on mobile with overlay + hamburger toggle.
+         Transition animation on route change (framer-motion).
+```
+
+### Auth Routes
+```
+No layout wrapper — full-page standalone views.
+Background: linear-gradient(117deg, #eef2ff 0%, #ffffff 50%, #faf5ff 100%)
 ```
 
 ---
 
-## Halaman — Detail Konten
+## 3. Page Content Specifications
 
-### 1. Landing Page (`/`)
-Sections berurutan:
-1. **Navbar** — Logo, menu: Courses | Artikel | Komunitas | Pricing, Cart icon + Login + Start Free Trial
-2. **Hero** — 2 kolom: teks kiri (heading, subtext, 2 CTA button, stats row) + gambar kanan
-3. **Features** — "Kenapa CodeTrack Berbeda?" — 3 card: Sistem Produktivitas | GitHub Integration | Komunitas Supportive
-4. **Testimonials** — Carousel 1 card: bintang, quote, foto + nama + jabatan
-5. **Course Populer** — Grid 3 kolom, 3 CourseCard
-6. **CTA Banner** — Gradient indigo-purple, heading, tombol "Daftar Sekarang"
-7. **Footer** — 4 kolom dark: brand | Produk | Perusahaan | Social Media
+### 3.1 Landing Page (`/`)
+Sections in order:
+1. **Navbar** — Logo + menu (Courses \| Artikel) + Login + Start Free Trial
+2. **Hero** — 2 columns: heading/subtext/CTAs/stats (left) + image (right)
+3. **Features** — "Kenapa CodeTrack Berbeda?" — 3 cards
+4. **Testimonials** — Carousel with star rating + quote + avatar/name/role
+5. **Popular Courses** — 3-column grid of `CourseCard`
+6. **CTA Banner** — Indigo-purple gradient with "Daftar Sekarang" button
+7. **Footer** — 4-column: brand \| Produk \| Perusahaan \| Social Media
 
-### 2. Katalog Course (`/courses`)
-- Banner promo (dismissible)
+### 3.2 Course Catalog (`/courses`)
+- Promo banner (dismissible)
 - Heading + search bar
-- Stats row: 150+ Courses | 10,000+ Students | 95% Completion Rate
-- Filter tabs: Semua | Web Dev | Mobile | Data Science | Backend | dll
-- Sort dropdown + toggle grid/list view
-- Sidebar filter: Level | Harga | Durasi | Rating | Fitur
-- Grid 3 kolom CourseCard dengan pagination "Load More"
+- Stats row: 150+ Courses \| 10,000+ Students \| 95% Completion Rate
+- Category filter tabs
+- Sort dropdown + grid/list view toggle
+- Sidebar filters: Level \| Harga \| Durasi \| Rating \| Fitur
+- 3-column grid of `CourseCard` with "Load More" pagination
 
-### 3. Detail Course (`/courses/:slug`)
-- Breadcrumb
-- 2 kolom: konten kiri (judul, deskripsi, kurikulum) + sticky card kanan (harga, CTA beli/enroll, info course)
-- Badge level + kategori
-- Info: rating, students, durasi, instruktur
-- Tombol: "Lihat Detail" → navigasi ke halaman ini | "Mulai Gratis" untuk course free
+### 3.3 Course Detail (`/courses/:slug`)
+- Breadcrumb navigation
+- 2-column layout: content (left) + sticky info card (right)
+- Badges: category + level
+- Course info: rating, students, duration, instructor
+- CTA: "Beli Sekarang" (paid) / "Mulai Gratis" (free)
 
-### 4. Arsip Artikel (`/articles`)
-- Header: Arsip Artikel
-- Grid artikel dengan thumbnail, judul, excerpt, author, tanggal, read time
-- Filter kategori
+### 3.4 Article Archive (`/articles`)
+- Header: "Arsip Artikel"
+- Grid of article cards with thumbnail, title, excerpt, author, date, read time
+- Category filter
 
-### 5. Detail Artikel (`/articles/:slug`)
-- Header artikel: judul, author, tanggal, read time, thumbnail
-- Konten artikel
-- Sidebar: artikel terkait
+### 3.5 Article Detail (`/articles/:slug`)
+- Header: title, author, date, read time, thumbnail
+- Article content
+- Sidebar: related articles
 
-### 6. Login (`/auth/login`)
-- Full page centered
-- Card: Email + Password input, tombol Login, link ke Register
-- Social login: Google + GitHub
-- Demo credentials hint (untuk keperluan presentasi)
+### 3.6 Login (`/auth/login`)
+- Full-page centred card on gradient background
+- Fields: Email + Password (with show/hide toggle)
+- Buttons: Sign In (primary) + Google/GitHub (social)
+- Link: "Don't have an account? Sign up"
+- Demo credentials hint for presentation
 
-### 7. Register (`/auth/register`)
-- Full page centered (gradient background)
-- Card: Full Name + Email + Register as (Student/Instructor) + Password + Confirm Password
-- Checkbox terms & conditions
-- Tombol Create Account
-- Social login: Google + GitHub
+### 3.7 Register (`/auth/register`)
+- Full-page centred card on gradient background
+- Fields: Full Name + Email + Role (Student/Instructor) + Password + Confirm Password
+- Checkbox: Terms & Conditions
+- Buttons: Create Account (primary) + Google/GitHub (social)
 
-### 8. User Dashboard (`/dashboard`)
-- Navbar user (Logo, menu, notif, avatar dropdown)
-- Welcome header gradient indigo-purple + streak pill
-- Quick stats: 4 card (Courses Enrolled | Learning Time | Certificates | Streak)
-- 2 kolom [65%|35%]:
-  - Kiri: Continue Learning + In Progress list + Recommended (2x2 grid) + Streak Calendar + Recent Activity
-  - Kanan: Monthly Goals card (gradient) + Upcoming Deadlines + Achievements + Community + Quick Actions
+### 3.8 User Dashboard (`/dashboard`)
+- Navbar (persistent)
+- Welcome header: gradient indigo-purple + streak pill
+- Quick stats: 4 cards (Courses Enrolled \| Learning Time \| Certificates \| Streak)
+- 2-column layout [65% \| 35%]:
+  - **Left:** Continue Learning + In Progress + Recommended (2×2 grid) + Streak Calendar + Recent Activity
+  - **Right:** Monthly Goals (gradient card) + Upcoming Deadlines + Achievements + Community + Quick Actions
 
-### 9. Keranjang (`/dashboard/cart`)
-- List item keranjang: thumbnail, judul, instruktur, harga
-- Tombol hapus per item
-- Summary: subtotal, diskon, total
-- Tombol Checkout
+### 3.9 Cart (`/dashboard/cart`)
+- List: thumbnail, course title, instructor, price per item
+- Delete button per item
+- Summary: subtotal, discount, total
+- CTA: "Checkout" (disabled when cart is empty)
 
-### 10. Pembayaran (`/dashboard/checkout`)
-- Form detail pembayaran
-- Pilihan metode: Transfer | Kartu Kredit | E-Wallet
+### 3.10 Checkout (`/dashboard/checkout`)
+- Payment detail form
+- Payment method selector: Transfer \| Kartu Kredit \| E-Wallet
 - Order summary
-- Tombol Bayar Sekarang
+- CTA: "Bayar Sekarang" (with loading state)
 
-### 11. History Transaksi (`/dashboard/history`)
-- Tabel transaksi: Invoice | Course | Tanggal | Jumlah | Status
-- Filter status
+### 3.11 Transaction History (`/dashboard/history`)
+- Table: Invoice \| Course \| Date \| Amount \| Status
+- Status filter
 - Pagination
 
-### 12. Admin Dashboard (`/admin`)
-- Topbar navy `#312E81`: Logo + Search + Bell + Avatar
-- Sidebar fixed: Menu sections (Main | Content Management | User Management | Commerce | Settings)
-- Header: Welcome + date + filter (Today/Week/Month/Year) + action buttons
-- KPI cards 5 kolom (Revenue | Users | Courses | Students | Health)
-- 2 kolom [65%|35%]: Revenue chart + Top Courses table | Recent Activity + Pending Reviews + Goals + Quick Actions
-- 3 kolom: secondary metrics (Conversion | Avg Transaction | Completion | Rating | Tickets | Refund)
-- 2 kolom: Latest Transactions + Newest Users
-- 3 kolom: Traffic Sources (pie) + User Devices (progress) + Top Locations (progress)
-- Alert bars (success | warning | info)
+### 3.12 Admin Dashboard (`/admin`)
+- Topbar (dark): Logo + Search + Bell + Avatar
+- Sidebar: fixed, section-grouped navigation
+- Header: welcome + date + filter (Today/Week/Month/Year) + action buttons
+- KPI cards: 5-column (Revenue \| Users \| Courses \| Students \| Health)
+- 2-column [65% \| 35%]: Revenue chart + Top Courses \| Activity + Reviews + Goals + Quick Actions
+- 3-column secondary: Conversion \| Avg Transaction \| Completion \| Rating \| Tickets \| Refund
+- 2-column: Latest Transactions + Newest Users
+- 3-column: Traffic Sources (pie) + Devices (progress) + Locations (progress)
+- Alert bars (success \| warning \| info)
 
-### 13. Kelola Artikel (`/admin/articles`)
-- Topbar + Sidebar (sama dengan admin dashboard)
-- Tabel artikel: judul, kategori, author, tanggal, status, actions
-- Tombol tambah artikel
+### 3.13 Article Management (`/admin/articles`)
+- Table: title, category, author, date, status, actions
+- "Tambah Artikel" button
 - Filter + search
 
-### 14. Kelola Produk (`/admin/courses`)
-- Topbar + Sidebar
-- Tabel course: judul, kategori, instruktur, students, harga, status, actions
-- Tombol tambah course
+### 3.14 Course Management (`/admin/courses`)
+- Table: title, category, instructor, students, price, status, actions
+- "Tambah Course" button
 - Filter + search
 
-### 15. Kelola Pengguna (`/admin/users`)
-- Topbar + Sidebar
-- Tabel user: avatar, nama, email, role, tanggal daftar, status, actions
-- Filter role + search
+### 3.15 User Management (`/admin/users`)
+- Table: avatar, name, email, role, registration date, status, actions
+- Filter by role + search
 
-### 16. Kelola Transaksi (`/admin/transactions`)
-- Topbar + Sidebar
-- Tabel transaksi: invoice, customer, course, jumlah, status, tanggal, actions
-- Filter status + date range + search
+### 3.16 Transaction Management (`/admin/transactions`)
+- Table: invoice, customer, course, amount, status, date, actions
+- Filter: status + date range + search
 - Export button
 
 ---
 
-## Navigasi Antar Halaman
+## 4. Navigation Flow
 
-*(Pastikan navigasi yang mengubah data hanya berpindah Halaman SETELAH proses asinkron selesai)*
+```
+Landing ──→ Courses          : klik "Lihat Course" atau menu Courses
+Landing ──→ Login            : klik "Login" di navbar
+Landing ──→ Register         : klik "Mulai Gratis 7 Hari" / "Start Free Trial"
+Login   ──→ Dashboard        : [ASYNC] setelah login sukses (role: user)
+Login   ──→ Admin            : [ASYNC] setelah login sukses (role: admin)
+Register → Login             : [ASYNC] setelah registrasi sukses
+Courses ──→ Course Detail    : klik "Lihat Detail" pada CourseCard
+Course Detail → Cart         : klik "Beli Sekarang" / "Tambah ke Keranjang"
+Cart ────→ Checkout           : klik "Checkout" (hanya jika item > 0)
+Checkout → History           : [ASYNC] setelah pembayaran berhasil diverifikasi
+Dashboard → Courses          : klik "Browse Courses" / "Continue Learning"
+Admin sidebar → sub-pages    : klik menu pada AdminSidebar
+```
 
-```text
-Landing → Courses          : klik "Lihat Course" atau menu Courses
-Landing → Login            : klik tombol Login di navbar
-Landing → Register         : klik "Mulai Gratis 7 Hari" atau "Start Free Trial"
-Login   → Dashboard        : [ASYNC] setelah login sukses (role: user)
-Login   → Admin            : [ASYNC] setelah login sukses (role: admin)
-Register → Login           : [ASYNC] setelah registrasi sukses
-Courses → Course Detail    : klik "Lihat Detail" pada CourseCard
-Course Detail → Cart       : klik "Beli Sekarang" atau "Tambah ke Keranjang"
-Cart → Checkout            : klik "Checkout" (hanya jika item > 0)
-Checkout → History         : [ASYNC] setelah proses pembayaran berhasil diverifikasi
-Dashboard → Courses        : klik "Browse Courses" atau "Continue Learning"
-Admin sidebar → sub pages  : klik menu pada AdminSidebar
+> **Rule:** Navigasi yang bergantung pada hasil operasi asinkron (login, registrasi, checkout) hanya boleh berpindah halaman **setelah** Promise sukses.
+
+---
+
+## 5. Redirect Rules
+
+Implemented in `ProtectedRoute.tsx`:
+
+| User State | Accesses | Redirect To |
+|---|---|---|
+| Not logged in | Any protected route | `/auth/login` |
+| Logged in as `user` | `/admin/*` | `/dashboard` |
+| Logged in as `admin` | `/dashboard/*` | `/admin` |

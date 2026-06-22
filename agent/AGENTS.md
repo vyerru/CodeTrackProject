@@ -1,10 +1,11 @@
-# CodeTrack — Agent Instructions
+# CodeTrack — Project Repository Guide
 
-Platform belajar coding online dengan fitur course catalog, artikel, user dashboard (streak & progress), dan admin panel.
+> **Platform belajar coding online** — course catalog, articles, user dashboard (streak & progress tracking), and admin panel.
+> Last updated: 2026-06-21
 
 ---
 
-## Tech Stack
+## 1. Tech Stack
 
 | Layer | Library | Version |
 |---|---|---|
@@ -12,171 +13,180 @@ Platform belajar coding online dengan fitur course catalog, artikel, user dashbo
 | Language | TypeScript | 5+ |
 | Build Tool | Vite | 6+ |
 | Styling | Tailwind CSS | v4 |
-| Components | shadcn/ui (base-nova) | latest |
+| UI Primitives | shadcn/ui (base-nova) | latest |
 | Router | React Router | v7 |
-| State | Zustand (persisted) | latest |
+| Client State | Zustand (persisted) | latest |
 | Charts | Recharts | 2.x |
 | Icons | Lucide React | latest |
-| Animation | Motion (Framer) | latest |
-| Font | Geist Variable | via @fontsource-variable/geist |
+| Animation | Motion (framer-motion) | latest |
+| Typography | Geist Variable | via `@fontsource-variable/geist` |
+| Forms | react-hook-form + zod | latest |
 
 ---
 
-## Commands
+## 2. Development Commands
 
 ```sh
-npm run dev       # Vite dev server
-npm run build     # tsc -b && vite build
-npm run lint      # eslint .
-npm run preview   # vite preview
+npm run dev        # Vite dev server (hot reload)
+npm run build      # TypeScript check + Vite production build
+npm run lint       # ESLint scan
+npm run preview    # Preview production build locally
 ```
 
 ---
 
-## Path Alias
+## 3. Module Resolution
 
-`@/` → `src/` (dikonfigurasi di `tsconfig.app.json` dan `vite.config.ts`)
+| Alias | Maps to |
+|---|---|
+| `@/` | `src/` |
+
+Configured in `tsconfig.app.json` and `vite.config.ts`.
 
 ---
 
-## Architecture
-
-**Clean Architecture — 3 layer:**
+## 4. Architecture — Clean Architecture (3-Layer)
 
 ```
 src/
-├── core/                          # Layer DOMAIN — pure TS, zero dependencies
+├── core/                          # DOMAIN layer — pure TypeScript, zero dependencies
 │   ├── domain/
-│   │   ├── entities/              # Interfaces: User, Course, Article, Transaction, Dashboard
-│   │   ├── repositories/          # Abstrak: ICourseRepository, IAuthRepository, dll
-│   │   └── di.ts                  # Dependency injection — injectRepositories() + repos getters
-│   └── utils/                     # Pure functions: formatRupiah, getLevelColor, dll
+│   │   ├── entities/              # Data models: User, Course, Article, Transaction, Dashboard
+│   │   ├── repositories/          # Abstract interfaces: IAuthRepository, ICourseRepository, ...
+│   │   └── di.ts                  # Dependency injection container — injectRepositories()
+│   └── utils/                     # Pure utility functions: formatRupiah, getLevelColor, ...
 │
-├── data/                          # Layer DATA — implementasi repository
-│   ├── repositories/              # MockCourseRepository, MockAuthRepository, dll
+├── data/                          # DATA layer — repository implementations
+│   ├── repositories/              # MockCourseRepository, MockAuthRepository, ...
 │   └── sources/
-│       └── mock/                  # File JSON statis (users, courses, articles, dll)
+│       └── mock/                  # Static JSON files (users, courses, articles, ...)
 │
-├── features/                      # Layer PRESENTATION — React components & hooks
-│   ├── auth/
-│   ├── landing/
-│   ├── articles/
-│   ├── courses/
-│   ├── commerce/
-│   ├── user-dashboard/
-│   └── admin/
-├── shared/
+├── features/                      # PRESENTATION layer — React components & hooks
+│   ├── auth/                      #   pages/  components/  hooks/  store/
+│   ├── landing/                   #   pages/  components/
+│   ├── articles/                  #   pages/  components/  hooks/
+│   ├── courses/                   #   pages/  components/
+│   ├── commerce/                  #   pages/  components/  store/
+│   ├── user-dashboard/            #   pages/  components/
+│   └── admin/                     #   pages/  components/
+│
+├── shared/                        # Cross-cutting concerns
 │   ├── components/
-│   │   ├── layout/               # PublicLayout, UserLayout, AdminLayout, ProtectedRoute, Navbar, Footer
-│   │   ├── ui/                   # shadcn components
-│   │   └── common/               # CourseCard, StatCard, DataTable, dll
-│   ├── types/                    # Re-export dari core/domain/entities/
-│   └── utils/                    # Re-export dari core/utils/
-└── app/                          # Router, App entry
+│   │   ├── layout/                # PublicLayout, UserLayout, AdminLayout, Navbar, Footer, ProtectedRoute
+│   │   ├── ui/                    # shadcn/ui primitives (Button, Card, Badge, ...)
+│   │   └── common/                # CourseCard, StatCard, DataTable, EmptyState, ...
+│   ├── types/                     # Re-exports from core/domain/entities/
+│   └── utils/                     # Re-exports from core/utils/
+│
+└── app/                           # Application shell
+    └── router.tsx                 # Route definitions
 ```
 
-Setiap feature folder berisi: `components/`, `pages/`, `hooks/`, `store/` (jika ada).
+### Dependency Rule
 
-**Dependency Rule:**
 ```
 features/ (React)  →  core/domain/ (interfaces)  ←  data/ (implementations)
 ```
-- Hooks panggil `repos.*` dari `core/domain/di.ts` — jangan import JSON langsung
-- Repository diganti 1 baris di `main.tsx` untuk beralih dari mock ke API
-- Entities & utils di `core/` — import dari situ (shared/ cuma re-export)
+
+- Feature hooks call `repos.*` from `core/domain/di.ts` — never import JSON directly.
+- Switching from mock to real API requires **one line change** in `main.tsx`.
+- Entities and utilities live in `core/` — `shared/` only re-exports.
 
 ---
 
-## State Management
+## 5. State Management Strategy
 
 ```
-Zustand (persisted ke localStorage):
+Zustand (persisted to localStorage):
 ├── authStore  → user, role, isAuthenticated, login(), logout()
 └── cartStore  → items[], total, add(), remove(), clear()
 
-React local state:
+React local state (component-scoped):
 └── filter, search, pagination, form inputs, UI toggles
 ```
 
 ---
 
-## Routing
+## 6. Route Map
 
-```
-/                     PublicLayout (Navbar + Outlet + Footer)     → LandingPage
-/courses              PublicLayout                                 → CourseCatalogPage
-/courses/:slug        PublicLayout                                 → CourseDetailPage
-/articles             PublicLayout                                 → ArticlesPage
-/articles/:slug       PublicLayout                                 → ArticleDetailPage
-/auth/login           (no layout)                                  → LoginPage
-/auth/register        (no layout)                                  → RegisterPage
-/dashboard            ProtectedRoute(user) + UserLayout (Navbar + Outlet) → UserDashboardPage
-/dashboard/cart       "                                             → CartPage
-/dashboard/checkout   "                                             → CheckoutPage
-/dashboard/history    "                                             → TransactionHistoryPage
-/admin                ProtectedRoute(admin) + AdminLayout (Topbar + Sidebar + Outlet) → AdminDashboardPage
-/admin/articles       "                                             → ArticleManagementPage
-/admin/courses        "                                             → CourseManagementPage
-/admin/users          "                                             → UserManagementPage
-/admin/transactions   "                                             → TransactionManagementPage
-```
+| Route | Layout | Page | Access |
+|---|---|---|---|
+| `/` | PublicLayout | LandingPage | Public |
+| `/courses` | PublicLayout | CourseCatalogPage | Public |
+| `/courses/:slug` | PublicLayout | CourseDetailPage | Public |
+| `/articles` | PublicLayout | ArticlesPage | Public |
+| `/articles/:slug` | PublicLayout | ArticleDetailPage | Public |
+| `/auth/login` | — | LoginPage | Public |
+| `/auth/register` | — | RegisterPage | Public |
+| `/dashboard` | ProtectedRoute(user) + UserLayout | UserDashboardPage | Authenticated user |
+| `/dashboard/cart` | " | CartPage | " |
+| `/dashboard/checkout` | " | CheckoutPage | " |
+| `/dashboard/history` | " | TransactionHistoryPage | " |
+| `/admin` | ProtectedRoute(admin) + AdminLayout | AdminDashboardPage | Admin |
+| `/admin/articles` | " | ArticleManagementPage | Admin |
+| `/admin/courses` | " | CourseManagementPage | Admin |
+| `/admin/users` | " | UserManagementPage | Admin |
+| `/admin/transactions` | " | TransactionManagementPage | Admin |
+| `*` | — | NotFoundPage | Public |
 
-Redirect rules:
-- Belum login → `/auth/login`
-- User akses `/admin` → `/dashboard`
-- Admin akses `/dashboard` → `/admin`
-
----
-
-## Demo Auth Credentials
-
-```
-User:  email: user@codetrack.id   | password: user123   | role: user
-Admin: email: admin@codetrack.id  | password: admin123  | role: admin
-```
-
-Hardcode di `LoginPage.tsx` untuk demo — tidak ada backend.
+### Redirect Rules (implemented in `ProtectedRoute.tsx`)
+- Unauthenticated → `/auth/login`
+- User accessing `/admin/*` → `/dashboard`
+- Admin accessing `/dashboard/*` → `/admin`
 
 ---
 
-## CSS & Styling
+## 7. Demo Credentials (No Backend)
 
-- Tailwind v4 dengan `@import "tailwindcss"` di `src/index.css` (tidak ada `tailwind.config.js`)
-- Semua warna menggunakan Tailwind utility classes langsung (`bg-indigo-600`, `text-gray-900`, dll) — lihat `design-tokens.md` untuk mapping lengkap
-- Primary color: `indigo-600` (`#4f39f6`)
-- Background page: `bg-gray-50` (`#F9FAFB`)
-- Font: Geist Variable — via `@fontsource-variable/geist`
+| Role | Email | Password |
+|---|---|---|
+| User | `user@codetrack.id` | `user123` |
+| Admin | `admin@codetrack.id` | `admin123` |
 
----
-
-## Conventions
-
-- **TypeScript**: `verbatimModuleSyntax` aktif → gunakan `import type` untuk type-only imports
-- **Lint**: `noUnusedLocals` dan `noUnusedParameters` aktif
-- **Forms**: react-hook-form + zod untuk semua form dengan validasi
-- **Images**: gunakan URL dari `unsplash.com` atau `i.pravatar.cc` untuk mock data
-- **Currency**: selalu format dengan `formatRupiah()` dari `@/shared/utils`
-- **shadcn**: tambah komponen baru via `npx shadcn add [component]`
+Hardcoded in `LoginPage.tsx` for demo purposes.
 
 ---
 
-## Reference Files
+## 8. Styling Conventions
 
-Baca file-file ini sebelum mengerjakan task yang relevan:
-
-| File | Baca untuk |
+| Concern | Standard |
 |---|---|
-| `design-tokens.md` | Warna, typography, spacing, component patterns |
-| `data-schema.md` | TypeScript types, struktur mock data, utility functions |
-| `pages.md` | Route structure, konten per halaman, navigasi |
-| `components.md` | Daftar komponen yang sudah ada vs belum (cek sebelum buat baru) |
+| Framework | Tailwind CSS v4 (`@import "tailwindcss"` in `index.css`) |
+| Color System | Design tokens — see `agent/design-token.md` |
+| Primary Color | `indigo-600` (`#4f39f6`) |
+| Page Background | `bg-gray-50` / `bg-muted` |
+| Typography | Geist Variable via `@fontsource-variable/geist` |
+| Hover Transitions | `transition-colors` on interactive elements |
+| Focus Rings | `focus-visible:ring-2 focus-visible:ring-[color] outline-none` on all interactive elements |
+| Disabled State | `opacity-50 cursor-not-allowed pointer-events-none` |
 
 ---
 
-## Important Rules & Flow Constraints (WAJIB DIPATUHI)
+## 9. Conventions
 
-1. **Simulasi Jaringan Ekstrem (Flow):** Simulator jaringan HUKUMNYA HARAM disetel ke 0. Konfigurasi di `main.tsx` wajib: `setNetworkConfig({ minDelay: 800, maxDelay: 3000, failureRate: 0.25 })`.
-2. **Wajib `useAsync`:** Semua pengambilan data harus melewati alat asinkron dan wajib mengelola 3 state mutlak: `isLoading`, `error`, dan `data`.
-3. **Kewajiban Zero-Dead-End (Flow):** - Jika data kosong (`[]`), WAJIB render `EmptyState` dengan tombol CTA kembali.
-   - Dilarang membiarkan layar *freeze* saat transisi rute; WAJIB gunakan `Suspense` fallback atau kerangka (*skeleton*).
-4. **Definisi "Disabled State" (Flow):** Semua form dan tombol aksi WAJIB dimatikan (`disabled={isLoading}`) saat permintaan jaringan berjalan. Dilarang keras memungkinkan *double-click* pada tombol submit.
+| Concern | Standard |
+|---|---|
+| TypeScript | `verbatimModuleSyntax` enabled → use `import type` for type-only imports |
+| Lint | `noUnusedLocals` and `noUnusedParameters` enabled |
+| Image Loading | Use `loading="lazy"` on all `<img>` tags |
+| Image Fallback | Use `<ImageWithFallback />` which displays an `ImageOff` placeholder on error |
+| Text Overflow | Use `truncate` or `line-clamp-N` for dynamic text content |
+| Layout Spacing | Use `gap-*` with Flex/Grid — never manual margin on sibling elements |
+| Currency | Always format with `formatRupiah()` from `@/shared/utils` |
+| Forms | `react-hook-form` + `zod` for all forms with validation |
+| Network Simulation | Must use realistic delays (min 800ms, max 3000ms) with 25% failure rate |
+| Async Pattern | Every data fetch must handle 3 states: `isLoading`, `error`, `data` |
+| shadcn/ui | Add new primitives via `npx shadcn add [component]` |
+
+---
+
+## 10. Reference Files (in `agent/`)
+
+| File | Purpose |
+|---|---|
+| `design-token.md` | Color palette, typography scale, spacing, component patterns, interaction states |
+| `data-schema.md` | TypeScript types, mock data contracts, chaos-testing data |
+| `pages.md` | Route structure, page content requirements, navigation flows |
+| `components.md` | Component inventory — existing vs. planned, status tracking |
+
+> Read these files **before** working on any task that touches the relevant concern.

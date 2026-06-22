@@ -24,7 +24,7 @@ export default function AchievementsCard({ badges, nextBadge }: Props) {
         <button className="text-sm text-indigo-600 font-medium hover:underline focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none">View All</button>
       </div>
 
-      <div className="grid grid-cols-2 gap-3 mb-4">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
         {badges.map((badge, i) => (
           <div
             key={i}

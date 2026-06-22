@@ -30,8 +30,9 @@ export default function StreakCalendar({ days, currentStreak, longestStreak, tot
         </span>
       </div>
 
-      <div className="grid grid-cols-12 gap-1">
-        {days.map((day, i) => {
+      <div className="overflow-x-auto pb-2">
+        <div className="grid grid-cols-12 gap-1 min-w-max">
+          {days.map((day, i) => {
           const clampedIntensity = Math.min(day.intensity, 4) as 0 | 1 | 2 | 3 | 4
           return (
             <div
@@ -40,7 +41,8 @@ export default function StreakCalendar({ days, currentStreak, longestStreak, tot
               title={`Day ${i + 1}: ${day.lessons} lessons, ${day.hours}h`}
             />
           )
-        })}
+        }        )}
+      </div>
       </div>
 
       <div className="flex items-center justify-end gap-1 mt-3">

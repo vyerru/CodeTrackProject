@@ -54,64 +54,64 @@ export default function LoginPage() {
       className="min-h-screen flex items-center justify-center px-4"
       style={{ background: 'linear-gradient(117deg, #eef2ff 0%, #ffffff 50%, #faf5ff 100%)' }}
     >
-      <div className="w-full max-w-md bg-white rounded-[14px] shadow-[0px_8px_10px_-6px_#0000001a,0px_20px_25px_-5px_#0000001a] p-8">
+      <div className="w-full max-w-md bg-card rounded-[14px] shadow-lg p-8">
         <div className="flex justify-center mb-6">
-          <div className="w-14 h-14 rounded-2xl bg-[#4f39f6] flex items-center justify-center shadow-[0px_10px_20px_-10px_rgba(79,57,246,0.7)]">
-            <LogIn className="text-white" size={26} />
+          <div className="w-14 h-14 rounded-2xl bg-primary flex items-center justify-center shadow-lg">
+            <LogIn className="text-primary-foreground" size={26} />
           </div>
         </div>
 
-        <h1 className="text-center text-xl font-bold text-[#111827] mb-1">Welcome Back</h1>
-        <p className="text-center text-sm text-[#697282] mb-7">
+        <h1 className="text-center text-xl font-bold text-foreground mb-1">Welcome Back</h1>
+        <p className="text-center text-sm text-muted-foreground mb-7">
           Sign in to continue learning
         </p>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div>
             <div className="relative">
-              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-[#9ca3af]" size={16} />
+              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={16} />
               <input
                 {...register('email')}
                 placeholder="name@example.com"
                 autoComplete="email"
-                className="w-full h-9 pl-10 pr-3 text-sm bg-[#f3f3f5] rounded-lg border border-transparent text-[#495565] placeholder:text-[#717182] focus-visible:ring-0 focus-visible:ring-offset-0 focus:outline-none"
+                className="w-full h-9 pl-10 pr-3 text-sm bg-muted rounded-lg border border-transparent text-foreground placeholder:text-muted-foreground focus-visible:ring-0 focus-visible:ring-offset-0 focus:outline-none"
               />
             </div>
-            {errors.email && <p className="text-xs text-red-500 mt-1">{errors.email.message}</p>}
+            {errors.email && <p className="text-xs text-destructive mt-1">{errors.email.message}</p>}
           </div>
 
           <div>
             <div className="relative">
-              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-[#9ca3af]" size={16} />
+              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={16} />
               <input
                 {...register('password')}
                 type={showPassword ? 'text' : 'password'}
                 placeholder="Password"
                 autoComplete="current-password"
-                className="w-full h-9 pl-10 pr-10 text-sm bg-[#f3f3f5] rounded-lg border border-transparent text-[#495565] placeholder:text-[#717182] focus-visible:ring-0 focus-visible:ring-offset-0 focus:outline-none"
+                className="w-full h-9 pl-10 pr-10 text-sm bg-muted rounded-lg border border-transparent text-foreground placeholder:text-muted-foreground focus-visible:ring-0 focus-visible:ring-offset-0 focus:outline-none"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-[#9ca3af] focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring outline-none"
                 tabIndex={-1}
               >
                 {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
               </button>
             </div>
             {errors.password && (
-              <p className="text-xs text-red-500 mt-1">{errors.password.message}</p>
+              <p className="text-xs text-destructive mt-1">{errors.password.message}</p>
             )}
           </div>
 
           {loginError && (
-            <p className="text-xs text-red-500 text-center">{loginError}</p>
+            <p className="text-xs text-destructive text-center">{loginError}</p>
           )}
 
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full bg-[#4f39f6] hover:bg-[#4f39f6]/95 disabled:opacity-60 text-white rounded-lg min-h-11 text-sm font-medium shadow-[0px_10px_20px_-10px_rgba(79,57,246,0.7)] flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
+            className="w-full bg-primary hover:bg-primary/95 disabled:opacity-60 text-primary-foreground rounded-lg min-h-11 text-sm font-medium shadow-md flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-ring outline-none"
           >
             {isLoading && <Loader2 size={16} className="animate-spin" />}
             {isLoading ? 'Signing in...' : 'Sign In'}
@@ -119,34 +119,34 @@ export default function LoginPage() {
         </form>
 
         <div className="flex items-center gap-3 my-5">
-          <div className="flex-1 h-px bg-black/10" />
-          <span className="text-xs text-[#697282]">Or continue with</span>
-          <div className="flex-1 h-px bg-black/10" />
+          <div className="flex-1 h-px bg-border" />
+          <span className="text-xs text-muted-foreground">Or continue with</span>
+          <div className="flex-1 h-px bg-border" />
         </div>
 
         <div className="flex gap-3">
           <button
             type="button"
-            className="flex-1 h-10 flex items-center justify-center gap-2 border border-black/10 rounded-lg text-sm text-[#495565] hover:bg-[#f3f3f5] focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
+            className="flex-1 h-10 flex items-center justify-center gap-2 border border-border rounded-lg text-sm text-foreground hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring outline-none"
           >
             <GoogleLogo />
             Google
           </button>
           <button
             type="button"
-            className="flex-1 h-10 flex items-center justify-center gap-2 border border-black/10 rounded-lg text-sm text-[#495565] hover:bg-[#f3f3f5] focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
+            className="flex-1 h-10 flex items-center justify-center gap-2 border border-border rounded-lg text-sm text-foreground hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring outline-none"
           >
             <GitHubLogo />
             GitHub
           </button>
         </div>
 
-        <p className="text-center text-sm text-[#495565] mt-5">
+        <p className="text-center text-sm text-foreground mt-5">
           Don&apos;t have an account?{' '}
           <button
             type="button"
             onClick={() => navigate('/auth/register')}
-            className="text-[#4f39f6] font-medium hover:underline focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
+            className="text-primary font-medium hover:underline focus-visible:ring-2 focus-visible:ring-ring outline-none"
           >
             Sign up
           </button>
@@ -156,7 +156,7 @@ export default function LoginPage() {
           <button
             type="button"
             onClick={() => navigate('/')}
-            className="text-xs text-[#697282] hover:text-[#495565] focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
+            className="text-xs text-muted-foreground hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring outline-none"
           >
             ← Back to Home
           </button>
