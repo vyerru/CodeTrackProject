@@ -1,10 +1,12 @@
-import type { Transaction } from '../entities/Transaction'
+import type { Transaction, TransactionItem } from '../entities/Transaction'
 
 export interface CreateTransactionParams {
   userId: string
   customerName: string
-  courseId: string
-  courseTitle: string
+  customerEmail?: string
+  customerPhone?: string
+  customerAddress?: string
+  items: TransactionItem[]
   amount: number
   paymentMethod: string
 }

@@ -1,16 +1,72 @@
-import { useParams, useNavigate } from 'react-router'
-import { ArrowLeft, Star, Users, Clock, BookOpen } from 'lucide-react'
+import { useState, useRef } from 'react'
+import { useParams, useNavigate, Link } from 'react-router'
+import { ArrowLeft, Star, Users, Clock, BookOpen, ShoppingCart, X } from 'lucide-react'
 import { useAsync } from '@/shared/hooks/useAsync'
 import { repos } from '@/core/domain/di'
 import { formatRupiah } from '@/shared/utils'
 import LevelBadge from '@/shared/components/common/LevelBadge'
 import ErrorState from '@/shared/components/common/ErrorState'
 import PageSkeleton from '@/shared/components/common/PageSkeleton'
+import { useCartStore } from '@/features/commerce/store/cartStore'
+import { useAuthStore } from '@/features/auth/store/authStore'
 import type { Course } from '@/shared/types'
 
 export default function CourseDetailPage() {
   const { slug } = useParams()
   const navigate = useNavigate()
+  const { items, add } = useCartStore()
+  const { isAuthenticated } = useAuthStore()
+  const [toast, setToast] = useState<{ visible: boolean; message: string; type: 'success' | 'info' }>({
+    visible: false,
+    message: '',
+    type: 'success',
+  })
+  const toastTimeoutRef = useRef<ReturnType<typeof setTimeout>>(undefined)
+
+  const showToast = (message: string, type: 'success' | 'info' = 'success') => {
+    clearTimeout(toastTimeoutRef.current)
+    setToast({ visible: true, message, type })
+    toastTimeoutRef.current = setTimeout(() => {
+      setToast({ visible: false, message: '', type: 'success' })
+    }, 3000)
+  }
+
+  const hideToast = () => {
+    clearTimeout(toastTimeoutRef.current)
+    setToast({ visible: false, message: '', type: 'success' })
+  }
+
+  const isInCart = (courseId: string) => items.some((item) => item.id === courseId)
+
+  const handleAddToCart = (course: Course) => {
+    if (isInCart(course.id)) {
+      showToast('Course sudah ada di keranjang', 'info')
+      return
+    }
+    add({
+      id: course.id,
+      title: course.title,
+      price: course.price,
+      quantity: 1,
+    })
+    showToast('Course ditambahkan ke keranjang', 'success')
+  }
+
+  const handleBuyNow = (course: Course) => {
+    if (!isAuthenticated) {
+      navigate('/auth/login', { state: { from: `/courses/${course.slug}` } })
+      return
+    }
+    if (!isInCart(course.id)) {
+      add({
+        id: course.id,
+        title: course.title,
+        price: course.price,
+        quantity: 1,
+      })
+    }
+    navigate('/dashboard/checkout')
+  }
 
   const { data: course, isLoading, error, refetch } = useAsync<Course | null>(
     () => repos.course.findBySlug(slug || '')
@@ -36,6 +92,33 @@ export default function CourseDetailPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* Toast Notification */}
+      {toast.visible && (
+        <div className="fixed top-4 right-4 z-50 animate-in slide-in-from-right-2">
+          <div
+            className={`flex items-center gap-3 px-4 py-3 rounded-lg shadow-lg border text-sm ${
+              toast.type === 'success'
+                ? 'bg-green-50 border-green-200 text-green-800'
+                : 'bg-blue-50 border-blue-200 text-blue-800'
+            }`}
+          >
+            <span>{toast.message}</span>
+            <div className="flex items-center gap-2 ml-2">
+              {toast.type === 'success' && (
+                <Link
+                  to="/dashboard/cart"
+                  className="text-xs font-semibold underline hover:no-underline"
+                >
+                  Lihat Keranjang
+                </Link>
+              )}
+              <button onClick={hideToast} className="p-0.5 hover:opacity-70 transition-opacity outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded">
+                <X className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <button
           onClick={() => navigate(-1)}
@@ -117,9 +200,18 @@ export default function CourseDetailPage() {
               )}
 
               <button
+                onClick={() => handleBuyNow(course)}
                 className="w-full h-11 bg-indigo-600 text-white rounded-lg text-sm font-medium hover:bg-indigo-700 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
               >
-                {course.isFree ? 'Mulai Gratis' : 'Beli Sekarang'}
+                {course.isFree ? 'Daftar Sekarang' : 'Beli Sekarang'}
+              </button>
+
+              <button
+                onClick={() => handleAddToCart(course)}
+                className="w-full h-11 border-2 border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:border-gray-400 hover:bg-gray-50 transition-all focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none flex items-center justify-center gap-2"
+              >
+                <ShoppingCart className="w-4 h-4" />
+                Tambah ke Keranjang
               </button>
 
               <div className="space-y-3 text-sm text-gray-600">

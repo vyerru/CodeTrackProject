@@ -16,17 +16,23 @@ export class MockTransactionRepository implements ITransactionRepository {
 
   async create(params: CreateTransactionParams): Promise<Transaction> {
     await delay()
+    const { userId, customerName, customerEmail, customerPhone, customerAddress, items, amount, paymentMethod } = params
+    const summaryTitle = items.map(i => i.title).join(', ')
     const txn: Transaction = {
       id: String(Date.now()),
       invoice: `INV/${new Date().toISOString().slice(0, 10).replace(/-/g, '')}/${String((transactions as Transaction[]).length + 1).padStart(4, '0')}`,
-      userId: params.userId,
-      customerName: params.customerName,
-      courseId: params.courseId,
-      courseTitle: params.courseTitle,
-      amount: params.amount,
+      userId,
+      customerName,
+      customerEmail,
+      customerPhone,
+      customerAddress,
+      courseId: '',
+      courseTitle: summaryTitle,
+      amount,
       status: 'success',
       createdAt: new Date().toISOString(),
-      paymentMethod: params.paymentMethod,
+      paymentMethod,
+      items,
     }
     return txn
   }
