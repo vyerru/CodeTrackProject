@@ -15,7 +15,7 @@ export default function AdminTopbar() {
   }
 
   return (
-    <header className="h-16 bg-primary flex items-center justify-between px-6 sticky top-0 z-40">
+    <header className="h-16 bg-indigo-900 flex items-center justify-between px-6 sticky top-0 z-40">
       <div className="flex items-center gap-4">
         <button onClick={() => navigate('/admin')} className="flex items-center gap-2">
           <Code2 className="w-7 h-7 text-primary-foreground/70" strokeWidth={2.5} />

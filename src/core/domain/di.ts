@@ -3,6 +3,7 @@ import type { IAuthRepository } from './repositories/IAuthRepository'
 import type { IArticleRepository } from './repositories/IArticleRepository'
 import type { ITransactionRepository } from './repositories/ITransactionRepository'
 import type { IDashboardRepository } from './repositories/IDashboardRepository'
+import type { IAdminDashboardRepository } from './repositories/IAdminDashboardRepository'
 import type { IUserRepository } from './repositories/IUserRepository'
 
 interface Repositories {
@@ -11,6 +12,7 @@ interface Repositories {
   articleRepo: IArticleRepository
   transactionRepo: ITransactionRepository
   dashboardRepo: IDashboardRepository
+  adminDashboardRepo: IAdminDashboardRepository
   userRepo: IUserRepository
 }
 
@@ -40,6 +42,9 @@ export const repos = {
   },
   get dashboard(): IDashboardRepository {
     return requireRepo('dashboardRepo', _repos?.dashboardRepo)
+  },
+  get adminDashboard(): IAdminDashboardRepository {
+    return requireRepo('adminDashboardRepo', _repos?.adminDashboardRepo)
   },
   get user(): IUserRepository {
     return requireRepo('userRepo', _repos?.userRepo)

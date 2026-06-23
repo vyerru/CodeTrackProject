@@ -1,0 +1,116 @@
+{
+  "kpiCards": [
+    { "label": "Revenue", "value": "Rp 12.4M", "trend": 12.5 },
+    { "label": "Total Users", "value": "2,847", "trend": 8.2 },
+    { "label": "Active Courses", "value": "24", "trend": 4.1 },
+    { "label": "Students", "value": "1,432", "trend": 15.3 },
+    { "label": "Health", "value": "98%", "trend": 0.5 }
+  ],
+  "revenueData": {
+    "7D": [
+      { "label": "Sen", "revenue": 4200000, "users": 45 },
+      { "label": "Sel", "revenue": 3800000, "users": 38 },
+      { "label": "Rab", "revenue": 5100000, "users": 52 },
+      { "label": "Kam", "revenue": 4600000, "users": 47 },
+      { "label": "Jum", "revenue": 5900000, "users": 61 },
+      { "label": "Sab", "revenue": 5400000, "users": 55 },
+      { "label": "Min", "revenue": 4800000, "users": 49 }
+    ],
+    "30D": [
+      { "label": "Minggu 1", "revenue": 28500000, "users": 290 },
+      { "label": "Minggu 2", "revenue": 31200000, "users": 315 },
+      { "label": "Minggu 3", "revenue": 29800000, "users": 302 },
+      { "label": "Minggu 4", "revenue": 34600000, "users": 348 }
+    ],
+    "3M": [
+      { "label": "Apr", "revenue": 118000000, "users": 1180 },
+      { "label": "Mei", "revenue": 135000000, "users": 1350 },
+      { "label": "Jun", "revenue": 148000000, "users": 1480 }
+    ],
+    "1Y": [
+      { "label": "Jul", "revenue": 98000000, "users": 980 },
+      { "label": "Agu", "revenue": 105000000, "users": 1050 },
+      { "label": "Sep", "revenue": 112000000, "users": 1120 },
+      { "label": "Okt", "revenue": 125000000, "users": 1250 },
+      { "label": "Nov", "revenue": 138000000, "users": 1380 },
+      { "label": "Des", "revenue": 152000000, "users": 1520 },
+      { "label": "Jan", "revenue": 142000000, "users": 1420 },
+      { "label": "Feb", "revenue": 128000000, "users": 1280 },
+      { "label": "Mar", "revenue": 135000000, "users": 1350 },
+      { "label": "Apr", "revenue": 118000000, "users": 1180 },
+      { "label": "Mei", "revenue": 135000000, "users": 1350 },
+      { "label": "Jun", "revenue": 148000000, "users": 1480 }
+    ]
+  },
+  "recentActivity": [
+    { "type": "enrollment", "user": "Budi Santoso", "action": "mendaftar Web Dev Bootcamp", "time": "2 menit lalu", "avatar": "BS" },
+    { "type": "purchase", "user": "Siti Rahma", "action": "membeli UI/UX Design", "time": "15 menit lalu", "avatar": "SR" },
+    { "type": "registration", "user": "Ahmad Fauzi", "action": "mendaftar akun baru", "time": "1 jam lalu", "avatar": "AF" },
+    { "type": "completion", "user": "Dewi Lestari", "action": "menyelesaikan Python Dasar", "time": "2 jam lalu", "avatar": "DL" },
+    { "type": "review", "user": "Rizki Pratama", "action": "memberi rating 5⭐ pada Flutter", "time": "3 jam lalu", "avatar": "RP" },
+    { "type": "enrollment", "user": "Maya Indah", "action": "mendaftar Machine Learning", "time": "4 jam lalu", "avatar": "MI" },
+    { "type": "purchase", "user": "Hendra Gunawan", "action": "membeli React & TypeScript", "time": "5 jam lalu", "avatar": "HG" },
+    { "type": "completion", "user": "Putri Ayu", "action": "menyelesaikan AWS Cloud Practitioner", "time": "6 jam lalu", "avatar": "PA" }
+  ],
+  "pendingReviews": [
+    { "course": "Node.js Backend", "count": 3, "pending": 2 },
+    { "course": "React Native", "count": 5, "pending": 1 },
+    { "course": "Python Data Science", "count": 4, "pending": 3 }
+  ],
+  "todayGoals": [
+    { "label": "Pendaftaran Baru", "current": 18, "target": 25 },
+    { "label": "Course Terjual", "current": 7, "target": 12 },
+    { "label": "Ulasan Ditulis", "current": 4, "target": 8 }
+  ],
+  "secondaryMetrics": [
+    { "label": "Conversion Rate", "value": "3.2%", "change": "+0.8%" },
+    { "label": "Avg Transaction", "value": "Rp 459k", "change": "+5.2%" },
+    { "label": "Completion Rate", "value": "68%", "change": "+12%" },
+    { "label": "Avg Rating", "value": "4.7⭐", "change": "+0.1" },
+    { "label": "Open Tickets", "value": "12", "change": "-3" },
+    { "label": "Refund Rate", "value": "1.8%", "change": "-0.4%" }
+  ],
+  "latestTransactions": [
+    { "invoice": "INV/20240715/0012", "customer": "Budi Santoso", "course": "Web Dev Bootcamp", "amount": 299000, "status": "success", "date": "15 Jul 2024" },
+    { "invoice": "INV/20240714/0011", "customer": "Siti Rahma", "course": "UI/UX Design", "amount": 449000, "status": "success", "date": "14 Jul 2024" },
+    { "invoice": "INV/20240714/0010", "customer": "Ahmad Fauzi", "course": "Node.js Backend", "amount": 349000, "status": "pending", "date": "14 Jul 2024" },
+    { "invoice": "INV/20240713/0009", "customer": "Dewi Lestari", "course": "Flutter Mobile", "amount": 799000, "status": "success", "date": "13 Jul 2024" },
+    { "invoice": "INV/20240713/0008", "customer": "Rizki Pratama", "course": "Docker & Kubernetes", "amount": 699000, "status": "failed", "date": "13 Jul 2024" }
+  ],
+  "newestUsers": [
+    { "avatar": "AF", "name": "Ahmad Fauzi", "email": "ahmad.f@email.com", "role": "student", "time": "1 jam lalu" },
+    { "avatar": "SW", "name": "Sari Wulandari", "email": "sari.w@email.com", "role": "student", "time": "2 jam lalu" },
+    { "avatar": "DP", "name": "Doni Pratama", "email": "doni.p@email.com", "role": "instructor", "time": "3 jam lalu" },
+    { "avatar": "MA", "name": "Mega Aulia", "email": "mega.a@email.com", "role": "student", "time": "4 jam lalu" },
+    { "avatar": "RF", "name": "Rafi Firdaus", "email": "rafi.f@email.com", "role": "student", "time": "5 jam lalu" }
+  ],
+  "trafficSources": [
+    { "name": "Direct", "value": 45, "color": "#6366F1" },
+    { "name": "Google", "value": 25, "color": "#10B981" },
+    { "name": "Social", "value": 18, "color": "#F59E0B" },
+    { "name": "Referral", "value": 12, "color": "#3B82F6" }
+  ],
+  "deviceData": [
+    { "device": "Desktop", "count": 58, "color": "bg-indigo-500" },
+    { "device": "Mobile", "count": 32, "color": "bg-green-500" },
+    { "device": "Tablet", "count": 10, "color": "bg-purple-500" }
+  ],
+  "topLocations": [
+    { "city": "Jakarta", "count": 42 },
+    { "city": "Bandung", "count": 18 },
+    { "city": "Surabaya", "count": 12 },
+    { "city": "Yogyakarta", "count": 8 }
+  ],
+  "alerts": [
+    { "id": "1", "type": "success", "message": "Sistem berjalan normal — tidak ada masalah yang terdeteksi." },
+    { "id": "2", "type": "warning", "message": "3 kursus memiliki rating di bawah 4.0 — perlu review konten." },
+    { "id": "3", "type": "info", "message": "5 pengguna baru mendaftar dalam 24 jam terakhir." }
+  ],
+  "topCourses": [
+    { "rank": 1, "title": "Web Dev Bootcamp", "category": "Web Development", "students": 342, "revenue": 102258000, "growth": 15.2 },
+    { "rank": 2, "title": "UI/UX Design", "category": "Design", "students": 289, "revenue": 129761000, "growth": 12.8 },
+    { "rank": 3, "title": "Flutter Mobile", "category": "Mobile", "students": 234, "revenue": 186966000, "growth": 9.5 },
+    { "rank": 4, "title": "Node.js Backend", "category": "Backend", "students": 198, "revenue": 69102000, "growth": 7.3 },
+    { "rank": 5, "title": "Python Data Science", "category": "Data Science", "students": 167, "revenue": 74983000, "growth": 18.1 }
+  ]
+}

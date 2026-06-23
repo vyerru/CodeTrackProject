@@ -7,12 +7,15 @@ import AdminSidebar from './AdminSidebar'
 
 export default function AdminLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const location = useLocation()
 
-  // Close sidebar on route change
   useEffect(() => {
     setSidebarOpen(false)
   }, [location.pathname])
+
+  const sidebarWidth = sidebarCollapsed ? 'lg:w-[72px]' : 'lg:w-[260px]'
+  const contentMargin = sidebarCollapsed ? 'lg:ml-[72px]' : 'lg:ml-[260px]'
 
   return (
     <div className="min-h-screen bg-muted flex">
@@ -26,11 +29,11 @@ export default function AdminLayout() {
 
       {/* Sidebar container */}
       <div
-        className={`fixed inset-y-0 left-0 z-50 w-[240px] transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:w-[18%] ${
+        className={`fixed inset-y-0 left-0 z-50 w-[260px] transition-all duration-300 ease-in-out lg:translate-x-0 ${sidebarWidth} ${
           sidebarOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
-        <AdminSidebar />
+        <AdminSidebar collapsed={sidebarCollapsed} onToggleCollapse={() => setSidebarCollapsed((prev) => !prev)} />
       </div>
 
       <div className="flex-1 flex flex-col min-w-0">
@@ -40,7 +43,7 @@ export default function AdminLayout() {
             {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
-        <div className="flex-1 lg:ml-0">
+        <div className={`flex-1 transition-all duration-300 ease-in-out ${contentMargin}`}>
           <AdminTopbar />
           <main className="p-6">
             <AnimatePresence mode="wait">

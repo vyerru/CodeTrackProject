@@ -9,6 +9,7 @@ import { MockAuthRepository } from '@/data/repositories/MockAuthRepository'
 import { MockArticleRepository } from '@/data/repositories/MockArticleRepository'
 import { MockTransactionRepository } from '@/data/repositories/MockTransactionRepository'
 import { MockDashboardRepository } from '@/data/repositories/MockDashboardRepository'
+import { MockAdminDashboardRepository } from '@/data/repositories/MockAdminDashboardRepository'
 import { MockUserRepository } from '@/data/repositories/MockUserRepository'
 import '@fontsource-variable/geist'
 import './index.css'
@@ -20,6 +21,7 @@ injectRepositories({
   articleRepo: new MockArticleRepository(),
   transactionRepo: new MockTransactionRepository(),
   dashboardRepo: new MockDashboardRepository(),
+  adminDashboardRepo: new MockAdminDashboardRepository(),
   userRepo: new MockUserRepository(),
 })
 
