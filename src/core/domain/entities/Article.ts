@@ -1,3 +1,5 @@
+export type ArticleStatus = 'Published' | 'Draft'
+
 export interface Article {
   id: string
   slug: string
@@ -11,4 +13,6 @@ export interface Article {
   thumbnail: string
   category: string
   tags: string[]
+  status?: ArticleStatus
+  views?: number
 }

@@ -11,7 +11,9 @@
     "readTime": 8,
     "thumbnail": "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&h=400&fit=crop",
     "category": "Web Development",
-    "tags": ["React", "JavaScript", "Frontend"]
+    "tags": ["React", "JavaScript", "Frontend"],
+    "status": "Published",
+    "views": 4520
   },
   {
     "id": "2",
@@ -25,7 +27,9 @@
     "readTime": 6,
     "thumbnail": "https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=800&h=400&fit=crop",
     "category": "Data Science",
-    "tags": ["Python", "Pandas", "Data Science"]
+    "tags": ["Python", "Pandas", "Data Science"],
+    "status": "Published",
+    "views": 3210
   },
   {
     "id": "3",
@@ -39,7 +43,9 @@
     "readTime": 10,
     "thumbnail": "https://images.unsplash.com/photo-1605745341112-85968b19335b?w=800&h=400&fit=crop",
     "category": "DevOps",
-    "tags": ["Docker", "Kubernetes", "DevOps"]
+    "tags": ["Docker", "Kubernetes", "DevOps"],
+    "status": "Published",
+    "views": 2840
   },
   {
     "id": "4",
@@ -53,7 +59,9 @@
     "readTime": 7,
     "thumbnail": "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=400&fit=crop",
     "category": "Design",
-    "tags": ["CSS", "Grid", "Frontend"]
+    "tags": ["CSS", "Grid", "Frontend"],
+    "status": "Draft",
+    "views": 0
   },
   {
     "id": "5",
@@ -67,7 +75,9 @@
     "readTime": 5,
     "thumbnail": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=400&fit=crop",
     "category": "Web Development",
-    "tags": ["TypeScript", "JavaScript", "Frontend"]
+    "tags": ["TypeScript", "JavaScript", "Frontend"],
+    "status": "Published",
+    "views": 1890
   },
   {
     "id": "6",
@@ -81,7 +91,9 @@
     "readTime": 9,
     "thumbnail": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&h=400&fit=crop",
     "category": "Mobile Development",
-    "tags": ["Flutter", "React Native", "Mobile"]
+    "tags": ["Flutter", "React Native", "Mobile"],
+    "status": "Published",
+    "views": 2350
   },
   {
     "id": "7",
@@ -95,7 +107,9 @@
     "readTime": 12,
     "thumbnail": "https://images.unsplash.com/photo-1627398242454-45a1465c2479?w=800&h=400&fit=crop",
     "category": "Backend Development",
-    "tags": ["API", "REST", "Backend"]
+    "tags": ["API", "REST", "Backend"],
+    "status": "Published",
+    "views": 4100
   },
   {
     "id": "8",
@@ -109,7 +123,9 @@
     "readTime": 15,
     "thumbnail": "https://images.unsplash.com/photo-1556075798-4825dfaaf498?w=800&h=400&fit=crop",
     "category": "Web Development",
-    "tags": ["Git", "Version Control", "Pemula"]
+    "tags": ["Git", "Version Control", "Pemula"],
+    "status": "Draft",
+    "views": 0
   },
   {
     "id": "9",
@@ -123,6 +139,8 @@
     "readTime": 11,
     "thumbnail": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=400&fit=crop",
     "category": "Cloud Computing",
-    "tags": ["Cloud", "AWS", "GCP", "Azure"]
+    "tags": ["Cloud", "AWS", "GCP", "Azure"],
+    "status": "Draft",
+    "views": 0
   }
 ]
