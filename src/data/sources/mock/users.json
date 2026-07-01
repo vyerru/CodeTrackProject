@@ -3,18 +3,81 @@
     "email": "user@codetrack.id",
     "password": "user123",
     "name": "Budi Santoso",
-    "role": "user"
+    "role": "student",
+    "avatar": "https://i.pravatar.cc/150?img=11",
+    "status": "Active",
+    "lastActive": "2026-06-30T14:30:00Z"
+  },
+  {
+    "email": "instructor@codetrack.id",
+    "password": "instructor123",
+    "name": "Sarah Martinez",
+    "role": "instructor",
+    "avatar": "https://i.pravatar.cc/150?img=5",
+    "status": "Active",
+    "lastActive": "2026-06-29T09:15:00Z"
   },
   {
     "email": "admin@codetrack.id",
     "password": "admin123",
     "name": "Admin User",
-    "role": "admin"
+    "role": "admin",
+    "avatar": "https://i.pravatar.cc/150?img=12",
+    "status": "Active",
+    "lastActive": "2026-06-30T16:45:00Z"
+  },
+  {
+    "email": "alex.turner@email.com",
+    "password": "alex123",
+    "name": "Alex Turner",
+    "role": "student",
+    "avatar": "https://i.pravatar.cc/150?img=8",
+    "status": "Active",
+    "lastActive": "2026-06-28T11:00:00Z"
+  },
+  {
+    "email": "emma.davis@email.com",
+    "password": "emma123",
+    "name": "Emma Davis",
+    "role": "student",
+    "avatar": "https://i.pravatar.cc/150?img=9",
+    "status": "Active",
+    "lastActive": "2026-06-30T08:20:00Z"
+  },
+  {
+    "email": "michael.chen@email.com",
+    "password": "michael123",
+    "name": "Michael Chen",
+    "role": "instructor",
+    "avatar": "https://i.pravatar.cc/150?img=3",
+    "status": "Active",
+    "lastActive": "2026-06-27T13:30:00Z"
+  },
+  {
+    "email": "lisa.anderson@email.com",
+    "password": "lisa123",
+    "name": "Lisa Anderson",
+    "role": "student",
+    "avatar": "https://i.pravatar.cc/150?img=10",
+    "status": "Inactive",
+    "lastActive": "2026-05-15T10:00:00Z"
+  },
+  {
+    "email": "david.park@email.com",
+    "password": "david123",
+    "name": "David Park",
+    "role": "student",
+    "avatar": "https://i.pravatar.cc/150?img=7",
+    "status": "Active",
+    "lastActive": "2026-06-29T15:45:00Z"
   },
   {
     "email": "email.super.panjang.sekali.yang.tidak.masuk.akal@subdomain.domain.co.id",
     "password": "chaos123",
     "name": "Pengguna Dengan Nama Super Panjang Sekali Sampai Memecahkan Sidebar Dan Navbar CodeTrack",
-    "role": "user"
+    "role": "student",
+    "avatar": null,
+    "status": "Inactive",
+    "lastActive": "2026-01-01T00:00:00Z"
   }
 ]

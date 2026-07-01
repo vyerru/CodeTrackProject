@@ -50,7 +50,7 @@ export const router = createBrowserRouter([
   },
   {
     path: '/dashboard',
-    element: <ProtectedRoute requiredRole="user"><UserLayout /></ProtectedRoute>,
+    element: <ProtectedRoute requiredRole="student"><UserLayout /></ProtectedRoute>,
     children: [
       { index: true, element: S(UserDashboardPage) },
       { path: 'cart', element: S(CartPage) },

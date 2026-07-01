@@ -9,6 +9,8 @@ export type CourseCategory =
   | 'Cloud Computing'
   | 'Design'
 
+export type CourseStatus = 'Published' | 'Draft'
+
 export interface Course {
   id: string
   slug: string
@@ -29,6 +31,8 @@ export interface Course {
   isBestseller?: boolean
   isFree?: boolean
   isPublished: boolean
+  status?: CourseStatus
+  revenue?: number
   createdAt: string
 }
 

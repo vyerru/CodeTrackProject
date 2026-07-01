@@ -29,6 +29,39 @@
 | DI registration (`di.ts` + `main.tsx`) | ✅ Done | Wired via `adminDashboardRepo` key |
 | `shared/types/index.ts` re-export | ✅ Done | Re-exports from entity |
 
+## Course Management Page
+
+| Feature | Status | Notes |
+|---|---|---|
+| Stats Row (Total / Published / Draft / Students / Revenue) | ✅ Done | 5 stat cards |
+| Search & Filter (Status / Kategori / Level) | ✅ Done | 3 dropdown filters + Reset |
+| Bulk Actions | ✅ Done | Select all + Publish/Draft/Hapus toolbar |
+| Table with all columns | ✅ Done | Thumb+judul+desc, kategori, level, instruktur, students, harga, revenue, status, actions |
+| Pagination | ✅ Done | Showing X-Y of Z + Prev/Next |
+| Modal Tambah/Edit Course | ✅ Done | react-hook-form + zod, 13 fields |
+| Delete Confirmation | ✅ Done | Dialog with course title |
+| CRUD via Repository | ✅ Done | create/update/delete through ICourseRepository |
+| Loading Skeleton | ✅ Done | Full-page spinner |
+| Empty State | ✅ Done | With Reset/Tambah action |
+| Error State | ✅ Done | With retry button |
+
+## User Management Page
+
+| Feature | Status | Notes |
+|---|---|---|
+| Stats Row (Total / Student / Instructor / Admin / Baru Bulan Ini) | ✅ Done | 5 stat cards with icons |
+| Search & Filter (Role / Status) | ✅ Done | 2 dropdown filters + Reset |
+| Bulk Actions | ✅ Done | Select all + Aktifkan/Suspend/Hapus toolbar |
+| Table with all columns | ✅ Done | Avatar+nama+email, role badge, status badge, date, course, last active, 4 actions |
+| Pagination | ✅ Done | Showing X-Y of Z + Prev/Next |
+| Modal Tambah/Edit Pengguna | ✅ Done | react-hook-form + zod, 7 fields, password only for new |
+| Modal Detail Pengguna | ✅ Done | Read-only: info dasar, stats (learning time/certificates/streak), enrolled courses with progress, activity timeline |
+| Suspend Confirmation | ✅ Done | Amber warning dialog with user info |
+| Delete Confirmation | ✅ Done | Red danger dialog with user info |
+| CRUD via Repository | ✅ Done | create/update/delete/getUserDetail through IUserRepository |
+| Loading / Empty / Error State | ✅ Done | Full coverage |
+| UserRole type migration | ✅ Done | `'user'|'admin'` → `'student'|'instructor'|'admin'` |
+
 ## Admin Dashboard Page
 
 | Feature | Status | Notes |

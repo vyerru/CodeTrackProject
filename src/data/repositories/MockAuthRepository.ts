@@ -6,7 +6,7 @@ interface DemoUser {
   email: string
   password: string
   name: string
-  role: 'user' | 'admin'
+  role: 'student' | 'instructor' | 'admin'
 }
 
 export class MockAuthRepository implements IAuthRepository {
@@ -30,7 +30,7 @@ export class MockAuthRepository implements IAuthRepository {
       id: crypto.randomUUID(),
       name: params.name,
       email: params.email,
-      role: params.role === 'Instructor' ? 'admin' : 'user',
+      role: params.role === 'Instructor' ? 'instructor' : 'student',
     }
   }
 }
