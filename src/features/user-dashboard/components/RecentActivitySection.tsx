@@ -14,7 +14,7 @@ interface Props {
 
 export default function RecentActivitySection({ activities }: Props) {
   return (
-    <div className="bg-white border border-black/10 rounded-xl p-6">
+    <div className="bg-white border border-border rounded-xl p-6">
       <div className="flex items-center justify-between mb-5">
         <h2 className="flex items-center gap-2 text-lg font-bold text-gray-900">
           <ActivityIcon />

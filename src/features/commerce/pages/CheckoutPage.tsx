@@ -95,7 +95,7 @@ export default function CheckoutPage() {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.3 }}
-          className="w-full max-w-lg bg-white rounded-2xl border border-black/10 shadow-sm p-8 text-center"
+          className="w-full max-w-lg bg-white rounded-2xl border border-border shadow-sm p-8 text-center"
         >
           <motion.div
             initial={{ scale: 0 }}
@@ -191,7 +191,7 @@ export default function CheckoutPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3 }}
               onSubmit={onPay}
-              className="bg-white rounded-xl border border-black/10 p-6 space-y-4"
+              className="bg-white rounded-xl border border-border p-6 space-y-4"
             >
               <h2 className="text-lg font-semibold text-gray-900">Detail Pembeli</h2>
 
@@ -203,7 +203,7 @@ export default function CheckoutPage() {
                     {...register('name')}
                     disabled={isProcessing}
                     aria-label="Nama Lengkap"
-                    className="w-full h-10 pl-10 pr-3 text-sm bg-white rounded-lg border border-black/10 text-gray-900 placeholder:text-gray-400 focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
+                    className="w-full h-10 pl-10 pr-3 text-sm bg-white rounded-lg border border-border text-gray-900 placeholder:text-gray-400 focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
                     placeholder="Masukkan nama lengkap"
                   />
                 </div>
@@ -218,7 +218,7 @@ export default function CheckoutPage() {
                     {...register('email')}
                     disabled={isProcessing}
                     aria-label="Email"
-                    className="w-full h-10 pl-10 pr-3 text-sm bg-white rounded-lg border border-black/10 text-gray-900 placeholder:text-gray-400 focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
+                    className="w-full h-10 pl-10 pr-3 text-sm bg-white rounded-lg border border-border text-gray-900 placeholder:text-gray-400 focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
                     placeholder="nama@email.com"
                   />
                 </div>
@@ -233,7 +233,7 @@ export default function CheckoutPage() {
                     {...register('phone')}
                     disabled={isProcessing}
                     aria-label="Nomor HP"
-                    className="w-full h-10 pl-10 pr-3 text-sm bg-white rounded-lg border border-black/10 text-gray-900 placeholder:text-gray-400 focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
+                    className="w-full h-10 pl-10 pr-3 text-sm bg-white rounded-lg border border-border text-gray-900 placeholder:text-gray-400 focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
                     placeholder="08xxxxxxxxxx"
                   />
                 </div>
@@ -249,7 +249,7 @@ export default function CheckoutPage() {
                     disabled={isProcessing}
                     aria-label="Alamat"
                     rows={3}
-                    className="w-full pl-10 pr-3 py-2.5 text-sm bg-white rounded-lg border border-black/10 text-gray-900 placeholder:text-gray-400 focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none resize-none disabled:bg-gray-100 disabled:cursor-not-allowed"
+                    className="w-full pl-10 pr-3 py-2.5 text-sm bg-white rounded-lg border border-border text-gray-900 placeholder:text-gray-400 focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none resize-none disabled:bg-gray-100 disabled:cursor-not-allowed"
                     placeholder="Masukkan alamat lengkap"
                   />
                 </div>
@@ -264,7 +264,7 @@ export default function CheckoutPage() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: 0.1 }}
-              className="bg-white rounded-xl border border-black/10 p-6"
+              className="bg-white rounded-xl border border-border p-6"
             >
               <h2 className="text-lg font-semibold text-gray-900 mb-4">Metode Pembayaran</h2>
               <div className="space-y-3">
@@ -276,7 +276,7 @@ export default function CheckoutPage() {
                       className={`flex items-center gap-3 p-4 rounded-lg border-2 cursor-pointer transition-all focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none ${
                         method === pm.id
                           ? 'border-indigo-600 bg-indigo-50'
-                          : 'border-black/10 hover:border-gray-300'
+                          : 'border-border hover:border-gray-300'
                       } ${isProcessing ? 'pointer-events-none opacity-60' : ''}`}
                       aria-label={pm.label}
                     >
@@ -308,7 +308,7 @@ export default function CheckoutPage() {
                     transition={{ duration: 0.2 }}
                     className="overflow-hidden"
                   >
-                    <div className="mt-4 pt-4 border-t border-black/10 space-y-3">
+                    <div className="mt-4 pt-4 border-t border-border space-y-3">
                       <p className="text-sm text-gray-500">Transfer ke salah satu rekening berikut:</p>
                       {bankAccounts.map((bank) => (
                         <div
@@ -354,7 +354,7 @@ export default function CheckoutPage() {
                     transition={{ duration: 0.2 }}
                     className="overflow-hidden"
                   >
-                    <div className="mt-4 pt-4 border-t border-black/10 space-y-3">
+                    <div className="mt-4 pt-4 border-t border-border space-y-3">
                       <div>
                         <label className="block text-xs font-medium text-gray-600 mb-1">Nomor Kartu</label>
                         <input
@@ -364,7 +364,7 @@ export default function CheckoutPage() {
                           disabled={isProcessing}
                           aria-label="Nomor Kartu Kredit"
                           placeholder="1234 5678 9012 3456"
-                          className="w-full h-9 px-3 text-sm bg-white rounded-lg border border-black/10 text-gray-900 placeholder:text-gray-400 focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
+                          className="w-full h-9 px-3 text-sm bg-white rounded-lg border border-border text-gray-900 placeholder:text-gray-400 focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
                         />
                       </div>
                       <div className="grid grid-cols-2 gap-3">
@@ -377,7 +377,7 @@ export default function CheckoutPage() {
                             disabled={isProcessing}
                             aria-label="Masa berlaku kartu"
                             placeholder="MM/YY"
-                            className="w-full h-9 px-3 text-sm bg-white rounded-lg border border-black/10 text-gray-900 placeholder:text-gray-400 focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
+                            className="w-full h-9 px-3 text-sm bg-white rounded-lg border border-border text-gray-900 placeholder:text-gray-400 focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
                           />
                         </div>
                         <div>
@@ -389,7 +389,7 @@ export default function CheckoutPage() {
                             disabled={isProcessing}
                             aria-label="CVV"
                             placeholder="123"
-                            className="w-full h-9 px-3 text-sm bg-white rounded-lg border border-black/10 text-gray-900 placeholder:text-gray-400 focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
+                            className="w-full h-9 px-3 text-sm bg-white rounded-lg border border-border text-gray-900 placeholder:text-gray-400 focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
                           />
                         </div>
                       </div>
@@ -402,7 +402,7 @@ export default function CheckoutPage() {
                           disabled={isProcessing}
                           aria-label="Nama pemegang kartu"
                           placeholder="JOHN DOE"
-                          className="w-full h-9 px-3 text-sm bg-white rounded-lg border border-black/10 text-gray-900 placeholder:text-gray-400 focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none uppercase"
+                          className="w-full h-9 px-3 text-sm bg-white rounded-lg border border-border text-gray-900 placeholder:text-gray-400 focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none uppercase"
                         />
                       </div>
                       <p className="text-xs text-gray-400 italic">
@@ -421,7 +421,7 @@ export default function CheckoutPage() {
                     transition={{ duration: 0.2 }}
                     className="overflow-hidden"
                   >
-                    <div className="mt-4 pt-4 border-t border-black/10">
+                    <div className="mt-4 pt-4 border-t border-border">
                       <div className="flex flex-col items-center py-4">
                         <Wallet className="w-16 h-16 text-indigo-600 mb-3" />
                         <p className="text-sm font-medium text-gray-900">Pilih E-Wallet</p>
@@ -430,7 +430,7 @@ export default function CheckoutPage() {
                             <button
                               key={ew}
                               type="button"
-                              className="py-2 px-3 text-xs font-medium rounded-lg border border-black/10 text-gray-700 hover:border-indigo-600 hover:text-indigo-600 transition-all focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
+                              className="py-2 px-3 text-xs font-medium rounded-lg border border-border text-gray-700 hover:border-indigo-600 hover:text-indigo-600 transition-all focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
                             >
                               {ew}
                             </button>
@@ -453,7 +453,7 @@ export default function CheckoutPage() {
             transition={{ duration: 0.3, delay: 0.2 }}
             className="lg:sticky lg:top-24 self-start space-y-4"
           >
-            <div className="bg-white rounded-xl border border-black/10 p-6 shadow-sm space-y-4">
+            <div className="bg-white rounded-xl border border-border p-6 shadow-sm space-y-4">
               <h2 className="text-lg font-semibold text-gray-900">Ringkasan Pesanan</h2>
               <div className="space-y-3">
                 {items.map((item) => (
@@ -470,13 +470,13 @@ export default function CheckoutPage() {
                   </div>
                 ))}
               </div>
-              <div className="border-t border-black/10 pt-3 space-y-1">
+              <div className="border-t border-border pt-3 space-y-1">
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-500">Subtotal</span>
                   <span className="text-gray-900">{formatRupiah(total)}</span>
                 </div>
               </div>
-              <div className="border-t border-black/10 pt-3 flex justify-between font-semibold text-lg">
+              <div className="border-t border-border pt-3 flex justify-between font-semibold text-lg">
                 <span className="text-gray-900">Total</span>
                 <span className="text-indigo-600">{formatRupiah(total)}</span>
               </div>

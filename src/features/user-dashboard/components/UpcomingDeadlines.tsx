@@ -12,7 +12,7 @@ interface Props {
 
 export default function UpcomingDeadlines({ deadlines }: Props) {
   return (
-    <div className="bg-white border border-black/10 rounded-xl p-5">
+    <div className="bg-white border border-border rounded-xl p-5">
       <div className="flex items-center justify-between mb-4">
         <h2 className="flex items-center gap-2 text-lg font-bold text-gray-900">
           <Clock className="text-indigo-600" size={20} />

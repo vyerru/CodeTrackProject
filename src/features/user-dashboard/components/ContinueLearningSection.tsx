@@ -25,7 +25,7 @@ export default function ContinueLearningSection({ currentCourse, inProgressCours
         </button>
       </div>
 
-      <div className="bg-white border border-black/10 rounded-xl p-5 hover:shadow-lg transition-shadow mb-4">
+      <div className="bg-white border border-border rounded-xl p-5 hover:shadow-lg transition-shadow mb-4">
         <div className="flex flex-col sm:flex-row gap-5">
           <div className="relative group shrink-0 w-full sm:max-w-[200px]">
             <img

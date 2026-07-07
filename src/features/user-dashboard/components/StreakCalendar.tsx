@@ -18,7 +18,7 @@ interface Props {
 
 export default function StreakCalendar({ days, currentStreak, longestStreak, totalActiveDays }: Props) {
   return (
-    <div className="bg-white border border-black/10 rounded-xl p-6">
+    <div className="bg-white border border-border rounded-xl p-6">
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center gap-2">
           <Calendar className="text-indigo-600" size={22} />
@@ -53,7 +53,7 @@ export default function StreakCalendar({ days, currentStreak, longestStreak, tot
         <span className="text-xs text-gray-600">More</span>
       </div>
 
-      <div className="grid grid-cols-3 gap-4 border-t border-black/10 pt-5 mt-5">
+      <div className="grid grid-cols-3 gap-4 border-t border-border pt-5 mt-5">
         <StatBox value={currentStreak} label="Current Streak" className="text-green-600" />
         <StatBox value={longestStreak} label="Longest Streak" className="text-gray-900" />
         <StatBox value={totalActiveDays} label="Total Active Days" className="text-gray-900" />

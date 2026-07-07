@@ -37,7 +37,7 @@ export default function TestimonialsSection() {
           Dipercaya oleh Career Switcher & Professionals
         </h2>
 
-        <div className="bg-white border border-black/10 rounded-xl p-8 space-y-4">
+        <div className="bg-white border border-border rounded-xl p-8 space-y-4">
           <div className="flex justify-center gap-0.5">
             {Array.from({ length: 5 }).map((_, i) => (
               <Star key={i} className="fill-amber-400 text-amber-400" size={20} />
@@ -60,7 +60,7 @@ export default function TestimonialsSection() {
         <div className="flex items-center justify-center gap-4 mt-6">
           <button
             onClick={prev}
-            className="w-9 h-9 rounded-full border border-black/10 flex items-center justify-center hover:bg-gray-100 focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
+            className="w-9 h-9 rounded-full border border-border flex items-center justify-center hover:bg-gray-100 focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
           >
             <ChevronLeft size={18} className="text-muted-foreground" />
           </button>
@@ -79,7 +79,7 @@ export default function TestimonialsSection() {
 
           <button
             onClick={next}
-            className="w-9 h-9 rounded-full border border-black/10 flex items-center justify-center hover:bg-gray-100 focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
+            className="w-9 h-9 rounded-full border border-border flex items-center justify-center hover:bg-gray-100 focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
           >
             <ChevronRight size={18} className="text-muted-foreground" />
           </button>

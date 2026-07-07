@@ -60,7 +60,7 @@ export default function CourseCard({ course, variant = 'grid' }: Props) {
     return (
       <div
         onClick={() => navigate(`/courses/${course.slug}`)}
-        className="flex gap-3 sm:gap-4 border border-black/10 rounded-xl overflow-hidden bg-white hover:shadow-lg transition-all group cursor-pointer"
+        className="flex gap-3 sm:gap-4 border border-border rounded-xl overflow-hidden bg-white hover:shadow-lg transition-all group cursor-pointer"
       >
         <div className="relative w-32 sm:w-48 lg:w-60 aspect-video flex-shrink-0">
           <ImageWithFallback src={course.thumbnail} alt={course.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
@@ -84,7 +84,7 @@ export default function CourseCard({ course, variant = 'grid' }: Props) {
               <span className="flex items-center gap-1"><Clock size={14} />{course.duration} jam</span>
             </div>
           </div>
-          <div className="flex flex-wrap items-center justify-between gap-2 mt-2 pt-2 border-t border-black/10">
+          <div className="flex flex-wrap items-center justify-between gap-2 mt-2 pt-2 border-t border-border">
             {priceSection()}
             {ctaButton()}
           </div>
@@ -96,7 +96,7 @@ export default function CourseCard({ course, variant = 'grid' }: Props) {
   return (
     <div
       onClick={() => navigate(`/courses/${course.slug}`)}
-      className="overflow-hidden rounded-xl border border-black/10 bg-white hover:shadow-lg transition-all group cursor-pointer"
+      className="overflow-hidden rounded-xl border border-border bg-white hover:shadow-lg transition-all group cursor-pointer"
     >
       <div className="relative w-full aspect-video overflow-hidden">
         <ImageWithFallback
@@ -146,7 +146,7 @@ export default function CourseCard({ course, variant = 'grid' }: Props) {
             {course.duration} jam
           </span>
         </div>
-        <div className="flex flex-wrap items-center justify-between gap-3 mt-3 pt-3 border-t border-black/10">
+        <div className="flex flex-wrap items-center justify-between gap-3 mt-3 pt-3 border-t border-border">
           {priceSection()}
           {ctaButton()}
         </div>

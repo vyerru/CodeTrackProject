@@ -28,7 +28,7 @@ export default function FeaturesSection() {
 
         <div className="grid md:grid-cols-3 gap-8">
           {features.map((f) => (
-            <div key={f.title} className="border border-black/10 rounded-xl p-6 space-y-4">
+            <div key={f.title} className="border border-border rounded-xl p-6 space-y-4">
               <div className="bg-indigo-50 rounded-lg p-3 w-fit">
                 <f.icon className="text-primary" size={24} />
               </div>

@@ -35,7 +35,7 @@ export default function DashboardSkeleton() {
       <div className="max-w-7xl mx-auto px-6 -mt-10 mb-8">
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-5">
           {[...Array(4)].map((_, i) => (
-            <div key={i} className="bg-white border border-black/10 rounded-xl p-5 space-y-3">
+            <div key={i} className="bg-white border border-border rounded-xl p-5 space-y-3">
               <Skeleton className="h-10 w-10 rounded-lg" />
               <Skeleton className="h-6 w-16" />
               <Skeleton className="h-4 w-24" />
@@ -56,7 +56,7 @@ export default function DashboardSkeleton() {
                 <Skeleton className="h-6 w-56" />
                 <Skeleton className="h-4 w-16" />
               </div>
-              <div className="bg-white border border-black/10 rounded-xl p-5">
+              <div className="bg-white border border-border rounded-xl p-5">
                 <div className="flex gap-5">
                   <Skeleton className="w-[200px] h-[112px] rounded-lg shrink-0" />
                   <div className="flex-1 space-y-3">
@@ -70,7 +70,7 @@ export default function DashboardSkeleton() {
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
                 {[...Array(2)].map((_, i) => (
-                  <div key={i} className="flex items-center gap-3 bg-white border border-black/10 rounded-xl p-4">
+                  <div key={i} className="flex items-center gap-3 bg-white border border-border rounded-xl p-4">
                     <Skeleton className="w-[60px] h-[34px] rounded-lg shrink-0" />
                     <div className="flex-1 space-y-2">
                       <Skeleton className="h-3.5 w-full" />
@@ -92,7 +92,7 @@ export default function DashboardSkeleton() {
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 {[...Array(4)].map((_, i) => (
-                  <div key={i} className="bg-white border border-black/10 rounded-xl overflow-hidden">
+                  <div key={i} className="bg-white border border-border rounded-xl overflow-hidden">
                     <Skeleton className="w-full h-[140px]" />
                     <div className="p-4 space-y-2">
                       <Skeleton className="h-4 w-3/4" />
@@ -108,7 +108,7 @@ export default function DashboardSkeleton() {
             {/* Streak Calendar */}
             <section>
               <Skeleton className="h-6 w-40 mb-4" />
-              <div className="bg-white border border-black/10 rounded-xl p-5">
+              <div className="bg-white border border-border rounded-xl p-5">
                 <div className="flex gap-6 mb-4">
                   {[...Array(3)].map((_, i) => (
                     <div key={i} className="text-center space-y-1">
@@ -130,7 +130,7 @@ export default function DashboardSkeleton() {
               <Skeleton className="h-6 w-36 mb-4" />
               <div className="space-y-3">
                 {[...Array(5)].map((_, i) => (
-                  <div key={i} className="flex items-center gap-3 bg-white border border-black/10 rounded-xl p-4">
+                  <div key={i} className="flex items-center gap-3 bg-white border border-border rounded-xl p-4">
                     <Skeleton className="h-8 w-8 rounded-full shrink-0" />
                     <div className="flex-1 space-y-1.5">
                       <Skeleton className="h-4 w-3/4" />
@@ -170,7 +170,7 @@ export default function DashboardSkeleton() {
               <Skeleton className="h-6 w-44 mb-4" />
               <div className="space-y-3">
                 {[...Array(2)].map((_, i) => (
-                  <div key={i} className="bg-white border border-black/10 rounded-xl p-4 space-y-2">
+                  <div key={i} className="bg-white border border-border rounded-xl p-4 space-y-2">
                     <Skeleton className="h-4 w-3/4" />
                     <Skeleton className="h-2 w-full rounded-full" />
                     <div className="flex items-center justify-between">
@@ -185,7 +185,7 @@ export default function DashboardSkeleton() {
             {/* Achievements */}
             <section>
               <Skeleton className="h-6 w-32 mb-4" />
-              <div className="bg-white border border-black/10 rounded-xl p-5 space-y-4">
+              <div className="bg-white border border-border rounded-xl p-5 space-y-4">
                 <div className="flex items-center gap-3">
                   <Skeleton className="h-10 w-10 rounded-full" />
                   <div className="flex-1 space-y-1">
@@ -207,7 +207,7 @@ export default function DashboardSkeleton() {
               <Skeleton className="h-6 w-32 mb-4" />
               <div className="space-y-3">
                 {[...Array(3)].map((_, i) => (
-                  <div key={i} className="bg-white border border-black/10 rounded-xl p-4 space-y-1">
+                  <div key={i} className="bg-white border border-border rounded-xl p-4 space-y-1">
                     <Skeleton className="h-3.5 w-3/4" />
                     <Skeleton className="h-3 w-1/2" />
                   </div>

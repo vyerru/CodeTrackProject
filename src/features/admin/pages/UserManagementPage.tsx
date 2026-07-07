@@ -256,7 +256,7 @@ export default function UserManagementPage() {
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-5 gap-4 mb-6">
-        <div className="bg-white rounded-xl border border-black/10 p-4">
+        <div className="bg-white rounded-xl border border-border p-4">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-lg bg-indigo-100 flex items-center justify-center">
               <Users className="w-5 h-5 text-indigo-600" />
@@ -267,7 +267,7 @@ export default function UserManagementPage() {
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-xl border border-black/10 p-4">
+        <div className="bg-white rounded-xl border border-border p-4">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center">
               <UserCheck className="w-5 h-5 text-green-600" />
@@ -278,7 +278,7 @@ export default function UserManagementPage() {
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-xl border border-black/10 p-4">
+        <div className="bg-white rounded-xl border border-border p-4">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center">
               <BookOpen className="w-5 h-5 text-blue-600" />
@@ -289,7 +289,7 @@ export default function UserManagementPage() {
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-xl border border-black/10 p-4">
+        <div className="bg-white rounded-xl border border-border p-4">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-lg bg-purple-100 flex items-center justify-center">
               <Shield className="w-5 h-5 text-purple-600" />
@@ -300,7 +300,7 @@ export default function UserManagementPage() {
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-xl border border-black/10 p-4">
+        <div className="bg-white rounded-xl border border-border p-4">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-lg bg-amber-100 flex items-center justify-center">
               <UserPlus className="w-5 h-5 text-amber-600" />
@@ -320,13 +320,13 @@ export default function UserManagementPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Cari nama atau email..."
-            className="w-full h-9 pl-10 pr-3 rounded-lg border border-black/10 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full h-9 pl-10 pr-3 rounded-lg border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
         </div>
         <select
           value={roleFilter}
           onChange={(e) => { setRoleFilter(e.target.value as typeof roleFilter); setPage(1) }}
-          className="h-9 px-3 rounded-lg border border-black/10 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="h-9 px-3 rounded-lg border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
         >
           <option value="all">Semua Role</option>
           <option value="student">Student</option>
@@ -336,7 +336,7 @@ export default function UserManagementPage() {
         <select
           value={statusFilter}
           onChange={(e) => { setStatusFilter(e.target.value as typeof statusFilter); setPage(1) }}
-          className="h-9 px-3 rounded-lg border border-black/10 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="h-9 px-3 rounded-lg border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
         >
           <option value="all">Semua Status</option>
           <option value="Active">Active</option>
@@ -344,7 +344,7 @@ export default function UserManagementPage() {
         </select>
         <button
           onClick={resetFilters}
-          className="h-9 px-3 rounded-lg border border-black/10 bg-white text-sm text-gray-600 hover:bg-gray-50 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
+          className="h-9 px-3 rounded-lg border border-border bg-white text-sm text-gray-600 hover:bg-gray-50 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
         >
           Reset
         </button>
@@ -392,7 +392,7 @@ export default function UserManagementPage() {
         />
       ) : (
         <>
-          <div className="bg-white rounded-xl border border-black/10 overflow-hidden">
+          <div className="bg-white rounded-xl border border-border overflow-hidden">
             <div className="hidden lg:grid grid-cols-[32px_2fr_1fr_1fr_1fr_80px_120px_120px] gap-3 p-4 bg-gray-50 text-xs font-semibold text-gray-500 uppercase tracking-wider items-center">
               <div>
                 <input
@@ -504,7 +504,7 @@ export default function UserManagementPage() {
               <button
                 onClick={() => setPage((p) => Math.max(1, p - 1))}
                 disabled={page <= 1}
-                className="px-3 py-1.5 rounded-lg border border-black/10 bg-white text-sm hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
+                className="px-3 py-1.5 rounded-lg border border-border bg-white text-sm hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
               >
                 Prev
               </button>
@@ -535,7 +535,7 @@ export default function UserManagementPage() {
               <button
                 onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                 disabled={page >= totalPages}
-                className="px-3 py-1.5 rounded-lg border border-black/10 bg-white text-sm hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
+                className="px-3 py-1.5 rounded-lg border border-border bg-white text-sm hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
               >
                 Next
               </button>
@@ -619,7 +619,7 @@ function UserFormModal({
         className="w-full max-w-lg bg-white rounded-2xl shadow-xl overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between px-6 py-4 border-b border-black/10">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-border">
           <h2 className="text-lg font-semibold text-gray-900">
             {isEditing ? 'Edit Pengguna' : 'Tambah Pengguna'}
           </h2>
@@ -637,7 +637,7 @@ function UserFormModal({
             <input
               {...register('name')}
               placeholder="Masukkan nama lengkap"
-              className="w-full h-9 px-3 rounded-lg border border-black/10 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full h-9 px-3 rounded-lg border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
             {errors.name && <p className="text-xs text-red-500 mt-1">{errors.name.message}</p>}
           </div>
@@ -648,7 +648,7 @@ function UserFormModal({
               {...register('email')}
               type="email"
               placeholder="nama@email.com"
-              className="w-full h-9 px-3 rounded-lg border border-black/10 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full h-9 px-3 rounded-lg border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
             {errors.email && <p className="text-xs text-red-500 mt-1">{errors.email.message}</p>}
           </div>
@@ -658,7 +658,7 @@ function UserFormModal({
               <label className="block text-sm font-medium text-gray-700 mb-1">Role</label>
               <select
                 {...register('role')}
-                className="w-full h-9 px-3 rounded-lg border border-black/10 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full h-9 px-3 rounded-lg border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
               >
                 <option value="student">Student</option>
                 <option value="instructor">Instructor</option>
@@ -703,7 +703,7 @@ function UserFormModal({
                   {...register('password')}
                   type="password"
                   placeholder="Minimal 6 karakter"
-                  className="w-full h-9 px-3 rounded-lg border border-black/10 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full h-9 px-3 rounded-lg border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
                 {errors.password && <p className="text-xs text-red-500 mt-1">{errors.password.message}</p>}
               </div>
@@ -714,7 +714,7 @@ function UserFormModal({
                   {...register('confirmPassword')}
                   type="password"
                   placeholder="Ulangi password"
-                  className="w-full h-9 px-3 rounded-lg border border-black/10 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full h-9 px-3 rounded-lg border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
                 {errors.confirmPassword && <p className="text-xs text-red-500 mt-1">{errors.confirmPassword.message}</p>}
               </div>
@@ -726,16 +726,16 @@ function UserFormModal({
             <input
               {...register('avatar')}
               placeholder="https://example.com/avatar.jpg"
-              className="w-full h-9 px-3 rounded-lg border border-black/10 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full h-9 px-3 rounded-lg border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
             {errors.avatar && <p className="text-xs text-red-500 mt-1">{errors.avatar.message}</p>}
           </div>
 
-          <div className="flex justify-end gap-3 pt-2 border-t border-black/10">
+          <div className="flex justify-end gap-3 pt-2 border-t border-border">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 border border-black/10 rounded-lg text-sm text-gray-700 hover:bg-gray-50 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
+              className="px-4 py-2 border border-border rounded-lg text-sm text-gray-700 hover:bg-gray-50 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
             >
               Batal
             </button>
@@ -767,7 +767,7 @@ function UserDetailModal({
         className="w-full max-w-xl bg-white rounded-2xl shadow-xl overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between px-6 py-4 border-b border-black/10">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-border">
           <h2 className="text-lg font-semibold text-gray-900">Detail Pengguna</h2>
           <button
             onClick={onClose}
@@ -875,10 +875,10 @@ function UserDetailModal({
           )}
         </div>
 
-        <div className="px-6 py-4 border-t border-black/10 flex justify-end">
+        <div className="px-6 py-4 border-t border-border flex justify-end">
           <button
             onClick={onClose}
-            className="px-4 py-2 border border-black/10 rounded-lg text-sm text-gray-700 hover:bg-gray-50 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
+            className="px-4 py-2 border border-border rounded-lg text-sm text-gray-700 hover:bg-gray-50 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
           >
             Tutup
           </button>
@@ -925,7 +925,7 @@ function SuspendConfirmDialog({
             type="button"
             onClick={onCancel}
             disabled={loading}
-            className="px-4 py-2 border border-black/10 rounded-lg text-sm text-gray-700 hover:bg-gray-50 disabled:opacity-50 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
+            className="px-4 py-2 border border-border rounded-lg text-sm text-gray-700 hover:bg-gray-50 disabled:opacity-50 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
           >
             Batal
           </button>
@@ -978,7 +978,7 @@ function DeleteConfirmDialog({
             type="button"
             onClick={onCancel}
             disabled={loading}
-            className="px-4 py-2 border border-black/10 rounded-lg text-sm text-gray-700 hover:bg-gray-50 disabled:opacity-50 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
+            className="px-4 py-2 border border-border rounded-lg text-sm text-gray-700 hover:bg-gray-50 disabled:opacity-50 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
           >
             Batal
           </button>

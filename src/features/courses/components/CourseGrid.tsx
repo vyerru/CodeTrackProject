@@ -58,7 +58,7 @@ export default function CourseGrid({
           <select
             value={sortBy}
             onChange={(e) => onSortChange(e.target.value)}
-            className="rounded-lg border border-black/10 text-sm px-3 py-1.5 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="rounded-lg border border-border text-sm px-3 py-1.5 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
           >
             {sortOptions.map((opt) => (
               <option key={opt.value} value={opt.value}>

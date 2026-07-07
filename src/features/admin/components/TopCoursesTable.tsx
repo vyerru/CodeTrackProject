@@ -9,12 +9,12 @@ export default function TopCoursesTable({ data }: Props) {
   if (data.length === 0) return null
 
   return (
-    <div className="bg-white rounded-xl border border-black/10 p-5">
+    <div className="bg-white rounded-xl border border-border p-5">
       <h2 className="text-sm font-semibold text-gray-900 mb-4">Top Performing Courses</h2>
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
-            <tr className="text-left text-xs text-gray-500 border-b border-black/10">
+            <tr className="text-left text-xs text-gray-500 border-b border-border">
               <th className="pb-2 pr-2 font-medium">#</th>
               <th className="pb-2 pr-2 font-medium">Course</th>
               <th className="pb-2 pr-2 font-medium hidden sm:table-cell">Kategori</th>

@@ -38,7 +38,7 @@ export default function CartPage() {
             {items.map((item) => (
               <div
                 key={item.id}
-                className="flex items-center gap-4 bg-white rounded-xl border border-black/10 p-4"
+                className="flex items-center gap-4 bg-white rounded-xl border border-border p-4"
               >
                 <div className="flex-1 min-w-0">
                   <h3 className="font-semibold text-gray-900 truncate">{item.title}</h3>
@@ -58,14 +58,14 @@ export default function CartPage() {
           </div>
 
           <div className="lg:sticky lg:top-24 self-start">
-            <div className="bg-white rounded-xl border border-black/10 p-6 shadow-sm space-y-4">
+            <div className="bg-white rounded-xl border border-border p-6 shadow-sm space-y-4">
               <h2 className="text-lg font-semibold text-gray-900">Ringkasan</h2>
               <div className="space-y-3 text-sm">
                 <div className="flex justify-between text-gray-600">
                   <span>Subtotal ({items.length} item)</span>
                   <span className="text-gray-900 font-medium">{formatRupiah(total)}</span>
                 </div>
-                <div className="border-t border-black/10 pt-3 flex justify-between font-semibold text-gray-900">
+                <div className="border-t border-border pt-3 flex justify-between font-semibold text-gray-900">
                   <span>Total</span>
                   <span className="text-indigo-600">{formatRupiah(total)}</span>
                 </div>

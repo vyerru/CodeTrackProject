@@ -14,7 +14,7 @@ export default function QuickActions() {
   const navigate = useNavigate()
 
   return (
-    <div className="bg-white rounded-xl border border-black/10 p-5">
+    <div className="bg-white rounded-xl border border-border p-5">
       <h2 className="text-sm font-semibold text-gray-900 mb-4">Quick Actions</h2>
       <div className="grid grid-cols-3 gap-3">
         {actions.map((a) => (

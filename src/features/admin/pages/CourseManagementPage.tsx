@@ -249,7 +249,7 @@ export default function CourseManagementPage() {
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-5 gap-4 mb-6">
-        <div className="bg-white rounded-xl border border-black/10 p-4">
+        <div className="bg-white rounded-xl border border-border p-4">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-lg bg-indigo-100 flex items-center justify-center">
               <BookOpen className="w-5 h-5 text-indigo-600" />
@@ -260,7 +260,7 @@ export default function CourseManagementPage() {
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-xl border border-black/10 p-4">
+        <div className="bg-white rounded-xl border border-border p-4">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center">
               <Bookmark className="w-5 h-5 text-green-600" />
@@ -271,7 +271,7 @@ export default function CourseManagementPage() {
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-xl border border-black/10 p-4">
+        <div className="bg-white rounded-xl border border-border p-4">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-lg bg-amber-100 flex items-center justify-center">
               <FileEdit className="w-5 h-5 text-amber-600" />
@@ -282,7 +282,7 @@ export default function CourseManagementPage() {
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-xl border border-black/10 p-4">
+        <div className="bg-white rounded-xl border border-border p-4">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center">
               <Users className="w-5 h-5 text-blue-600" />
@@ -293,7 +293,7 @@ export default function CourseManagementPage() {
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-xl border border-black/10 p-4">
+        <div className="bg-white rounded-xl border border-border p-4">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-lg bg-emerald-100 flex items-center justify-center">
               <DollarSign className="w-5 h-5 text-emerald-600" />
@@ -313,13 +313,13 @@ export default function CourseManagementPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Cari judul atau instruktur..."
-            className="w-full h-9 pl-10 pr-3 rounded-lg border border-black/10 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full h-9 pl-10 pr-3 rounded-lg border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
         </div>
         <select
           value={statusFilter}
           onChange={(e) => { setStatusFilter(e.target.value as typeof statusFilter); setPage(1) }}
-          className="h-9 px-3 rounded-lg border border-black/10 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="h-9 px-3 rounded-lg border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
         >
           <option value="all">Semua Status</option>
           <option value="Published">Published</option>
@@ -328,7 +328,7 @@ export default function CourseManagementPage() {
         <select
           value={categoryFilter}
           onChange={(e) => { setCategoryFilter(e.target.value); setPage(1) }}
-          className="h-9 px-3 rounded-lg border border-black/10 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="h-9 px-3 rounded-lg border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
         >
           <option value="all">Semua Kategori</option>
           {categories.map((cat) => (
@@ -338,7 +338,7 @@ export default function CourseManagementPage() {
         <select
           value={levelFilter}
           onChange={(e) => { setLevelFilter(e.target.value as typeof levelFilter); setPage(1) }}
-          className="h-9 px-3 rounded-lg border border-black/10 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="h-9 px-3 rounded-lg border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
         >
           <option value="all">Semua Level</option>
           {levels.map((lvl) => (
@@ -347,7 +347,7 @@ export default function CourseManagementPage() {
         </select>
         <button
           onClick={resetFilters}
-          className="h-9 px-3 rounded-lg border border-black/10 bg-white text-sm text-gray-600 hover:bg-gray-50 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
+          className="h-9 px-3 rounded-lg border border-border bg-white text-sm text-gray-600 hover:bg-gray-50 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
         >
           Reset
         </button>
@@ -395,7 +395,7 @@ export default function CourseManagementPage() {
         />
       ) : (
         <>
-          <div className="bg-white rounded-xl border border-black/10 overflow-hidden">
+          <div className="bg-white rounded-xl border border-border overflow-hidden">
             <div className="hidden xl:grid grid-cols-[32px_2.5fr_1fr_1fr_1.5fr_80px_100px_100px_80px_120px] gap-2 p-4 bg-gray-50 text-xs font-semibold text-gray-500 uppercase tracking-wider items-center">
               <div>
                 <input
@@ -516,7 +516,7 @@ export default function CourseManagementPage() {
               <button
                 onClick={() => setPage((p) => Math.max(1, p - 1))}
                 disabled={page <= 1}
-                className="px-3 py-1.5 rounded-lg border border-black/10 bg-white text-sm hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
+                className="px-3 py-1.5 rounded-lg border border-border bg-white text-sm hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
               >
                 Prev
               </button>
@@ -547,7 +547,7 @@ export default function CourseManagementPage() {
               <button
                 onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                 disabled={page >= totalPages}
-                className="px-3 py-1.5 rounded-lg border border-black/10 bg-white text-sm hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
+                className="px-3 py-1.5 rounded-lg border border-border bg-white text-sm hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
               >
                 Next
               </button>
@@ -628,7 +628,7 @@ function CourseFormModal({
         className="w-full max-w-2xl bg-white rounded-2xl shadow-xl overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between px-6 py-4 border-b border-black/10">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-border">
           <h2 className="text-lg font-semibold text-gray-900">
             {editingCourse ? 'Edit Course' : 'Tambah Course'}
           </h2>
@@ -647,7 +647,7 @@ function CourseFormModal({
               {...register('title')}
               onChange={handleTitleChange}
               placeholder="Masukkan judul course"
-              className="w-full h-9 px-3 rounded-lg border border-black/10 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full h-9 px-3 rounded-lg border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
             {errors.title && <p className="text-xs text-red-500 mt-1">{errors.title.message}</p>}
           </div>
@@ -659,7 +659,7 @@ function CourseFormModal({
                 {...register('slug')}
                 onChange={(e) => { setManualSlug(true); setValue('slug', e.target.value) }}
                 placeholder="judul-course"
-                className="w-full h-9 px-3 rounded-lg border border-black/10 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full h-9 px-3 rounded-lg border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
               {!manualSlug && !editingCourse && (
                 <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-400">auto</span>
@@ -674,7 +674,7 @@ function CourseFormModal({
               {...register('description')}
               rows={3}
               placeholder="Deskripsi course..."
-              className="w-full px-3 py-2 rounded-lg border border-black/10 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none"
+              className="w-full px-3 py-2 rounded-lg border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none"
             />
             {errors.description && <p className="text-xs text-red-500 mt-1">{errors.description.message}</p>}
           </div>
@@ -684,7 +684,7 @@ function CourseFormModal({
               <label className="block text-sm font-medium text-gray-700 mb-1">Kategori</label>
               <select
                 {...register('category')}
-                className="w-full h-9 px-3 rounded-lg border border-black/10 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full h-9 px-3 rounded-lg border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
               >
                 {categories.map((cat) => (
                   <option key={cat} value={cat}>{cat}</option>
@@ -696,7 +696,7 @@ function CourseFormModal({
               <label className="block text-sm font-medium text-gray-700 mb-1">Level</label>
               <select
                 {...register('level')}
-                className="w-full h-9 px-3 rounded-lg border border-black/10 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full h-9 px-3 rounded-lg border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
               >
                 {levels.map((lvl) => (
                   <option key={lvl} value={lvl}>{lvl}</option>
@@ -711,7 +711,7 @@ function CourseFormModal({
             <input
               {...register('instructor')}
               placeholder="Nama instruktur"
-              className="w-full h-9 px-3 rounded-lg border border-black/10 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full h-9 px-3 rounded-lg border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
             {errors.instructor && <p className="text-xs text-red-500 mt-1">{errors.instructor.message}</p>}
           </div>
@@ -724,7 +724,7 @@ function CourseFormModal({
                 type="number"
                 min={0}
                 placeholder="0 = gratis"
-                className="w-full h-9 px-3 rounded-lg border border-black/10 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full h-9 px-3 rounded-lg border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
               {errors.price && <p className="text-xs text-red-500 mt-1">{errors.price.message}</p>}
             </div>
@@ -735,7 +735,7 @@ function CourseFormModal({
                 type="number"
                 min={0}
                 placeholder="Sebelum diskon"
-                className="w-full h-9 px-3 rounded-lg border border-black/10 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full h-9 px-3 rounded-lg border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
               {errors.originalPrice && <p className="text-xs text-red-500 mt-1">{errors.originalPrice.message}</p>}
             </div>
@@ -747,7 +747,7 @@ function CourseFormModal({
               <input
                 {...register('thumbnail')}
                 placeholder="https://example.com/image.jpg"
-                className="w-full h-9 px-3 rounded-lg border border-black/10 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full h-9 px-3 rounded-lg border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
               {errors.thumbnail && <p className="text-xs text-red-500 mt-1">{errors.thumbnail.message}</p>}
             </div>
@@ -758,7 +758,7 @@ function CourseFormModal({
                 type="number"
                 min={1}
                 placeholder="Total jam belajar"
-                className="w-full h-9 px-3 rounded-lg border border-black/10 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full h-9 px-3 rounded-lg border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
               {errors.duration && <p className="text-xs text-red-500 mt-1">{errors.duration.message}</p>}
             </div>
@@ -797,7 +797,7 @@ function CourseFormModal({
             <input
               {...register('tags')}
               placeholder="React, JavaScript, Frontend"
-              className="w-full h-9 px-3 rounded-lg border border-black/10 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full h-9 px-3 rounded-lg border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
             {errors.tags && <p className="text-xs text-red-500 mt-1">{errors.tags.message}</p>}
           </div>
@@ -813,11 +813,11 @@ function CourseFormModal({
             </label>
           </div>
 
-          <div className="flex justify-end gap-3 pt-2 border-t border-black/10">
+          <div className="flex justify-end gap-3 pt-2 border-t border-border">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 border border-black/10 rounded-lg text-sm text-gray-700 hover:bg-gray-50 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
+              className="px-4 py-2 border border-border rounded-lg text-sm text-gray-700 hover:bg-gray-50 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
             >
               Batal
             </button>
@@ -870,7 +870,7 @@ function DeleteConfirmDialog({
             type="button"
             onClick={onCancel}
             disabled={loading}
-            className="px-4 py-2 border border-black/10 rounded-lg text-sm text-gray-700 hover:bg-gray-50 disabled:opacity-50 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
+            className="px-4 py-2 border border-border rounded-lg text-sm text-gray-700 hover:bg-gray-50 disabled:opacity-50 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
           >
             Batal
           </button>

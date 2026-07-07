@@ -53,7 +53,7 @@ export default function TransactionHistoryPage() {
                 className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none ${
                   statusFilter === s
                     ? 'bg-indigo-600 text-white'
-                    : 'bg-white text-gray-600 border border-black/10 hover:bg-gray-50'
+                    : 'bg-white text-gray-600 border border-border hover:bg-gray-50'
                 }`}
             >
               {s === 'all' ? 'Semua' : s.charAt(0).toUpperCase() + s.slice(1)}
@@ -61,7 +61,7 @@ export default function TransactionHistoryPage() {
           ))}
         </div>
 
-        <div className="bg-white rounded-xl border border-black/10 overflow-hidden">
+        <div className="bg-white rounded-xl border border-border overflow-hidden">
           <div className="hidden md:grid grid-cols-[1fr_1.5fr_1fr_1fr_1fr] gap-4 p-4 bg-gray-50 text-xs font-semibold text-gray-500 uppercase tracking-wider">
             <span>Invoice</span>
             <span>Course</span>
@@ -93,7 +93,7 @@ export default function TransactionHistoryPage() {
                 className={`w-8 h-8 rounded-lg text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none ${
                   currentPage === i + 1
                     ? 'bg-indigo-600 text-white'
-                    : 'bg-white text-gray-600 border border-black/10 hover:bg-gray-50'
+                    : 'bg-white text-gray-600 border border-border hover:bg-gray-50'
                 }`}
               >
                 {i + 1}

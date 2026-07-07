@@ -37,7 +37,7 @@ function KpiSkeleton() {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
       {[...Array(5)].map((_, i) => (
-        <div key={i} className="bg-white rounded-2xl border border-black/10 p-7 shadow-md">
+        <div key={i} className="bg-white rounded-2xl border border-border p-7 shadow-md">
           <div className="flex items-start justify-between mb-3">
             <Skeleton className="h-10 w-10 rounded-xl" />
             <Skeleton className="h-4 w-12 rounded" />
@@ -52,7 +52,7 @@ function KpiSkeleton() {
 
 function ChartSkeleton() {
   return (
-    <div className="bg-white rounded-xl border border-black/10 p-6">
+    <div className="bg-white rounded-xl border border-border p-6">
       <div className="flex items-center justify-between mb-4">
         <Skeleton className="h-5 w-40 rounded" />
         <Skeleton className="h-6 w-28 rounded" />
@@ -66,7 +66,7 @@ function CardSkeleton({ count = 3 }: { count?: number }) {
   return (
     <div className="space-y-3">
       {[...Array(count)].map((_, i) => (
-        <div key={i} className="bg-white rounded-xl border border-black/10 p-5 space-y-3">
+        <div key={i} className="bg-white rounded-xl border border-border p-5 space-y-3">
           <Skeleton className="h-4 w-28 rounded" />
           <Skeleton className="h-4 w-full rounded" />
           <Skeleton className="h-4 w-3/4 rounded" />
@@ -127,7 +127,7 @@ export default function AdminDashboardPage() {
               key={p}
               onClick={() => setPeriod(p)}
               className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none ${
-                period === p ? 'bg-indigo-600 text-white' : 'bg-white text-muted-foreground border border-black/10 hover:bg-gray-50'
+                period === p ? 'bg-indigo-600 text-white' : 'bg-white text-muted-foreground border border-border hover:bg-gray-50'
               }`}
             >
               {p}
@@ -135,7 +135,7 @@ export default function AdminDashboardPage() {
           ))}
           <button
             onClick={refetch}
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-white border border-black/10 rounded-lg text-sm text-muted-foreground hover:bg-gray-50 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-white border border-border rounded-lg text-sm text-muted-foreground hover:bg-gray-50 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
           >
             <RefreshCw className="w-3.5 h-3.5" />
             Refresh
@@ -148,7 +148,7 @@ export default function AdminDashboardPage() {
         {data.kpiCards.map((kpi, i) => {
           const cfg = kpiConfig[i]
           return (
-            <div key={kpi.label} className={`bg-gradient-to-br ${cfg.gradient} rounded-2xl border border-black/10 p-7 shadow-md`}>
+            <div key={kpi.label} className={`bg-gradient-to-br ${cfg.gradient} rounded-2xl border border-border p-7 shadow-md`}>
               <div className="flex items-start justify-between mb-3">
                 <div className={`p-2.5 rounded-xl ${cfg.iconBg}`}>
                   <cfg.icon className={`w-5 h-5 ${cfg.iconColor}`} />
@@ -171,7 +171,7 @@ export default function AdminDashboardPage() {
         <div className="space-y-4">
           <EnhancedActivityFeed data={data.recentActivity} />
           {/* Pending Reviews */}
-          <div className="bg-white rounded-xl border border-black/10 p-5">
+          <div className="bg-white rounded-xl border border-border p-5">
             <h2 className="text-sm font-semibold text-foreground mb-3">Pending Reviews</h2>
             <div className="space-y-3">
               {data.pendingReviews.map((r) => (
@@ -193,7 +193,7 @@ export default function AdminDashboardPage() {
           </div>
 
           {/* Today Goals */}
-          <div className="bg-white rounded-xl border border-black/10 p-5">
+          <div className="bg-white rounded-xl border border-border p-5">
             <h2 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
               <Target className="w-4 h-4 text-indigo-600" />
               Today's Goals
@@ -218,7 +218,7 @@ export default function AdminDashboardPage() {
       {/* Secondary Metrics */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
         {data.secondaryMetrics.map((m) => (
-          <div key={m.label} className="bg-white rounded-xl border border-black/10 p-4 text-center">
+          <div key={m.label} className="bg-white rounded-xl border border-border p-4 text-center">
             <div className="text-xs text-muted-foreground mb-1">{m.label}</div>
             <div className="text-lg font-bold text-foreground">{m.value}</div>
             <div className="flex items-center justify-center gap-0.5 mt-1">
@@ -236,7 +236,7 @@ export default function AdminDashboardPage() {
 
       {/* Latest Transactions + Newest Users */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-white rounded-xl border border-black/10 p-5">
+        <div className="bg-white rounded-xl border border-border p-5">
           <div className="flex items-center justify-between mb-3">
             <h2 className="text-sm font-semibold text-foreground">Latest Transactions</h2>
             <button
@@ -264,7 +264,7 @@ export default function AdminDashboardPage() {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl border border-black/10 p-5">
+        <div className="bg-white rounded-xl border border-border p-5">
           <div className="flex items-center justify-between mb-3">
             <h2 className="text-sm font-semibold text-foreground">Newest Users</h2>
             <button
@@ -297,7 +297,7 @@ export default function AdminDashboardPage() {
       {/* Analytics */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Traffic Sources */}
-        <div className="bg-white rounded-xl border border-black/10 p-5">
+        <div className="bg-white rounded-xl border border-border p-5">
           <h2 className="text-sm font-semibold text-foreground mb-3">Traffic Sources</h2>
           <div className="flex items-center gap-4">
             <div className="w-28 h-28 flex-shrink-0">
@@ -324,7 +324,7 @@ export default function AdminDashboardPage() {
         </div>
 
         {/* Device Breakdown */}
-        <div className="bg-white rounded-xl border border-black/10 p-5">
+        <div className="bg-white rounded-xl border border-border p-5">
           <h2 className="text-sm font-semibold text-foreground mb-3">User Devices</h2>
           <div className="space-y-4">
             {data.deviceData.map((d) => (
@@ -342,7 +342,7 @@ export default function AdminDashboardPage() {
         </div>
 
         {/* Top Locations */}
-        <div className="bg-white rounded-xl border border-black/10 p-5">
+        <div className="bg-white rounded-xl border border-border p-5">
           <h2 className="text-sm font-semibold text-foreground mb-3">Top Locations</h2>
           <div className="space-y-4">
             {data.topLocations.map((loc) => (

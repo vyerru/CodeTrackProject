@@ -70,7 +70,7 @@ function Card({
   bottom?: React.ReactNode
 }) {
   return (
-    <div className="bg-white border border-black/10 rounded-xl p-6 hover:shadow-lg transition-shadow">
+    <div className="bg-white border border-border rounded-xl p-6 hover:shadow-lg transition-shadow">
       <div className={`w-fit ${iconBg} p-3 rounded-xl mb-4`}>{icon}</div>
       <div className="text-3xl font-bold text-gray-900 mb-1">{value}</div>
       <div className="text-sm text-gray-600 mb-2">{label}</div>

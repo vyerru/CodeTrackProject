@@ -38,7 +38,7 @@ export default function TransactionManagementPage() {
     <div>
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <h1 className="text-xl font-bold text-gray-900">Kelola Transaksi</h1>
-        <button className="flex items-center gap-2 px-4 py-2 bg-white border border-black/10 rounded-lg text-sm text-gray-700 hover:bg-gray-50 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none">
+        <button className="flex items-center gap-2 px-4 py-2 bg-white border border-border rounded-lg text-sm text-gray-700 hover:bg-gray-50 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none">
           <Download className="w-4 h-4" />
           Export
         </button>
@@ -51,7 +51,7 @@ export default function TransactionManagementPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Cari invoice, customer, course..."
-            className="w-full h-9 pl-10 pr-3 rounded-lg border border-black/10 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full h-9 pl-10 pr-3 rounded-lg border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
         </div>
         <div className="flex gap-2">
@@ -62,7 +62,7 @@ export default function TransactionManagementPage() {
                 className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none ${
                   statusFilter === s
                     ? 'bg-indigo-600 text-white'
-                    : 'bg-white text-gray-600 border border-black/10 hover:bg-gray-50'
+                    : 'bg-white text-gray-600 border border-border hover:bg-gray-50'
                 }`}
             >
               {s === 'all' ? 'Semua' : s.charAt(0).toUpperCase() + s.slice(1)}
@@ -71,7 +71,7 @@ export default function TransactionManagementPage() {
         </div>
       </div>
 
-      <div className="bg-white rounded-xl border border-black/10 overflow-hidden">
+      <div className="bg-white rounded-xl border border-border overflow-hidden">
         <div className="hidden md:grid grid-cols-[1fr_1.5fr_1.5fr_1fr_1fr_1fr] gap-4 p-4 bg-gray-50 text-xs font-semibold text-gray-500 uppercase tracking-wider">
           <span>Invoice</span><span>Customer</span><span>Course</span><span>Jumlah</span><span>Status</span><span>Tanggal</span>
         </div>

@@ -10,7 +10,7 @@ const actions = [
 
 export default function QuickActionsCard() {
   return (
-    <div className="bg-white border border-black/10 rounded-xl p-5">
+    <div className="bg-white border border-border rounded-xl p-5">
       <h2 className="flex items-center gap-2 text-lg font-bold text-gray-900 mb-4">
         <Zap className="text-indigo-600" size={20} />
         Quick Actions

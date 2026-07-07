@@ -16,7 +16,7 @@ const categories = [
 
 export default function CourseCategoryTabs({ active, onChange }: Props) {
   return (
-    <div className="bg-white border-b border-black/10 sticky top-[72px] z-40">
+    <div className="bg-white border-b border-border sticky top-[72px] z-40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="relative">
           <div

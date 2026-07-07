@@ -24,7 +24,7 @@ export default function EnhancedActivityFeed({ data }: Props) {
   const hasMore = data.length > 4
 
   return (
-    <div className="bg-white rounded-xl border border-black/10 p-5">
+    <div className="bg-white rounded-xl border border-border p-5">
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
           <h2 className="text-sm font-semibold text-gray-900">Recent Activity</h2>

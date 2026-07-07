@@ -30,7 +30,7 @@ function CustomTooltip({ active, payload }: CustomTooltipProps) {
   if (!active || !payload?.length) return null
   const d = payload[0].payload
   return (
-    <div className="bg-white border border-black/10 rounded-xl shadow-lg px-4 py-3 text-sm">
+    <div className="bg-white border border-border rounded-xl shadow-lg px-4 py-3 text-sm">
       <p className="text-gray-500 mb-1">{d.label}</p>
       <p className="font-semibold text-indigo-600">{formatRevenue(d.revenue)}</p>
       <p className="text-gray-500 text-xs">{d.users} users</p>
@@ -47,7 +47,7 @@ export default function RevenueChartWithRange({ data }: Props) {
   const chartData = data[range]
 
   return (
-    <div className="bg-white rounded-xl border border-black/10 p-6">
+    <div className="bg-white rounded-xl border border-border p-6">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-base font-semibold text-gray-900">Revenue Overview</h2>
         <div className="flex items-center gap-1 bg-gray-100 rounded-lg p-0.5">

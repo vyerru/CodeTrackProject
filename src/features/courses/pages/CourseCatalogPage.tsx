@@ -124,7 +124,7 @@ export default function CourseCatalogPage() {
       )}
 
       {/* Page Header */}
-      <div className="bg-white py-8 md:py-12 border-b border-black/10">
+      <div className="bg-white py-8 md:py-12 border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-2xl md:text-4xl font-bold text-gray-900">Katalog Course</h1>
           <p className="text-sm md:text-base text-gray-500 mt-2">
@@ -138,7 +138,7 @@ export default function CourseCatalogPage() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Cari course berdasarkan judul, skill, atau topik..."
-              className="pl-10 h-11 rounded-lg border border-black/10 bg-white w-full shadow-sm text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="pl-10 h-11 rounded-lg border border-border bg-white w-full shadow-sm text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
 

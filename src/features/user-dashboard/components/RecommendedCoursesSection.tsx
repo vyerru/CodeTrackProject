@@ -33,7 +33,7 @@ export default function RecommendedCoursesSection({ courses }: Props) {
           <div
             key={i}
             onClick={() => navigate('/courses')}
-            className="bg-white border border-black/10 rounded-xl overflow-hidden hover:shadow-lg transition-shadow group cursor-pointer focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
+            className="bg-white border border-border rounded-xl overflow-hidden hover:shadow-lg transition-shadow group cursor-pointer focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
           >
             <div className="relative overflow-hidden">
               <img
