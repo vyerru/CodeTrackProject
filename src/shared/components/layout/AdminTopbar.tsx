@@ -17,7 +17,7 @@ export default function AdminTopbar() {
   return (
     <header className="h-16 bg-indigo-900 flex items-center justify-between px-6 sticky top-0 z-40">
       <div className="flex items-center gap-4">
-        <button onClick={() => navigate('/admin')} className="flex items-center gap-2">
+        <button onClick={() => navigate('/admin')} className="flex items-center gap-2 focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none">
           <Code2 className="w-7 h-7 text-primary-foreground/70" strokeWidth={2.5} />
           <span className="text-lg font-bold text-primary-foreground">CodeTrack</span>
           <span className="text-xs text-primary-foreground/70 bg-primary/80 rounded px-2 py-0.5">Admin</span>
@@ -34,7 +34,7 @@ export default function AdminTopbar() {
           />
         </div>
 
-        <button className="relative p-2 text-primary-foreground/70 hover:text-primary-foreground transition-colors">
+        <button className="relative p-2 text-primary-foreground/70 hover:text-primary-foreground transition-colors focus-visible:ring-2 focus-visible:ring-primary-foreground/50 outline-none">
           <Bell className="w-5 h-5" />
           <span className="absolute top-1 right-1 w-2 h-2 bg-destructive rounded-full" />
         </button>
@@ -51,7 +51,7 @@ export default function AdminTopbar() {
 
         <button
           onClick={handleLogout}
-          className="p-2 text-primary-foreground/70 hover:text-primary-foreground transition-colors"
+          className="p-2 text-primary-foreground/70 hover:text-primary-foreground transition-colors focus-visible:ring-2 focus-visible:ring-primary-foreground/50 outline-none"
           title="Logout"
         >
           <LogOut className="w-5 h-5" />

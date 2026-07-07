@@ -50,13 +50,12 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="sticky top-0 z-50 bg-white shadow-sm">
+    <nav className="sticky top-0 z-50 bg-card shadow-sm">
       <div className="max-w-7xl mx-auto px-6 h-18 flex items-center justify-between">
-        {/* Logo + Mobile Trigger */}
         <div className="flex items-center gap-3">
           <Sheet>
             <SheetTrigger asChild>
-              <button className="md:hidden p-2 text-gray-600 hover:text-indigo-600 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none">
+              <button className="md:hidden p-2 text-muted-foreground hover:text-primary transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none">
                 <Menu className="w-6 h-6" />
               </button>
             </SheetTrigger>
@@ -64,7 +63,7 @@ export default function Navbar() {
               <SheetHeader className="px-6 pt-6 pb-2">
                 <SheetTitle className="flex items-center gap-2">
                   <Code2 className="w-7 h-7 text-indigo-600" strokeWidth={2.5} />
-                  <span className="text-lg font-bold text-gray-900">CodeTrack</span>
+                  <span className="text-lg font-bold text-foreground">CodeTrack</span>
                 </SheetTitle>
               </SheetHeader>
 
@@ -79,7 +78,7 @@ export default function Navbar() {
                         `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none ${
                           isActive
                             ? 'bg-indigo-50 text-indigo-600'
-                            : 'text-gray-700 hover:bg-gray-50'
+                            : 'text-foreground hover:bg-muted'
                         }`
                       }
                     >
@@ -92,7 +91,7 @@ export default function Navbar() {
                   ) : (
                     <span
                       key={item.label}
-                      className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-400 cursor-default select-none"
+                      className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-muted-foreground cursor-default select-none"
                       title="Coming soon"
                     >
                       {item.label}
@@ -101,8 +100,7 @@ export default function Navbar() {
                 )}
               </nav>
 
-              {/* Auth section in mobile drawer */}
-              <div className="absolute bottom-0 left-0 right-0 border-t border-gray-100 p-4">
+              <div className="absolute bottom-0 left-0 right-0 border-t border-border p-4">
                 {isAuthenticated && user ? (
                   <div className="space-y-2">
                     <div className="flex items-center gap-3 px-3 py-2">
@@ -110,11 +108,11 @@ export default function Navbar() {
                         {getInitials(user.name)}
                       </div>
                       <div>
-                        <div className="text-sm font-medium text-gray-900">{user.name}</div>
-                        <div className="text-xs text-gray-500 capitalize">{user.role}</div>
+                        <div className="text-sm font-medium text-foreground">{user.name}</div>
+                        <div className="text-xs text-muted-foreground capitalize">{user.role}</div>
                       </div>
                     </div>
-                    <div className="border-t border-gray-100 pt-2 space-y-1">
+                    <div className="border-t border-border pt-2 space-y-1">
                       {user.role === 'student' ? (
                         <>
                           <SheetClose asChild>
@@ -142,7 +140,7 @@ export default function Navbar() {
                     <SheetClose asChild>
                       <button
                         onClick={() => navigate('/auth/login')}
-                        className="w-full py-2 border-2 border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:border-gray-400 hover:bg-gray-50 transition-all focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
+                        className="w-full py-2 border-2 border-border text-foreground rounded-lg text-sm font-medium hover:border-gray-400 hover:bg-muted transition-all focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
                       >
                         Login
                       </button>
@@ -150,7 +148,7 @@ export default function Navbar() {
                     <SheetClose asChild>
                       <button
                         onClick={() => navigate('/auth/register')}
-                        className="w-full py-2 bg-indigo-600 text-white rounded-lg text-sm font-medium hover:bg-indigo-700 transition-all shadow-sm focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
+                        className="w-full py-2 bg-primary text-primary-foreground rounded-lg text-sm font-medium hover:bg-primary/95 transition-all shadow-sm focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
                       >
                         Start Free Trial
                       </button>
@@ -163,11 +161,10 @@ export default function Navbar() {
 
           <button onClick={() => navigate('/')} className="flex items-center gap-2 focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none">
             <Code2 className="w-8 h-8 text-indigo-600" strokeWidth={2.5} />
-            <span className="text-lg font-bold text-gray-900">CodeTrack</span>
+            <span className="text-lg font-bold text-foreground">CodeTrack</span>
           </button>
         </div>
 
-        {/* Menu Tengah */}
         <div className="hidden md:flex items-center gap-8">
           {menuItems.map((item) =>
             item.path ? (
@@ -177,7 +174,7 @@ export default function Navbar() {
                 end
                 className={({ isActive }) =>
                   `text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none ${
-                    isActive ? 'text-indigo-600' : 'text-gray-600 hover:text-gray-900'
+                    isActive ? 'text-indigo-600' : 'text-muted-foreground hover:text-foreground'
                   }`
                 }
               >
@@ -186,7 +183,7 @@ export default function Navbar() {
             ) : (
               <span
                 key={item.label}
-                className="text-sm font-medium text-gray-400 cursor-default select-none"
+                className="text-sm font-medium text-muted-foreground cursor-default select-none"
                 title="Coming soon"
               >
                 {item.label}
@@ -195,15 +192,13 @@ export default function Navbar() {
           )}
         </div>
 
-        {/* Kanan */}
         <div className="flex items-center gap-3">
           {isAuthenticated && user ? (
             <>
-              {/* Cart — user only */}
               {user.role === 'student' && (
                 <button
                   onClick={() => navigate('/dashboard/cart')}
-                  className="relative p-2 text-gray-600 hover:text-indigo-600 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
+                  className="relative p-2 text-muted-foreground hover:text-primary transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
                 >
                   <ShoppingCart className="w-6 h-6" />
                   {itemCount > 0 && (
@@ -214,13 +209,11 @@ export default function Navbar() {
                 </button>
               )}
 
-              {/* Bell */}
-              <button className="relative p-2 text-gray-600 hover:text-indigo-600 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none">
+              <button className="relative p-2 text-muted-foreground hover:text-primary transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none">
                 <Bell className="w-6 h-6" />
                 <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full" />
               </button>
 
-              {/* Avatar + Dropdown */}
               <div className="relative" ref={dropdownRef}>
                 <button
                   onClick={() => setDropdownOpen(!dropdownOpen)}
@@ -230,14 +223,13 @@ export default function Navbar() {
                 </button>
 
                 {dropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-56 bg-white border border-gray-200 rounded-lg shadow-lg py-2 z-50">
-                    {/* Header */}
+                  <div className="absolute right-0 mt-2 w-56 bg-card border border-border rounded-lg shadow-lg py-2 z-50">
                     <div className="px-4 py-2">
-                      <div className="font-semibold text-sm text-gray-900">{user.name}</div>
-                      <div className="text-xs text-gray-500 capitalize">{user.role}</div>
+                      <div className="font-semibold text-sm text-foreground">{user.name}</div>
+                      <div className="text-xs text-muted-foreground capitalize">{user.role}</div>
                     </div>
 
-                    <div className="border-t border-gray-100" />
+                    <div className="border-t border-border" />
 
                     {user.role === 'student' ? (
                       <>
@@ -252,7 +244,7 @@ export default function Navbar() {
                       </>
                     )}
 
-                    <div className="border-t border-gray-100" />
+                    <div className="border-t border-border" />
                     <DropdownItem icon={<LogOut size={16} />} label="Logout" onClick={handleLogout} />
                   </div>
                 )}
@@ -262,13 +254,13 @@ export default function Navbar() {
             <>
               <button
                 onClick={() => navigate('/auth/login')}
-                className="px-6 py-2 border-2 border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:border-gray-400 hover:bg-gray-50 transition-all focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
+                className="px-6 py-2 border-2 border-border text-foreground rounded-lg text-sm font-medium hover:border-gray-400 hover:bg-muted transition-all focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
               >
                 Login
               </button>
               <button
                 onClick={() => navigate('/auth/register')}
-                className="px-6 py-2 bg-indigo-600 text-white rounded-lg text-sm font-medium hover:bg-indigo-700 transition-all shadow-sm focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
+                className="px-6 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-medium hover:bg-primary/95 transition-all shadow-sm focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
               >
                 Start Free Trial
               </button>
@@ -292,9 +284,9 @@ function MobileNavItem({
   return (
     <button
       onClick={onClick}
-      className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-700 hover:bg-gray-50 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
+      className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-foreground hover:bg-muted transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
     >
-      <span className="text-gray-500">{icon}</span>
+      <span className="text-muted-foreground">{icon}</span>
       {label}
     </button>
   )
@@ -312,9 +304,9 @@ function DropdownItem({
   return (
     <button
       onClick={onClick}
-      className="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
+      className="w-full flex items-center gap-3 px-4 py-2 text-sm text-foreground hover:bg-muted transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
     >
-      <span className="text-gray-500">{icon}</span>
+      <span className="text-muted-foreground">{icon}</span>
       {label}
     </button>
   )
