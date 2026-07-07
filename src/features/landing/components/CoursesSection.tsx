@@ -74,7 +74,7 @@ export default function CoursesSection() {
   return (
     <section className="bg-white py-20">
       <div className="max-w-7xl mx-auto px-6">
-        <h2 className="text-2xl font-bold text-center text-[#111827] mb-12">
+        <h2 className="text-2xl font-bold text-center text-foreground mb-12">
           Course Populer
         </h2>
 
@@ -87,7 +87,7 @@ export default function CoursesSection() {
         <div className="text-center mt-10">
           <button
             onClick={() => navigate('/courses')}
-            className="border border-[#4f39f6] text-[#4f39f6] font-medium rounded-lg px-8 py-3 text-sm hover:bg-[#4f39f6]/5 focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
+            className="border border-primary text-primary font-medium rounded-lg px-8 py-3 text-sm hover:bg-primary/5 focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
           >
             Lihat Semua Course
           </button>

@@ -33,7 +33,7 @@ export default function TestimonialsSection() {
   return (
     <section className="bg-gray-50 py-20">
       <div className="max-w-2xl mx-auto px-6 text-center">
-        <h2 className="text-2xl font-bold text-[#111827] mb-10">
+        <h2 className="text-2xl font-bold text-foreground mb-10">
           Dipercaya oleh Career Switcher & Professionals
         </h2>
 
@@ -44,15 +44,15 @@ export default function TestimonialsSection() {
             ))}
           </div>
 
-          <p className="text-[#495565] leading-relaxed">&ldquo;{t.quote}&rdquo;</p>
+          <p className="text-muted-foreground leading-relaxed">&ldquo;{t.quote}&rdquo;</p>
 
           <div className="flex items-center justify-center gap-3 pt-2">
-            <div className="w-10 h-10 rounded-full bg-[#4f39f6] flex items-center justify-center text-white text-sm font-medium">
+            <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-primary-foreground text-sm font-medium">
               {t.avatar}
             </div>
             <div className="text-left">
-              <div className="text-sm font-semibold text-[#111827]">{t.name}</div>
-              <div className="text-xs text-[#697282]">{t.role}</div>
+              <div className="text-sm font-semibold text-foreground">{t.name}</div>
+              <div className="text-xs text-muted-foreground">{t.role}</div>
             </div>
           </div>
         </div>
@@ -62,7 +62,7 @@ export default function TestimonialsSection() {
             onClick={prev}
             className="w-9 h-9 rounded-full border border-black/10 flex items-center justify-center hover:bg-gray-100 focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
           >
-            <ChevronLeft size={18} className="text-[#495565]" />
+            <ChevronLeft size={18} className="text-muted-foreground" />
           </button>
 
           <div className="flex items-center gap-2">
@@ -71,7 +71,7 @@ export default function TestimonialsSection() {
                 key={i}
                 onClick={() => setCurrent(i)}
                 className={`w-2 h-2 rounded-full transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none ${
-                  i === current ? 'bg-[#4f39f6]' : 'bg-black/20'
+                  i === current ? 'bg-primary' : 'bg-black/20'
                 }`}
               />
             ))}
@@ -81,7 +81,7 @@ export default function TestimonialsSection() {
             onClick={next}
             className="w-9 h-9 rounded-full border border-black/10 flex items-center justify-center hover:bg-gray-100 focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
           >
-            <ChevronRight size={18} className="text-[#495565]" />
+            <ChevronRight size={18} className="text-muted-foreground" />
           </button>
         </div>
       </div>
