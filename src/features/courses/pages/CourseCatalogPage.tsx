@@ -143,10 +143,10 @@ export default function CourseCatalogPage() {
           </div>
 
           {/* Stats */}
-          <div className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-1 text-xs sm:text-sm text-gray-500">
-            <span>150+ Courses</span>
+          <div className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-1 text-xs sm:text-sm text-muted-foreground">
+            <span>{allCourses ? `${allCourses.length}+ Courses` : '0 Courses'}</span>
             <span className="text-gray-300 hidden sm:inline">·</span>
-            <span>10,000+ Students</span>
+            <span>{allCourses ? `${allCourses.reduce((s, c) => s + c.totalStudents, 0).toLocaleString()}+ Students` : '0 Students'}</span>
             <span className="text-gray-300 hidden sm:inline">·</span>
             <span>95% Completion</span>
           </div>
