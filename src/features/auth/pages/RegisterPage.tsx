@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { UserPlus, User, Mail, Users, Lock, Eye, EyeOff, Loader2 } from 'lucide-react'
+const roleLabels: Record<string, string> = { student: 'Student', instructor: 'Instructor' }
 import { useAuthStore } from '@/features/auth/store/authStore'
 import { useRegister } from '@/features/auth/hooks/useRegister'
 
@@ -11,7 +12,7 @@ const registerSchema = z
   .object({
     name: z.string().min(2, 'Name must be at least 2 characters'),
     email: z.string().email('Please enter a valid email'),
-    role: z.enum(['Student', 'Instructor']),
+    role: z.enum(['student', 'instructor']),
     password: z.string().min(8, 'Password must be at least 8 characters'),
     confirmPassword: z.string(),
     agreed: z.literal(true, {
@@ -41,7 +42,7 @@ export default function RegisterPage() {
     formState: { errors },
   } = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
-    defaultValues: { role: 'Student', agreed: false as unknown as true },
+    defaultValues: { role: 'student', agreed: false as unknown as true },
   })
 
   const selectedRole = watch('role')
@@ -113,11 +114,11 @@ export default function RegisterPage() {
                 onClick={() => setRoleOpen(!roleOpen)}
                 className="w-full h-9 pl-10 pr-3 text-sm bg-muted rounded-lg border border-transparent text-left text-foreground focus:outline-none outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
-                {selectedRole}
+                {roleLabels[selectedRole] || selectedRole}
               </button>
               {roleOpen && (
                 <div className="absolute top-full mt-1 left-0 right-0 bg-popover border border-border rounded-lg shadow-lg z-20">
-                  {(['Student', 'Instructor'] as const).map((r) => (
+                  {(['student', 'instructor'] as const).map((r) => (
                     <button
                       key={r}
                       type="button"
@@ -129,7 +130,7 @@ export default function RegisterPage() {
                         selectedRole === r ? 'text-primary font-medium' : 'text-foreground'
                       }`}
                     >
-                      {r}
+                      {roleLabels[r]}
                     </button>
                   ))}
                 </div>
