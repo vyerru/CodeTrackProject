@@ -33,7 +33,7 @@ export default function DashboardSkeleton() {
 
       {/* Stat cards skeleton */}
       <div className="max-w-7xl mx-auto px-6 -mt-10 mb-8">
-        <div className="grid grid-cols-4 gap-5">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-5">
           {[...Array(4)].map((_, i) => (
             <div key={i} className="bg-white border border-black/10 rounded-xl p-5 space-y-3">
               <Skeleton className="h-10 w-10 rounded-lg" />
@@ -47,7 +47,7 @@ export default function DashboardSkeleton() {
 
       {/* 2-column layout skeleton */}
       <div className="max-w-7xl mx-auto px-6 pb-12">
-        <div className="grid grid-cols-[65%_35%] gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[65%_35%] gap-8">
           {/* Left column */}
           <div className="space-y-6">
             {/* Continue Learning */}
