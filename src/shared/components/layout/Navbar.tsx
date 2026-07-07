@@ -115,7 +115,7 @@ export default function Navbar() {
                       </div>
                     </div>
                     <div className="border-t border-gray-100 pt-2 space-y-1">
-                      {user.role === 'user' ? (
+                      {user.role === 'student' ? (
                         <>
                           <SheetClose asChild>
                             <MobileNavItem icon={<LayoutDashboard size={16} />} label="Dashboard" onClick={() => { navigate('/dashboard'); }} />
@@ -200,7 +200,7 @@ export default function Navbar() {
           {isAuthenticated && user ? (
             <>
               {/* Cart — user only */}
-              {user.role === 'user' && (
+              {user.role === 'student' && (
                 <button
                   onClick={() => navigate('/dashboard/cart')}
                   className="relative p-2 text-gray-600 hover:text-indigo-600 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none"
@@ -239,7 +239,7 @@ export default function Navbar() {
 
                     <div className="border-t border-gray-100" />
 
-                    {user.role === 'user' ? (
+                    {user.role === 'student' ? (
                       <>
                         <DropdownItem icon={<LayoutDashboard size={16} />} label="Dashboard" onClick={() => { navigate('/dashboard'); setDropdownOpen(false) }} />
                         <DropdownItem icon={<BookOpen size={16} />} label="My Courses" onClick={() => { navigate('/courses'); setDropdownOpen(false) }} />
