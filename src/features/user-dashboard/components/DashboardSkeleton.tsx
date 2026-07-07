@@ -68,7 +68,7 @@ export default function DashboardSkeleton() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 mt-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
                 {[...Array(2)].map((_, i) => (
                   <div key={i} className="flex items-center gap-3 bg-white border border-black/10 rounded-xl p-4">
                     <Skeleton className="w-[60px] h-[34px] rounded-lg shrink-0" />
@@ -90,7 +90,7 @@ export default function DashboardSkeleton() {
                 </div>
                 <Skeleton className="h-4 w-14 shrink-0" />
               </div>
-              <div className="grid grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 {[...Array(4)].map((_, i) => (
                   <div key={i} className="bg-white border border-black/10 rounded-xl overflow-hidden">
                     <Skeleton className="w-full h-[140px]" />
@@ -218,7 +218,7 @@ export default function DashboardSkeleton() {
             {/* Quick Actions */}
             <section>
               <Skeleton className="h-6 w-28 mb-4" />
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {[...Array(4)].map((_, i) => (
                   <Skeleton key={i} className="h-20 rounded-xl" />
                 ))}
