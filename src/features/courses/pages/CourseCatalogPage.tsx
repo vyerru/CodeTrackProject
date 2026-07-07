@@ -169,7 +169,9 @@ export default function CourseCatalogPage() {
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex flex-col lg:flex-row lg:gap-8">
-          <CourseFilter filters={filters} onChange={setFilters} onReset={resetFilters} />
+          <div className="hidden lg:block w-[280px] flex-shrink-0">
+            <CourseFilter filters={filters} onChange={setFilters} onReset={resetFilters} />
+          </div>
           <CourseGrid
             courses={visibleCourses}
             totalCount={filtered.length}
