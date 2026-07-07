@@ -158,7 +158,7 @@ export default function CourseDetailPage() {
               </span>
             </div>
 
-              <div className="flex items-center gap-3 p-4 bg-white rounded-xl border border-black/10 mb-6">
+              <div className="flex items-center gap-3 p-4 bg-white rounded-xl border border-border mb-6">
               <div className="w-10 h-10 rounded-full bg-gray-200 overflow-hidden flex-shrink-0">
                 {course.instructorAvatar && (
                   <ImageWithFallback src={course.instructorAvatar} alt="" className="w-full h-full object-cover" />
@@ -170,7 +170,7 @@ export default function CourseDetailPage() {
               </div>
             </div>
 
-            <div className="bg-white rounded-xl border border-black/10 p-6">
+            <div className="bg-white rounded-xl border border-border p-6">
               <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
                 <BookOpen className="w-5 h-5 text-indigo-600" />
                 Kurikulum Course
@@ -189,7 +189,7 @@ export default function CourseDetailPage() {
           </div>
 
           <div className="lg:sticky lg:top-24 self-start">
-            <div className="bg-white rounded-xl border border-black/10 p-6 shadow-sm space-y-4">
+            <div className="bg-white rounded-xl border border-border p-6 shadow-sm space-y-4">
               <div className="text-3xl font-bold text-indigo-600">
                 {course.isFree ? 'GRATIS' : formatRupiah(course.price)}
               </div>
