@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import {
   Search, Plus, Edit3, Trash2, Eye, X, Check,
-  Loader2, Users, UserCheck, Shield, UserX, UserPlus,
+  Loader2, Users, UserCheck, Shield, UserPlus,
   AlertTriangle, BookOpen, Clock, Award, Flame, Activity,
   Ban,
 } from 'lucide-react'

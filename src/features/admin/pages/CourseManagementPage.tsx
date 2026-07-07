@@ -597,7 +597,7 @@ function CourseFormModal({
     setValue,
     formState: { errors },
   } = useForm<CourseFormData>({
-    resolver: zodResolver(courseSchema),
+    resolver: zodResolver(courseSchema) as any,
     defaultValues: {
       title: editingCourse?.title ?? '',
       slug: editingCourse?.slug ?? '',
