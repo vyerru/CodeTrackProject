@@ -7,6 +7,7 @@ import { formatRupiah } from '@/shared/utils'
 import LevelBadge from '@/shared/components/common/LevelBadge'
 import ErrorState from '@/shared/components/common/ErrorState'
 import PageSkeleton from '@/shared/components/common/PageSkeleton'
+import ImageWithFallback from '@/shared/components/common/ImageWithFallback'
 import { useCartStore } from '@/features/commerce/store/cartStore'
 import { useAuthStore } from '@/features/auth/store/authStore'
 import type { Course } from '@/shared/types'
@@ -157,10 +158,10 @@ export default function CourseDetailPage() {
               </span>
             </div>
 
-            <div className="flex items-center gap-3 p-4 bg-white rounded-xl border border-black/10 mb-6">
+              <div className="flex items-center gap-3 p-4 bg-white rounded-xl border border-black/10 mb-6">
               <div className="w-10 h-10 rounded-full bg-gray-200 overflow-hidden flex-shrink-0">
                 {course.instructorAvatar && (
-                  <img src={course.instructorAvatar} alt="" className="w-full h-full object-cover" />
+                  <ImageWithFallback src={course.instructorAvatar} alt="" className="w-full h-full object-cover" />
                 )}
               </div>
               <div>
