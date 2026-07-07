@@ -392,7 +392,7 @@ export default function UserManagementPage() {
         />
       ) : (
         <>
-          <div className="bg-white rounded-xl border border-border overflow-hidden">
+          <div className="bg-white rounded-xl border border-border overflow-x-auto">
             <div className="hidden lg:grid grid-cols-[32px_2fr_1fr_1fr_1fr_80px_120px_120px] gap-3 p-4 bg-gray-50 text-xs font-semibold text-gray-500 uppercase tracking-wider items-center">
               <div>
                 <input

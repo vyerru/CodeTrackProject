@@ -395,7 +395,7 @@ export default function CourseManagementPage() {
         />
       ) : (
         <>
-          <div className="bg-white rounded-xl border border-border overflow-hidden">
+          <div className="bg-white rounded-xl border border-border overflow-x-auto">
             <div className="hidden xl:grid grid-cols-[32px_2.5fr_1fr_1fr_1.5fr_80px_100px_100px_80px_120px] gap-2 p-4 bg-gray-50 text-xs font-semibold text-gray-500 uppercase tracking-wider items-center">
               <div>
                 <input

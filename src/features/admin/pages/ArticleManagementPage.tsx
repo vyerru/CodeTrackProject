@@ -359,7 +359,7 @@ export default function ArticleManagementPage() {
         />
       ) : (
         <>
-          <div className="bg-white rounded-xl border border-border overflow-hidden">
+          <div className="bg-white rounded-xl border border-border overflow-x-auto">
             <div className="hidden lg:grid grid-cols-[36px_3fr_1fr_1fr_1fr_1fr_80px_120px] gap-3 p-4 bg-gray-50 text-xs font-semibold text-gray-500 uppercase tracking-wider items-center">
               <div>
                 <input

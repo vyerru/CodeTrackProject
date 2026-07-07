@@ -61,7 +61,7 @@ export default function TransactionHistoryPage() {
           ))}
         </div>
 
-        <div className="bg-white rounded-xl border border-border overflow-hidden">
+        <div className="bg-white rounded-xl border border-border overflow-x-auto">
           <div className="hidden md:grid grid-cols-[1fr_1.5fr_1fr_1fr_1fr] gap-4 p-4 bg-gray-50 text-xs font-semibold text-gray-500 uppercase tracking-wider">
             <span>Invoice</span>
             <span>Course</span>
