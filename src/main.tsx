@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { injectRepositories } from '@/core/domain/di'
 import { setNetworkConfig } from '@/data/repositories/network'
 
-setNetworkConfig({ minDelay: 800, maxDelay: 3000, failureRate: 0.25 })
+setNetworkConfig({ minDelay: 800, maxDelay: 3000, failureRate: 0 })
 import { MockCourseRepository } from '@/data/repositories/MockCourseRepository'
 import { MockAuthRepository } from '@/data/repositories/MockAuthRepository'
 import { MockArticleRepository } from '@/data/repositories/MockArticleRepository'
