@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { X, Loader2 } from 'lucide-react'
-import type { Course, CourseLevel, CourseCategory } from '@/shared/types'
+import type { Course } from '@/shared/types'
 import { categories, levels, slugify } from './admin-helpers'
 
 const courseSchema = z.object({
@@ -13,10 +13,10 @@ const courseSchema = z.object({
   category: z.string().min(1, 'Pilih kategori'),
   level: z.enum(['Beginner', 'Intermediate', 'Advanced']),
   instructor: z.string().min(3, 'Nama instruktur minimal 3 karakter'),
-  price: z.coerce.number().min(0, 'Harga tidak boleh negatif'),
-  originalPrice: z.coerce.number().min(0, 'Harga tidak boleh negatif').optional().or(z.literal('')),
+  price: z.number().min(0, 'Harga tidak boleh negatif'),
+  originalPrice: z.union([z.number().min(0), z.nan()]).optional(),
   thumbnail: z.string().url('URL tidak valid').or(z.literal('')),
-  duration: z.coerce.number().min(1, 'Durasi minimal 1 jam'),
+  duration: z.number().min(1, 'Durasi minimal 1 jam'),
   status: z.enum(['Published', 'Draft']),
   tags: z.string(),
   isBestseller: z.boolean().optional(),
@@ -50,7 +50,7 @@ export default function CourseFormModal({ editingCourse, saving, onSave, onClose
       level: editingCourse?.level ?? 'Beginner',
       instructor: editingCourse?.instructor ?? '',
       price: editingCourse?.price ?? 0,
-      originalPrice: editingCourse?.originalPrice ?? '' as unknown as number,
+      originalPrice: editingCourse?.originalPrice ?? undefined,
       thumbnail: editingCourse?.thumbnail ?? '',
       duration: editingCourse?.duration ?? 1,
       status: (editingCourse?.status as 'Published' | 'Draft') ?? 'Draft',
@@ -129,12 +129,12 @@ export default function CourseFormModal({ editingCourse, saving, onSave, onClose
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Harga (Rp)</label>
-              <input {...register('price')} type="number" min={0} placeholder="0 = gratis" className="w-full h-9 px-3 rounded-lg border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+              <input {...register('price', { valueAsNumber: true })} type="number" min={0} placeholder="0 = gratis" className="w-full h-9 px-3 rounded-lg border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
               {errors.price && <p className="text-xs text-red-500 mt-1">{errors.price.message}</p>}
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Harga Asli (Rp, opsional)</label>
-              <input {...register('originalPrice')} type="number" min={0} placeholder="Sebelum diskon" className="w-full h-9 px-3 rounded-lg border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+              <input {...register('originalPrice', { valueAsNumber: true })} type="number" min={0} placeholder="Sebelum diskon" className="w-full h-9 px-3 rounded-lg border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
               {errors.originalPrice && <p className="text-xs text-red-500 mt-1">{errors.originalPrice.message}</p>}
             </div>
           </div>
@@ -147,7 +147,7 @@ export default function CourseFormModal({ editingCourse, saving, onSave, onClose
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Durasi (jam)</label>
-              <input {...register('duration')} type="number" min={1} placeholder="Total jam belajar" className="w-full h-9 px-3 rounded-lg border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+              <input {...register('duration', { valueAsNumber: true })} type="number" min={1} placeholder="Total jam belajar" className="w-full h-9 px-3 rounded-lg border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
               {errors.duration && <p className="text-xs text-red-500 mt-1">{errors.duration.message}</p>}
             </div>
           </div>

@@ -1,4 +1,4 @@
-import type { Transaction, TransactionItem } from '../entities/Transaction'
+import type { Transaction, TransactionItem, TransactionStatus } from '../entities/Transaction'
 
 export interface CreateTransactionParams {
   userId: string

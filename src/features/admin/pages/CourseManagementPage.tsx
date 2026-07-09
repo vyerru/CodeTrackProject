@@ -79,7 +79,7 @@ export default function CourseManagementPage() {
         title: data.title, slug: data.slug, description: data.description,
         category: data.category as CourseCategory, level: data.level as CourseLevel,
         instructor: data.instructor, price: data.price,
-        originalPrice: data.originalPrice === '' || data.originalPrice === undefined ? undefined : data.originalPrice,
+        originalPrice: data.originalPrice === undefined || (typeof data.originalPrice === 'number' && isNaN(data.originalPrice)) ? undefined : data.originalPrice,
         thumbnail: data.thumbnail, duration: data.duration,
         status: data.status as 'Published' | 'Draft', tags, isBestseller: data.isBestseller ?? false,
       }
