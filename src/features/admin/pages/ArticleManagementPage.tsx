@@ -8,12 +8,12 @@ import { repos } from '@/core/domain/di'
 import { getCategoryColor } from '@/shared/utils'
 import type { Article } from '@/shared/types'
 import ErrorState from '@/shared/components/common/ErrorState'
-import LoadingSpinner from '@/shared/components/common/LoadingSpinner'
 import EmptyState from '@/shared/components/common/EmptyState'
 import ImageWithFallback from '@/shared/components/common/ImageWithFallback'
 import ArticleFormModal from '@/features/admin/components/ArticleFormModal'
 import type { ArticleFormData } from '@/features/admin/components/ArticleFormModal'
 import ArticleDeleteDialog from '@/features/admin/components/ArticleDeleteDialog'
+import ManagementPageSkeleton from '@/features/admin/components/ManagementPageSkeleton'
 import { categories } from '@/features/admin/components/admin-helpers'
 
 const perPage = 5
@@ -159,7 +159,7 @@ export default function ArticleManagementPage() {
     return articles.find((a) => a.id === editingId) ?? null
   }, [editingId, articles])
 
-  if (isLoading) return <LoadingSpinner fullPage />
+  if (isLoading) return <ManagementPageSkeleton statCount={4} />
   if (error) return <ErrorState message={error} onRetry={refetch} />
 
   return (

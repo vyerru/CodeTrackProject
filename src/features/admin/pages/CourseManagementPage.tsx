@@ -9,12 +9,12 @@ import { formatRupiah, formatRupiahShort, getLevelColor } from '@/shared/utils'
 import { getCategoryColor } from '@/shared/utils'
 import type { Course, CourseLevel, CourseCategory } from '@/shared/types'
 import ErrorState from '@/shared/components/common/ErrorState'
-import LoadingSpinner from '@/shared/components/common/LoadingSpinner'
 import EmptyState from '@/shared/components/common/EmptyState'
 import ImageWithFallback from '@/shared/components/common/ImageWithFallback'
 import CourseFormModal from '@/features/admin/components/CourseFormModal'
 import type { CourseFormData } from '@/features/admin/components/CourseFormModal'
 import CourseDeleteDialog from '@/features/admin/components/CourseDeleteDialog'
+import ManagementPageSkeleton from '@/features/admin/components/ManagementPageSkeleton'
 import { categories, levels } from '@/features/admin/components/admin-helpers'
 
 const perPage = 5
@@ -111,7 +111,7 @@ export default function CourseManagementPage() {
     return courses.find((c) => c.id === editingId) ?? null
   }, [editingId, courses])
 
-  if (isLoading) return <LoadingSpinner fullPage />
+  if (isLoading) return <ManagementPageSkeleton statCount={5} />
   if (error) return <ErrorState message={error} onRetry={refetch} />
 
   return (

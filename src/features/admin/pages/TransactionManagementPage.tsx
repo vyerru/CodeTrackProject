@@ -8,8 +8,8 @@ import { repos } from '@/core/domain/di'
 import { formatRupiah, formatRupiahShort, getStatusColor, getRelativeTime } from '@/shared/utils'
 import type { Transaction, TransactionStatus } from '@/shared/types'
 import ErrorState from '@/shared/components/common/ErrorState'
-import LoadingSpinner from '@/shared/components/common/LoadingSpinner'
 import EmptyState from '@/shared/components/common/EmptyState'
+import ManagementPageSkeleton from '@/features/admin/components/ManagementPageSkeleton'
 
 const perPage = 6
 
@@ -105,7 +105,7 @@ export default function TransactionManagementPage() {
     } finally { setActionLoading(null) }
   }
 
-  if (isLoading) return <LoadingSpinner fullPage />
+  if (isLoading) return <ManagementPageSkeleton statCount={5} />
   if (error) return <ErrorState message={error} onRetry={refetch} />
 
   return (

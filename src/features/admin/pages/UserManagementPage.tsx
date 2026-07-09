@@ -9,13 +9,13 @@ import { repos } from '@/core/domain/di'
 import { getRelativeTime } from '@/shared/utils'
 import type { User, UserRole, UserDetail } from '@/shared/types'
 import ErrorState from '@/shared/components/common/ErrorState'
-import LoadingSpinner from '@/shared/components/common/LoadingSpinner'
 import EmptyState from '@/shared/components/common/EmptyState'
 import UserFormModal from '@/features/admin/components/UserFormModal'
 import type { UserFormData } from '@/features/admin/components/UserFormModal'
 import UserDetailModal from '@/features/admin/components/UserDetailModal'
 import UserSuspendDialog from '@/features/admin/components/UserSuspendDialog'
 import UserDeleteDialog from '@/features/admin/components/UserDeleteDialog'
+import ManagementPageSkeleton from '@/features/admin/components/ManagementPageSkeleton'
 import { getInitials, getRoleBadgeClass, getStatusBadgeClass } from '@/features/admin/components/admin-helpers'
 
 const perPage = 5
@@ -111,7 +111,7 @@ export default function UserManagementPage() {
     return users.find((u) => u.id === editingId) ?? null
   }, [editingId, users])
 
-  if (isLoading) return <LoadingSpinner fullPage />
+  if (isLoading) return <ManagementPageSkeleton statCount={5} />
   if (error) return <ErrorState message={error} onRetry={refetch} />
 
   return (
