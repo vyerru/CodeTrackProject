@@ -11,8 +11,15 @@ export interface CreateTransactionParams {
   paymentMethod: string
 }
 
+export interface UpdateTransactionParams {
+  status?: TransactionStatus
+  paymentMethod?: string
+}
+
 export interface ITransactionRepository {
   findAll(): Promise<Transaction[]>
   findByUserId(userId: string): Promise<Transaction[]>
   create(params: CreateTransactionParams): Promise<Transaction>
+  update(id: string, params: UpdateTransactionParams): Promise<Transaction>
+  delete(id: string): Promise<void>
 }

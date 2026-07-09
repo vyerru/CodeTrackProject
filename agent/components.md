@@ -62,6 +62,20 @@
 | Loading / Empty / Error State | ✅ Done | Full coverage |
 | UserRole type migration | ✅ Done | `'user'|'admin'` → `'student'|'instructor'|'admin'` |
 
+## Transaction Management Page
+
+| Feature | Status | Notes |
+|---|---|---|
+| Stats Row (Total / Success / Pending / Failed / Revenue) | ✅ Done | 5 stat cards |
+| Search & Status Filter | ✅ Done | Search input + 4 toggle buttons (All/Success/Pending/Failed) + Reset |
+| Bulk Actions | ✅ Done | Select all + toolbar (Success/Pending/Failed/Hapus) |
+| Table with all columns | ✅ Done | Invoice, customer, course, amount, status, payment, date, 2 actions |
+| Pagination | ✅ Done | Showing X-Y of Z + Prev/Next |
+| Edit Status Modal | ✅ Done | Inline status selector with save |
+| Delete Confirmation | ✅ Done | Red dialog with invoice info |
+| CRUD via Repository | ✅ Done | update/delete through ITransactionRepository |
+| Loading / Empty / Error State | ✅ Done | Full coverage |
+
 ## Admin Dashboard Page
 
 | Feature | Status | Notes |
