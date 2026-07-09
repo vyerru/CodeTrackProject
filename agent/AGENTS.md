@@ -1,7 +1,10 @@
 # CodeTrack — Project Repository Guide
 
+> **Agent behavior rules** are defined in `/AGENTS.md` (root). This file contains project-specific reference documentation only.
+> Skills are available in `skills/` and `.opencode/skills/` — the agent will invoke them automatically based on task intent.
+
 > **Platform belajar coding online** — course catalog, articles, user dashboard (streak & progress tracking), and admin panel.
-> Last updated: 2026-06-21
+> Last updated: 2026-07-07
 
 ---
 
@@ -40,6 +43,7 @@ npm run preview    # Preview production build locally
 | Alias | Maps to |
 |---|---|
 | `@/` | `src/` |
+| `@/shared/components/ui` | `@/components/ui/` (shadcn registry) |
 
 Configured in `tsconfig.app.json` and `vite.config.ts`.
 
@@ -51,8 +55,8 @@ Configured in `tsconfig.app.json` and `vite.config.ts`.
 src/
 ├── core/                          # DOMAIN layer — pure TypeScript, zero dependencies
 │   ├── domain/
-│   │   ├── entities/              # Data models: User, Course, Article, Transaction, Dashboard
-│   │   ├── repositories/          # Abstract interfaces: IAuthRepository, ICourseRepository, ...
+│   │   ├── entities/              # Data models: User, Course, Article, Transaction, Dashboard, AdminDashboard
+│   │   ├── repositories/          # Abstract interfaces: IAuthRepository, ICourseRepository, IUserRepository, ...
 │   │   └── di.ts                  # Dependency injection container — injectRepositories()
 │   └── utils/                     # Pure utility functions: formatRupiah, getLevelColor, ...
 │
@@ -118,7 +122,7 @@ React local state (component-scoped):
 | `/articles/:slug` | PublicLayout | ArticleDetailPage | Public |
 | `/auth/login` | — | LoginPage | Public |
 | `/auth/register` | — | RegisterPage | Public |
-| `/dashboard` | ProtectedRoute(user) + UserLayout | UserDashboardPage | Authenticated user |
+| `/dashboard` | ProtectedRoute(student) + UserLayout | UserDashboardPage | Authenticated student |
 | `/dashboard/cart` | " | CartPage | " |
 | `/dashboard/checkout` | " | CheckoutPage | " |
 | `/dashboard/history` | " | TransactionHistoryPage | " |
@@ -140,7 +144,8 @@ React local state (component-scoped):
 
 | Role | Email | Password |
 |---|---|---|
-| User | `user@codetrack.id` | `user123` |
+| Student | `user@codetrack.id` | `user123` |
+| Instructor | `instructor@codetrack.id` | `instructor123` |
 | Admin | `admin@codetrack.id` | `admin123` |
 
 Hardcoded in `LoginPage.tsx` for demo purposes.

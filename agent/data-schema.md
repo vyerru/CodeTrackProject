@@ -2,7 +2,7 @@
 
 > Type definitions, mock data structure, utility functions, and chaos-testing data contracts.
 > Components must be designed **defensively** to handle the edge cases documented here.
-> Last updated: 2026-06-21
+> Last updated: 2026-07-07
 
 ---
 
@@ -21,8 +21,11 @@
 ### Core Primitives
 
 ```typescript
-type UserRole           = 'user' | 'admin'
+type UserRole           = 'student' | 'instructor' | 'admin'
+type UserStatus         = 'Active' | 'Inactive'
 type CourseLevel        = 'Beginner' | 'Intermediate' | 'Advanced'
+type CourseStatus       = 'Published' | 'Draft'
+type ArticleStatus      = 'Published' | 'Draft'
 type TransactionStatus  = 'success' | 'pending' | 'failed'
 type CourseCategory     =
   | 'Web Development'
@@ -45,7 +48,23 @@ interface User {
   email: string
   avatar?: string | null          // Must handle null/undefined → fallback to initials
   role: UserRole
+  status?: UserStatus             // 'Active' | 'Inactive'
+  lastActive?: string             // ISO 8601 date string
+  courseEnrolled?: number
   createdAt: string               // ISO 8601 date string
+}
+
+interface EnrolledCourseInfo {
+  title: string
+  progress: number                // 0–100
+}
+
+interface UserDetail extends User {
+  enrolledCourses?: EnrolledCourseInfo[]
+  totalLearningTime?: number      // In hours
+  certificatesEarned?: number
+  currentStreak?: number          // In days
+  recentActivities?: { type: string; title: string; time: string }[]
 }
 ```
 
@@ -58,21 +77,23 @@ interface Course {
   title: string
   description: string
   instructor: string
-  instructorAvatar?: string | null   // Often missing — handle fallback
+  instructorAvatar?: string           // Often missing — handle fallback
   thumbnail: string                   // URL — prone to failure, use ImageWithFallback
   price: number                       // Can reach millions/billions — format with formatRupiah()
-  originalPrice?: number | null
-  discount?: number | null
+  originalPrice?: number
+  discount?: number
   rating: number
   totalStudents: number
+  duration: number                    // Hours
   level: CourseLevel
   category: CourseCategory
+  tags: string[]
   isBestseller?: boolean
   isFree?: boolean
-  duration?: number                   // Hours
-  tags?: string[]
-  isPublished?: boolean
-  createdAt?: string
+  isPublished: boolean
+  status?: CourseStatus               // 'Published' | 'Draft'
+  revenue?: number
+  createdAt: string                   // ISO 8601 date string
 }
 ```
 
@@ -92,27 +113,42 @@ interface Article {
   thumbnail: string
   category: string
   tags: string[]
+  status?: ArticleStatus            // 'Published' | 'Draft'
+  views?: number
 }
 ```
 
 ### Transaction
 
 ```typescript
+interface TransactionItem {
+  id: string
+  title: string
+  price: number
+  quantity: number
+}
+
 interface Transaction {
   id: string
   invoice: string
   userId: string
   customerName: string
+  customerEmail?: string
+  customerPhone?: string
+  customerAddress?: string
   courseId: string
   courseTitle: string
   amount: number
   status: TransactionStatus
   createdAt: string                 // ISO 8601 date string
   paymentMethod: string
+  items?: TransactionItem[]
 }
 ```
 
 ### Dashboard-Specific Types
+
+#### User Dashboard
 
 ```typescript
 interface EnrolledCourse {
@@ -135,41 +171,108 @@ interface UserStats {
   longestStreak: number              // In days
 }
 
-interface MonthlyGoal {
-  id: string
+interface CourseProgress {
+  title: string
+  instructor?: string
+  instructorAvatar?: string
+  thumbnail: string
+  currentLesson?: string
+  progress: number                  // 0–100
+  hoursLeft?: number
+}
+
+interface RecommendedCourse {
+  title: string
+  instructor: string
+  thumbnail: string
+  category: string
+  level: string
+  rating: number
+  students: number
+  duration: string
+  price: number
+}
+
+interface CalendarDay {
+  intensity: 0 | 1 | 2 | 3 | 4
+  lessons: number
+  hours: number
+}
+
+interface Activity {
+  type: 'completed' | 'certificate' | 'quiz' | 'forum'
+  title: string
+  time: string                      // Relative time, e.g., "2 hours ago"
+}
+
+interface Goal {
   title: string
   current: number
   target: number
-  type: 'courses' | 'hours' | 'certificates' | 'streak'
 }
 
 interface Badge {
-  id: string
   name: string
   icon: string                      // Emoji character
   date: string                      // e.g. "Dec 10"
-  description?: string
+}
+
+interface NextBadge {
+  name: string
+  progress: number
+  description: string
+}
+
+interface Deadline {
+  course: string
+  dueInDays: number
+  progress: number
+  urgency: DeadlineUrgency
 }
 
 interface ForumTopic {
-  id: string
   title: string
   author: string
   replies: number
   views: number
-  time: string                      // Relative time, e.g., "2 hours ago"
-  category: string
 }
 
-interface UserActivity {
-  id: string
-  type: 'completed' | 'certificate' | 'quiz' | 'forum'
-  title: string
-  time: string
+interface DashboardData {
+  stats: UserStats
+  currentCourse: CourseProgress
+  inProgressCourses: Array<Omit<CourseProgress, 'instructor' | 'instructorAvatar' | 'currentLesson' | 'hoursLeft'>>
+  recommendedCourses: RecommendedCourse[]
+  streakData: {
+    days: CalendarDay[]
+    currentStreak: string
+    longestStreak: string
+    totalActiveDays: string
+  }
+  recentActivities: Activity[]
+  monthlyGoals: Goal[]
+  deadlines: Deadline[]
+  badges: Badge[]
+  nextBadge: NextBadge
+  forumTopics: ForumTopic[]
+}
+```
+
+#### Admin Dashboard
+
+```typescript
+interface AdminKpiCard {
+  label: string
+  value: string
+  trend: number
+}
+
+interface AdminRevenueDataPoint {
+  label: string
+  revenue: number
+  users: number
 }
 
 interface AdminActivity {
-  id: number
   type: ActivityType
   user: string
   action: string
@@ -177,22 +280,53 @@ interface AdminActivity {
   avatar: string
 }
 
-interface Deadline {
-  id: string
-  course: string
-  dueInDays: number
-  progress: number
-  urgency: DeadlineUrgency
+interface AdminTopCourse {
+  rank: number
+  title: string
+  category: string
+  students: number
+  revenue: number
+  growth: number
 }
 
-interface KpiCard {
-  label: string
-  value: string
-  icon: LucideIcon
-  trend?: number                    // Positive = upward trend
-  gradient: string                  // Tailwind gradient class
-  iconBg: string
-  iconColor: string
+interface AdminAlert {
+  id: string
+  type: 'success' | 'warning' | 'info'
+  message: string
+}
+
+interface AdminDashboardTransaction {
+  invoice: string
+  customer: string
+  course: string
+  amount: number
+  status: TransactionStatus
+  date: string
+}
+
+interface AdminDashboardUser {
+  avatar: string
+  name: string
+  email: string
+  role: string
+  time: string
+}
+
+interface AdminDashboardData {
+  kpiCards: AdminKpiCard[]
+  revenueData: AdminRevenueDataPoint[]
+  recentActivities: AdminActivity[]
+  quickActions: { label: string; path: string; icon: string }[]
+  topCourses: AdminTopCourse[]
+  pendingReviews: number
+  goals: { label: string; current: number; target: number }[]
+  secondaryMetrics: { label: string; value: string; change: string; icon: string; color: string }[]
+  latestTransactions: AdminDashboardTransaction[]
+  newestUsers: AdminDashboardUser[]
+  trafficSources: { source: string; percentage: number; color: string }[]
+  userDevices: { name: string; percentage: number; color: string }[]
+  topLocations: { city: string; percentage: number; flag: string }[]
+  alerts: AdminAlert[]
 }
 ```
 
@@ -203,11 +337,13 @@ interface KpiCard {
 All defined in `core/utils/` and re-exported via `shared/utils/`.
 
 | Function | Signature | Returns | Example |
-|---|---|---|---|
+|---|---|---|---|---|
 | `formatRupiah` | `(amount: number) => string` | Long-form IDR | `"Rp 589.000"` |
 | `formatRupiahShort` | `(amount: number) => string` | Short-form IDR | `"Rp 589k"` / `"Rp 1.2M"` |
-| `getLevelColor` | `(level: CourseLevel) => string` | Tailwind classes | `"bg-green-100 text-green-700"` |
-| `getStatusColor` | `(status: TransactionStatus) => string` | Tailwind classes | `"bg-green-500 text-white"` |
+| `getLevelColor` | `(level: string) => string` | Tailwind classes | `"bg-green-100 text-green-700"` |
+| `getStatusColor` | `(status: string) => string` | Tailwind classes | `"bg-green-500 text-white"` |
+| `getCategoryColor` | `(category: string) => string` | Tailwind classes | `"bg-indigo-500"` (for Web Dev) |
+| `getUrgencyColor` | `(urgency: string) => string` | Tailwind classes | `"bg-red-500 text-white"` (for high) |
 | `getRelativeTime` | `(dateString: string) => string` | Relative string | `"2 hours ago"`, `"1 day ago"` |
 
 ---
@@ -311,7 +447,7 @@ Mock data files live in `src/data/sources/mock/`. Each file must include both **
   "title": "Ini Adalah Judul Kursus Yang Sangat Panjang Sekali Bahkan Melebihi Tiga Baris Teks Dan Seharusnya Dipotong Oleh Line Clamp Dua Atau Tiga Untuk Menghindari Kerusakan Layout Card",
   "description": "Deskripsi ini sengaja dibuat sangat panjang untuk menguji apakah Anda menggunakan max-w-prose dan line-clamp yang benar atau Anda membiarkan teks ini tumpah ruah merusak hierarki visual dari halaman detail kursus Anda.",
   "instructor": "Dr. Prof. Ir. Nama Instruktur Sangat Panjang Sekali M.Sc., Ph.D.",
-  "instructorAvatar": null,
+  "instructorAvatar": null,,
   "thumbnail": "https://url-gambar-rusak-atau-sangat-lambat-sekali.com/image.jpg",
   "price": 1250000000,
   "originalPrice": 2500000000,
@@ -360,5 +496,6 @@ Hardcoded in `LoginPage.tsx` for demo purposes. No backend or persistence.
 
 | Role | Email | Password |
 |---|---|---|
-| User | `user@codetrack.id` | `user123` |
+| Student | `user@codetrack.id` | `user123` |
+| Instructor | `instructor@codetrack.id` | `instructor123` |
 | Admin | `admin@codetrack.id` | `admin123` |

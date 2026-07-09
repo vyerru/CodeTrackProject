@@ -1,7 +1,7 @@
 # Pages & Routes — CodeTrack
 
 > Complete route map, page content specifications, and navigation flow.
-> Last updated: 2026-06-21
+> Last updated: 2026-07-07
 
 ---
 
@@ -43,7 +43,7 @@
 - **Feedback:** Network failure or wrong credentials **must** show an inline error message (red text or toast). Navigation to `/dashboard` **must only** occur after the auth promise resolves successfully.
 - **Loading state:** Submit button shows a spinner icon + text change ("Signing in...") while loading.
 
-### 1.3 User Routes — `ProtectedRoute(role: user)` + `UserLayout`
+### 1.3 User Routes — `ProtectedRoute(role: student)` + `UserLayout`
 
 | Route | Component | File |
 |---|---|---|
@@ -250,5 +250,5 @@ Implemented in `ProtectedRoute.tsx`:
 | User State | Accesses | Redirect To |
 |---|---|---|
 | Not logged in | Any protected route | `/auth/login` |
-| Logged in as `user` | `/admin/*` | `/dashboard` |
-| Logged in as `admin` | `/dashboard/*` | `/admin` |
+ | Logged in as `student` | `/admin/*` | `/dashboard` |
+ | Logged in as `admin` | `/dashboard/*` | `/admin` |

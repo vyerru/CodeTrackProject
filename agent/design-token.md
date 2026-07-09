@@ -1,7 +1,7 @@
 # Design System — CodeTrack
 
 > Design tokens and component patterns extracted from Figma Make (Register, AdminDashboard, UserDashboard).
-> Last updated: 2026-06-21
+> Last updated: 2026-07-07
 
 ---
 

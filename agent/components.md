@@ -1,7 +1,7 @@
 # Component Inventory — Admin Dashboard
 
 > Status tracking for admin dashboard components.
-> Updated: 2026-06-23
+> Updated: 2026-07-07
 
 ## Status Legend
 - ✅ Done — implemented and build-tested
@@ -12,11 +12,11 @@
 
 | Component | Status | Notes |
 |---|---|---|
-| `RevenueChartWithRange.tsx` | ⏳ Pending | Range toggle 7H/30H/3B/1T + custom Recharts tooltip |
-| `TopCoursesTable.tsx` | ⏳ Pending | Ranked table with growth indicators |
-| `QuickActions.tsx` | ⏳ Pending | 6-shortcut grid to management pages |
-| `EnhancedActivityFeed.tsx` | ⏳ Pending | Live dot + show more/less toggle |
-| `DismissibleAlerts.tsx` | ⏳ Pending | Animated dismiss with 3 variants |
+| `RevenueChartWithRange.tsx` | ✅ Done | Range toggle 7H/30H/3B/1T + custom Recharts tooltip |
+| `TopCoursesTable.tsx` | ✅ Done | Ranked table with growth indicators |
+| `QuickActions.tsx` | ✅ Done | 6-shortcut grid to management pages |
+| `EnhancedActivityFeed.tsx` | ✅ Done | Live dot + show more/less toggle |
+| `DismissibleAlerts.tsx` | ✅ Done | Animated dismiss with 3 variants |
 
 ## Data Layer (Phase 1)
 
@@ -67,10 +67,10 @@
 | Feature | Status | Notes |
 |---|---|---|
 | KPI Cards | ✅ Done | 5 cards with gradient + trend indicators |
-| Revenue Chart with Range Toggle | ⏳ Pending | 4 range modes + custom tooltip |
-| Recent Activity Feed | ⏳ Pending | Live indicator + show more/less |
-| Quick Actions | ⏳ Pending | Navigation shortcuts |
-| Top Performing Courses Table | ⏳ Pending | Ranked by revenue |
+| Revenue Chart with Range Toggle | ✅ Done | 4 range modes + custom tooltip |
+| Recent Activity Feed | ✅ Done | Live indicator + show more/less |
+| Quick Actions | ✅ Done | Navigation shortcuts |
+| Top Performing Courses Table | ✅ Done | Ranked by revenue |
 | Pending Reviews | ✅ Done | With View All link |
 | Today's Goals | ✅ Done | Progress bars |
 | Secondary Metrics | ✅ Done | 6 metrics with "vs last month" label |
@@ -79,7 +79,7 @@
 | Traffic Sources | ✅ Done | Donut chart |
 | User Devices | ✅ Done | Progress bars |
 | Top Locations | ✅ Done | Progress bars |
-| Dismissible Alerts | ⏳ Pending | Animated, 3 types |
+| Dismissible Alerts | ✅ Done | Animated, 3 types |
 | Loading Skeleton | ✅ Done | Multi-section skeleton |
 | Empty State | ✅ Done | Handles null data |
 | Error State | ✅ Done | With retry button |
