@@ -208,33 +208,59 @@ export default function CourseManagementPage() {
                 const isSelected = selectedIds.has(course.id)
                 const isDeleting = actionLoading === course.id
                 return (
-                  <div key={course.id} className={`grid grid-cols-1 xl:grid-cols-[32px_2.5fr_1fr_1fr_1.5fr_80px_100px_100px_80px_120px] gap-2 p-4 items-center text-sm ${isSelected ? 'bg-indigo-50/50' : ''}`}>
-                    <div className="flex xl:hidden items-center gap-3 mb-2"><input type="checkbox" checked={isSelected} onChange={() => toggleSelect(course.id)} className="accent-indigo-600 outline-none" /></div>
-                    <input type="checkbox" checked={isSelected} onChange={() => toggleSelect(course.id)} className="hidden xl:block accent-indigo-600 outline-none" />
-                    <div className="flex items-start gap-3 min-w-0">
-                      <ImageWithFallback src={course.thumbnail} alt={course.title} className="w-14 h-10 rounded-lg object-cover flex-shrink-0" />
-                      <div className="min-w-0"><p className="text-gray-900 font-medium truncate">{course.title}</p><p className="text-xs text-gray-500 line-clamp-1 mt-0.5">{course.description}</p></div>
-                    </div>
-                    <span className={`inline-block w-max px-2 py-0.5 rounded text-xs font-medium text-white ${getCategoryColor(course.category)}`}>{course.category}</span>
-                    <span className={`inline-block w-max px-2 py-0.5 rounded text-xs font-medium ${getLevelColor(course.level)}`}>{course.level}</span>
-                    <div className="flex items-center gap-2 min-w-0">
-                      <div className="w-7 h-7 rounded-full bg-indigo-100 text-indigo-600 text-xs font-semibold flex items-center justify-center flex-shrink-0">
-                        {course.instructorAvatar ? <img src={course.instructorAvatar} alt="" className="w-7 h-7 rounded-full object-cover" /> : getInitials(course.instructor)}
+                  <div key={course.id} className={`${isSelected ? 'bg-indigo-50/50' : ''}`}>
+                    <div className="block xl:hidden bg-white rounded-xl border border-border p-3 mx-3 my-2 shadow-sm">
+                      <div className="flex items-start gap-3">
+                        <input type="checkbox" checked={isSelected} onChange={() => toggleSelect(course.id)} className="accent-indigo-600 outline-none mt-1" />
+                        <div className="flex items-start gap-3 min-w-0 flex-1">
+                          <ImageWithFallback src={course.thumbnail} alt={course.title} className="w-14 h-10 rounded-lg object-cover flex-shrink-0" />
+                          <div className="min-w-0 flex-1">
+                            <p className="text-gray-900 font-medium truncate">{course.title}</p>
+                            <p className="text-xs text-gray-500 line-clamp-1">{course.description}</p>
+                          </div>
+                        </div>
                       </div>
-                      <span className="text-gray-700 truncate">{course.instructor}</span>
+                      <div className="flex flex-wrap items-center gap-2 mt-2 ml-7">
+                        <span className={`inline-block px-2 py-0.5 rounded text-xs font-medium text-white ${getCategoryColor(course.category)}`}>{course.category}</span>
+                        <span className={`inline-block px-2 py-0.5 rounded text-xs font-medium ${getLevelColor(course.level)}`}>{course.level}</span>
+                        <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium ${course.status === 'Published' ? 'bg-green-500 text-white' : 'bg-gray-400 text-white'}`}>{course.status ?? 'Draft'}</span>
+                        <span className="text-xs text-gray-500 ml-auto">{course.isFree ? 'Gratis' : formatRupiah(course.price)}</span>
+                      </div>
+                      <div className="flex items-center justify-end gap-1 mt-2 border-t border-border pt-2">
+                        <button onClick={() => openEditModal(course)} className="p-1.5 text-gray-400 hover:text-indigo-600 outline-none rounded" aria-label="Edit"><Edit3 className="w-4 h-4" /></button>
+                        <button className="p-1.5 text-gray-400 hover:text-blue-600 outline-none rounded" aria-label="Preview"><Eye className="w-4 h-4" /></button>
+                        <button onClick={() => setDeleteTarget(course)} disabled={isDeleting} className="p-1.5 text-gray-400 hover:text-red-500 outline-none rounded disabled:opacity-50" aria-label="Hapus">
+                          {isDeleting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />}
+                        </button>
+                      </div>
                     </div>
-                    <span className="text-gray-500 text-center">{course.totalStudents.toLocaleString()}</span>
-                    <span className="font-medium text-gray-900 text-center">{course.isFree ? 'Gratis' : formatRupiah(course.price)}</span>
-                    <span className="text-gray-500 text-center">{course.revenue ? formatRupiahShort(course.revenue) : '-'}</span>
-                    <div className="flex justify-center">
-                      <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium ${course.status === 'Published' ? 'bg-green-500 text-white' : 'bg-gray-400 text-white'}`}>{course.status ?? 'Draft'}</span>
-                    </div>
-                    <div className="flex items-center justify-center gap-1">
-                      <button onClick={() => openEditModal(course)} className="p-1.5 text-gray-400 hover:text-indigo-600 transition-colors outline-none rounded" title="Edit"><Edit3 className="w-4 h-4" /></button>
-                      <button className="p-1.5 text-gray-400 hover:text-blue-600 transition-colors outline-none rounded" title="Preview"><Eye className="w-4 h-4" /></button>
-                      <button onClick={() => setDeleteTarget(course)} disabled={isDeleting} className="p-1.5 text-gray-400 hover:text-red-500 transition-colors outline-none rounded disabled:opacity-50" title="Hapus">
-                        {isDeleting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />}
-                      </button>
+                    <div className={`hidden xl:grid grid-cols-[32px_2.5fr_1fr_1fr_1.5fr_80px_100px_100px_80px_120px] gap-2 p-4 items-center text-sm`}>
+                      <input type="checkbox" checked={isSelected} onChange={() => toggleSelect(course.id)} className="accent-indigo-600 outline-none" />
+                      <div className="flex items-start gap-3 min-w-0">
+                        <ImageWithFallback src={course.thumbnail} alt={course.title} className="w-14 h-10 rounded-lg object-cover flex-shrink-0" />
+                        <div className="min-w-0"><p className="text-gray-900 font-medium truncate">{course.title}</p><p className="text-xs text-gray-500 line-clamp-1 mt-0.5">{course.description}</p></div>
+                      </div>
+                      <span className={`inline-block w-max px-2 py-0.5 rounded text-xs font-medium text-white ${getCategoryColor(course.category)}`}>{course.category}</span>
+                      <span className={`inline-block w-max px-2 py-0.5 rounded text-xs font-medium ${getLevelColor(course.level)}`}>{course.level}</span>
+                      <div className="flex items-center gap-2 min-w-0">
+                        <div className="w-7 h-7 rounded-full bg-indigo-100 text-indigo-600 text-xs font-semibold flex items-center justify-center flex-shrink-0">
+                          {course.instructorAvatar ? <img src={course.instructorAvatar} alt="" className="w-7 h-7 rounded-full object-cover" /> : getInitials(course.instructor)}
+                        </div>
+                        <span className="text-gray-700 truncate">{course.instructor}</span>
+                      </div>
+                      <span className="text-gray-500 text-center">{course.totalStudents.toLocaleString()}</span>
+                      <span className="font-medium text-gray-900 text-center">{course.isFree ? 'Gratis' : formatRupiah(course.price)}</span>
+                      <span className="text-gray-500 text-center">{course.revenue ? formatRupiahShort(course.revenue) : '-'}</span>
+                      <div className="flex justify-center">
+                        <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium ${course.status === 'Published' ? 'bg-green-500 text-white' : 'bg-gray-400 text-white'}`}>{course.status ?? 'Draft'}</span>
+                      </div>
+                      <div className="flex items-center justify-center gap-1">
+                        <button onClick={() => openEditModal(course)} className="p-1.5 text-gray-400 hover:text-indigo-600 outline-none rounded" aria-label="Edit"><Edit3 className="w-4 h-4" /></button>
+                        <button className="p-1.5 text-gray-400 hover:text-blue-600 outline-none rounded" aria-label="Preview"><Eye className="w-4 h-4" /></button>
+                        <button onClick={() => setDeleteTarget(course)} disabled={isDeleting} className="p-1.5 text-gray-400 hover:text-red-500 outline-none rounded disabled:opacity-50" aria-label="Hapus">
+                          {isDeleting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />}
+                        </button>
+                      </div>
                     </div>
                   </div>
                 )

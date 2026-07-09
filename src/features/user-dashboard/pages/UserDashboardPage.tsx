@@ -11,21 +11,14 @@ import CommunityCard from '../components/CommunityCard'
 import QuickActionsCard from '../components/QuickActionsCard'
 import { useUserDashboard } from '../hooks/useUserDashboard'
 import DashboardSkeleton from '../components/DashboardSkeleton'
+import ErrorState from '@/shared/components/common/ErrorState'
 
 export default function UserDashboardPage() {
-  const { data, isLoading, error } = useUserDashboard()
+  const { data, isLoading, error, refetch } = useUserDashboard()
 
-  if (isLoading) {
-    return <DashboardSkeleton />
-  }
-
-  if (error || !data) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <p className="text-red-600 font-medium">{error ?? 'Failed to load dashboard data'}</p>
-      </div>
-    )
-  }
+  if (isLoading) return <DashboardSkeleton />
+  if (error) return <ErrorState message={error} onRetry={refetch} />
+  if (!data) return <ErrorState message="Gagal memuat data dashboard" onRetry={refetch} />
 
   return (
     <div className="min-h-screen bg-gray-50">

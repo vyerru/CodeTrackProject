@@ -146,7 +146,7 @@ export default function AdminDashboardPage() {
       {/* KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
         {data.kpiCards.map((kpi, i) => {
-          const cfg = kpiConfig[i]
+          const cfg = kpiConfig[i] ?? kpiConfig[0]
           return (
             <div key={kpi.label} className={`bg-gradient-to-br ${cfg.gradient} rounded-2xl border border-border p-7 shadow-md`}>
               <div className="flex items-start justify-between mb-3">

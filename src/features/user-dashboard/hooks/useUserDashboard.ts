@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import type { DashboardData } from '@/shared/types'
 import { repos } from '@/core/domain/di'
 
@@ -6,6 +6,19 @@ export function useUserDashboard() {
   const [data, setData] = useState<DashboardData | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+
+  const fetch = useCallback(() => {
+    setIsLoading(true)
+    setError(null)
+
+    repos.dashboard.getDashboardData('1').then((result) => {
+      setData(result)
+      setIsLoading(false)
+    }).catch(() => {
+      setError('Failed to load dashboard data')
+      setIsLoading(false)
+    })
+  }, [])
 
   useEffect(() => {
     let cancelled = false
@@ -23,5 +36,5 @@ export function useUserDashboard() {
     return () => { cancelled = true }
   }, [])
 
-  return { data, isLoading, error }
+  return { data, isLoading, error, refetch: fetch }
 }

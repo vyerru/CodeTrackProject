@@ -195,27 +195,54 @@ export default function UserManagementPage() {
                 const isSelected = selectedIds.has(user.id)
                 const isDeleting = actionLoading === user.id
                 return (
-                  <div key={user.id} className={`grid grid-cols-1 lg:grid-cols-[32px_2fr_1fr_1fr_1fr_80px_120px_120px] gap-3 p-4 items-center text-sm ${isSelected ? 'bg-indigo-50/50' : ''}`}>
-                    <div className="flex lg:hidden items-center gap-3 mb-2"><input type="checkbox" checked={isSelected} onChange={() => toggleSelect(user.id)} className="accent-indigo-600 outline-none" /></div>
-                    <input type="checkbox" checked={isSelected} onChange={() => toggleSelect(user.id)} className="hidden lg:block accent-indigo-600 outline-none" />
-                    <div className="flex items-center gap-3 min-w-0">
-                      {user.avatar ? <img src={user.avatar} alt="" className="w-9 h-9 rounded-full object-cover flex-shrink-0" /> : <div className="w-9 h-9 rounded-full bg-indigo-100 text-indigo-600 text-xs font-semibold flex items-center justify-center flex-shrink-0">{getInitials(user.name)}</div>}
-                      <div className="min-w-0"><p className="text-gray-900 font-medium truncate">{user.name}</p><p className="text-xs text-gray-500 truncate">{user.email}</p></div>
+                  <div key={user.id} className={`${isSelected ? 'bg-indigo-50/50' : ''}`}>
+                    <div className="block lg:hidden bg-white rounded-xl border border-border p-3 mx-3 my-2 shadow-sm">
+                      <div className="flex items-start gap-3">
+                        <input type="checkbox" checked={isSelected} onChange={() => toggleSelect(user.id)} className="accent-indigo-600 outline-none mt-1" />
+                        <div className="flex items-center gap-3 min-w-0 flex-1">
+                          {user.avatar ? <img src={user.avatar} alt="" className="w-9 h-9 rounded-full object-cover flex-shrink-0" /> : <div className="w-9 h-9 rounded-full bg-indigo-100 text-indigo-600 text-xs font-semibold flex items-center justify-center flex-shrink-0">{getInitials(user.name)}</div>}
+                          <div className="min-w-0">
+                            <p className="text-gray-900 font-medium truncate">{user.name}</p>
+                            <p className="text-xs text-gray-500 truncate">{user.email}</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2 mt-2 ml-7">
+                        <span className={`inline-block px-2 py-0.5 rounded text-xs font-medium ${getRoleBadgeClass(user.role)}`}>{user.role}</span>
+                        <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium ${getStatusBadgeClass(user.status ?? 'Active')}`}>{user.status ?? 'Active'}</span>
+                      </div>
+                      <div className="flex items-center justify-end gap-1 mt-2 border-t border-border pt-2">
+                        <button onClick={() => openEditModal(user)} className="p-1.5 text-gray-400 hover:text-indigo-600 outline-none rounded" aria-label="Edit"><Edit3 className="w-4 h-4" /></button>
+                        <button onClick={() => openDetailModal(user)} className="p-1.5 text-gray-400 hover:text-blue-600 outline-none rounded" aria-label="Lihat Detail">
+                          {detailLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Eye className="w-4 h-4" />}
+                        </button>
+                        <button onClick={() => setSuspendTarget(user)} className="p-1.5 text-gray-400 hover:text-amber-500 outline-none rounded" aria-label="Suspend"><Ban className="w-4 h-4" /></button>
+                        <button onClick={() => setDeleteTarget(user)} disabled={isDeleting} className="p-1.5 text-gray-400 hover:text-red-500 outline-none rounded disabled:opacity-50" aria-label="Hapus">
+                          {isDeleting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />}
+                        </button>
+                      </div>
                     </div>
-                    <span className={`inline-block w-max px-2 py-0.5 rounded text-xs font-medium ${getRoleBadgeClass(user.role)}`}>{user.role}</span>
-                    <span className={`inline-block w-max px-2 py-0.5 rounded-full text-xs font-medium ${getStatusBadgeClass(user.status ?? 'Active')}`}>{user.status ?? 'Active'}</span>
-                    <span className="text-gray-500">{new Date(user.createdAt).toLocaleDateString('id-ID')}</span>
-                    <span className="text-gray-500 text-center">{user.role === 'student' ? (user.courseEnrolled ?? 0) : '-'}</span>
-                    <span className="text-gray-500 text-xs">{user.lastActive ? getRelativeTime(user.lastActive) : '-'}</span>
-                    <div className="flex items-center justify-center gap-1">
-                      <button onClick={() => openEditModal(user)} className="p-1.5 text-gray-400 hover:text-indigo-600 transition-colors outline-none rounded" title="Edit"><Edit3 className="w-4 h-4" /></button>
-                      <button onClick={() => openDetailModal(user)} className="p-1.5 text-gray-400 hover:text-blue-600 transition-colors outline-none rounded" title="Lihat Detail">
-                        {detailLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Eye className="w-4 h-4" />}
-                      </button>
-                      <button onClick={() => setSuspendTarget(user)} className="p-1.5 text-gray-400 hover:text-amber-500 transition-colors outline-none rounded" title="Suspend"><Ban className="w-4 h-4" /></button>
-                      <button onClick={() => setDeleteTarget(user)} disabled={isDeleting} className="p-1.5 text-gray-400 hover:text-red-500 transition-colors outline-none rounded disabled:opacity-50" title="Hapus">
-                        {isDeleting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />}
-                      </button>
+                    <div className={`hidden lg:grid grid-cols-[32px_2fr_1fr_1fr_1fr_80px_120px_120px] gap-3 p-4 items-center text-sm`}>
+                      <input type="checkbox" checked={isSelected} onChange={() => toggleSelect(user.id)} className="accent-indigo-600 outline-none" />
+                      <div className="flex items-center gap-3 min-w-0">
+                        {user.avatar ? <img src={user.avatar} alt="" className="w-9 h-9 rounded-full object-cover flex-shrink-0" /> : <div className="w-9 h-9 rounded-full bg-indigo-100 text-indigo-600 text-xs font-semibold flex items-center justify-center flex-shrink-0">{getInitials(user.name)}</div>}
+                        <div className="min-w-0"><p className="text-gray-900 font-medium truncate">{user.name}</p><p className="text-xs text-gray-500 truncate">{user.email}</p></div>
+                      </div>
+                      <span className={`inline-block w-max px-2 py-0.5 rounded text-xs font-medium ${getRoleBadgeClass(user.role)}`}>{user.role}</span>
+                      <span className={`inline-block w-max px-2 py-0.5 rounded-full text-xs font-medium ${getStatusBadgeClass(user.status ?? 'Active')}`}>{user.status ?? 'Active'}</span>
+                      <span className="text-gray-500">{new Date(user.createdAt).toLocaleDateString('id-ID')}</span>
+                      <span className="text-gray-500 text-center">{user.role === 'student' ? (user.courseEnrolled ?? 0) : '-'}</span>
+                      <span className="text-gray-500 text-xs">{user.lastActive ? getRelativeTime(user.lastActive) : '-'}</span>
+                      <div className="flex items-center justify-center gap-1">
+                        <button onClick={() => openEditModal(user)} className="p-1.5 text-gray-400 hover:text-indigo-600 outline-none rounded" aria-label="Edit"><Edit3 className="w-4 h-4" /></button>
+                        <button onClick={() => openDetailModal(user)} className="p-1.5 text-gray-400 hover:text-blue-600 outline-none rounded" aria-label="Lihat Detail">
+                          {detailLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Eye className="w-4 h-4" />}
+                        </button>
+                        <button onClick={() => setSuspendTarget(user)} className="p-1.5 text-gray-400 hover:text-amber-500 outline-none rounded" aria-label="Suspend"><Ban className="w-4 h-4" /></button>
+                        <button onClick={() => setDeleteTarget(user)} disabled={isDeleting} className="p-1.5 text-gray-400 hover:text-red-500 outline-none rounded disabled:opacity-50" aria-label="Hapus">
+                          {isDeleting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />}
+                        </button>
+                      </div>
                     </div>
                   </div>
                 )

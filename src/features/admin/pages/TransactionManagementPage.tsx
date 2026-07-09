@@ -184,21 +184,43 @@ export default function TransactionManagementPage() {
                 const isSelected = selectedIds.has(txn.id)
                 const isDeleting = actionLoading === txn.id
                 return (
-                  <div key={txn.id} className={`grid grid-cols-1 lg:grid-cols-[32px_1fr_1.2fr_1.5fr_100px_100px_80px_120px_100px] gap-3 p-4 items-center text-sm ${isSelected ? 'bg-indigo-50/50' : ''}`}>
-                    <div className="flex lg:hidden items-center gap-3 mb-2"><input type="checkbox" checked={isSelected} onChange={() => toggleSelect(txn.id)} className="accent-indigo-600 outline-none" /></div>
-                    <input type="checkbox" checked={isSelected} onChange={() => toggleSelect(txn.id)} className="hidden lg:block accent-indigo-600 outline-none" />
-                    <span className="font-mono text-xs text-gray-500 truncate">{txn.invoice}</span>
-                    <span className="text-gray-900 font-medium truncate">{txn.customerName}</span>
-                    <span className="text-gray-500 truncate">{txn.courseTitle}</span>
-                    <span className="font-medium text-gray-900 text-center">{formatRupiah(txn.amount)}</span>
-                    <span className={`inline-block w-max mx-auto px-2 py-0.5 rounded-full text-xs font-medium text-center ${getStatusColor(txn.status)}`}>{txn.status}</span>
-                    <span className="text-gray-500 text-xs capitalize">{txn.paymentMethod.replace('_', ' ')}</span>
-                    <span className="text-gray-500 text-xs">{getRelativeTime(txn.createdAt)}</span>
-                    <div className="flex items-center justify-center gap-1">
-                      <button onClick={() => openEditModal(txn)} className="p-1.5 text-gray-400 hover:text-indigo-600 transition-colors outline-none rounded" title="Edit Status"><Edit3 className="w-4 h-4" /></button>
-                      <button onClick={() => setDeleteTarget(txn)} disabled={isDeleting} className="p-1.5 text-gray-400 hover:text-red-500 transition-colors outline-none rounded disabled:opacity-50" title="Hapus">
-                        {isDeleting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />}
-                      </button>
+                  <div key={txn.id} className={`${isSelected ? 'bg-indigo-50/50' : ''}`}>
+                    <div className="block lg:hidden bg-white rounded-xl border border-border p-3 mx-3 my-2 shadow-sm">
+                      <div className="flex items-start gap-3">
+                        <input type="checkbox" checked={isSelected} onChange={() => toggleSelect(txn.id)} className="accent-indigo-600 outline-none mt-1" />
+                        <div className="min-w-0 flex-1">
+                          <p className="font-mono text-xs text-gray-500">{txn.invoice}</p>
+                          <p className="text-gray-900 font-medium truncate">{txn.customerName}</p>
+                          <p className="text-gray-500 truncate text-xs">{txn.courseTitle}</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2 mt-2 ml-7">
+                        <span className="font-medium text-gray-900">{formatRupiah(txn.amount)}</span>
+                        <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium ${getStatusColor(txn.status)}`}>{txn.status}</span>
+                        <span className="text-xs text-gray-400 ml-auto">{getRelativeTime(txn.createdAt)}</span>
+                      </div>
+                      <div className="flex items-center justify-end gap-1 mt-2 border-t border-border pt-2">
+                        <button onClick={() => openEditModal(txn)} className="p-1.5 text-gray-400 hover:text-indigo-600 outline-none rounded" aria-label="Edit Status"><Edit3 className="w-4 h-4" /></button>
+                        <button onClick={() => setDeleteTarget(txn)} disabled={isDeleting} className="p-1.5 text-gray-400 hover:text-red-500 outline-none rounded disabled:opacity-50" aria-label="Hapus">
+                          {isDeleting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />}
+                        </button>
+                      </div>
+                    </div>
+                    <div className={`hidden lg:grid grid-cols-[32px_1fr_1.2fr_1.5fr_100px_100px_80px_120px_100px] gap-3 p-4 items-center text-sm`}>
+                      <input type="checkbox" checked={isSelected} onChange={() => toggleSelect(txn.id)} className="accent-indigo-600 outline-none" />
+                      <span className="font-mono text-xs text-gray-500 truncate">{txn.invoice}</span>
+                      <span className="text-gray-900 font-medium truncate">{txn.customerName}</span>
+                      <span className="text-gray-500 truncate">{txn.courseTitle}</span>
+                      <span className="font-medium text-gray-900 text-center">{formatRupiah(txn.amount)}</span>
+                      <span className={`inline-block w-max mx-auto px-2 py-0.5 rounded-full text-xs font-medium text-center ${getStatusColor(txn.status)}`}>{txn.status}</span>
+                      <span className="text-gray-500 text-xs capitalize">{txn.paymentMethod.replace('_', ' ')}</span>
+                      <span className="text-gray-500 text-xs">{getRelativeTime(txn.createdAt)}</span>
+                      <div className="flex items-center justify-center gap-1">
+                        <button onClick={() => openEditModal(txn)} className="p-1.5 text-gray-400 hover:text-indigo-600 outline-none rounded" aria-label="Edit Status"><Edit3 className="w-4 h-4" /></button>
+                        <button onClick={() => setDeleteTarget(txn)} disabled={isDeleting} className="p-1.5 text-gray-400 hover:text-red-500 outline-none rounded disabled:opacity-50" aria-label="Hapus">
+                          {isDeleting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />}
+                        </button>
+                      </div>
                     </div>
                   </div>
                 )

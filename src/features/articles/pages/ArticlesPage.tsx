@@ -4,6 +4,7 @@ import FeaturedArticleCard from '../components/FeaturedArticleCard'
 import ArticleCard from '../components/ArticleCard'
 import ArticleSidebar from '../components/ArticleSidebar'
 import ArticleSkeleton from '../components/ArticleSkeleton'
+import EmptyState from '@/shared/components/common/EmptyState'
 
 export default function ArticlesPage() {
   const {
@@ -86,10 +87,7 @@ export default function ArticlesPage() {
               )}
 
               {articles.length === 0 ? (
-                <div className="text-center py-20 text-gray-500">
-                  <p className="text-lg">Tidak ada artikel ditemukan</p>
-                  <p className="text-sm mt-2">Coba ubah kata kunci atau filter kategori</p>
-                </div>
+                <EmptyState title="Tidak ada artikel ditemukan" description="Coba ubah kata kunci atau filter kategori" />
               ) : (
                 <>
                   <div className="grid md:grid-cols-2 gap-6 mb-8">

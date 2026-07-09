@@ -247,27 +247,50 @@ export default function ArticleManagementPage() {
                 const isSelected = selectedIds.has(article.id)
                 const isDeleting = actionLoading === article.id
                 return (
-                  <div key={article.id} className={`grid grid-cols-1 lg:grid-cols-[36px_3fr_1fr_1fr_1fr_1fr_80px_120px] gap-3 p-4 items-center text-sm ${isSelected ? 'bg-indigo-50/50' : ''}`}>
-                    <div className="flex lg:hidden items-center gap-3 mb-2">
-                      <input type="checkbox" checked={isSelected} onChange={() => toggleSelect(article.id)} className="accent-indigo-600 focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none" />
-                    </div>
-                    <input type="checkbox" checked={isSelected} onChange={() => toggleSelect(article.id)} className="hidden lg:block accent-indigo-600 focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none" />
-                    <div className="flex items-start gap-3 min-w-0">
-                      <ImageWithFallback src={article.thumbnail} alt={article.title} className="w-14 h-10 rounded-lg object-cover flex-shrink-0" />
-                      <div className="min-w-0"><p className="text-gray-900 font-medium truncate">{article.title}</p><p className="text-xs text-gray-500 line-clamp-1 mt-0.5">{article.excerpt}</p></div>
-                    </div>
-                    <span className={`inline-block w-max px-2 py-0.5 rounded text-xs font-medium text-white ${getCategoryColor(article.category)}`}>{article.category}</span>
-                    <span className="text-gray-500 truncate">{article.author}</span>
-                    <span className="text-gray-500">{article.publishedAt ? new Date(article.publishedAt).toLocaleDateString('id-ID') : '-'}</span>
-                    <span className={`inline-block w-max px-2 py-0.5 rounded-full text-xs font-medium ${article.status === 'Published' ? 'bg-green-500 text-white' : 'bg-gray-400 text-white'}`}>{article.status ?? 'Draft'}</span>
-                    <span className="text-gray-500 text-center">{article.views?.toLocaleString() ?? 0}</span>
-                    <div className="flex items-center justify-center gap-1">
-                      <button onClick={() => openEditModal(article)} className="p-1.5 text-gray-400 hover:text-indigo-600 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none rounded" title="Edit"><Edit3 className="w-4 h-4" /></button>
-                      <button className="p-1.5 text-gray-400 hover:text-blue-600 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none rounded" title="Preview"><Eye className="w-4 h-4" /></button>
-                      <button onClick={() => setDeleteTarget(article)} disabled={isDeleting} className="p-1.5 text-gray-400 hover:text-red-500 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none rounded disabled:opacity-50" title="Hapus">
-                        {isDeleting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />}
-                      </button>
-                    </div>
+                  <div key={article.id} className={`${isSelected ? 'bg-indigo-50/50' : ''}`}>
+                    <MobileCard className="block lg:hidden">
+                      <div className="flex items-start gap-3">
+                        <input type="checkbox" checked={isSelected} onChange={() => toggleSelect(article.id)} className="accent-indigo-600 outline-none mt-1" />
+                        <div className="flex items-start gap-3 min-w-0 flex-1">
+                          <ImageWithFallback src={article.thumbnail} alt={article.title} className="w-14 h-10 rounded-lg object-cover flex-shrink-0" />
+                          <div className="min-w-0 flex-1">
+                            <p className="text-gray-900 font-medium truncate">{article.title}</p>
+                            <p className="text-xs text-gray-500 line-clamp-1">{article.excerpt}</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2 mt-2 ml-7">
+                        <span className={`inline-block px-2 py-0.5 rounded text-xs font-medium text-white ${getCategoryColor(article.category)}`}>{article.category}</span>
+                        <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium ${article.status === 'Published' ? 'bg-green-500 text-white' : 'bg-gray-400 text-white'}`}>{article.status ?? 'Draft'}</span>
+                        <span className="text-xs text-gray-400 ml-auto">{article.views?.toLocaleString() ?? 0} views</span>
+                      </div>
+                      <div className="flex items-center justify-end gap-1 mt-2 border-t border-border pt-2">
+                        <button onClick={() => openEditModal(article)} className="p-1.5 text-gray-400 hover:text-indigo-600 transition-colors outline-none rounded" aria-label="Edit"><Edit3 className="w-4 h-4" /></button>
+                        <button className="p-1.5 text-gray-400 hover:text-blue-600 transition-colors outline-none rounded" aria-label="Preview"><Eye className="w-4 h-4" /></button>
+                        <button onClick={() => setDeleteTarget(article)} disabled={isDeleting} className="p-1.5 text-gray-400 hover:text-red-500 transition-colors outline-none rounded disabled:opacity-50" aria-label="Hapus">
+                          {isDeleting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />}
+                        </button>
+                      </div>
+                    </MobileCard>
+                    <DesktopRow className="hidden lg:grid grid-cols-[36px_3fr_1fr_1fr_1fr_1fr_80px_120px]">
+                      <input type="checkbox" checked={isSelected} onChange={() => toggleSelect(article.id)} className="accent-indigo-600 outline-none" />
+                      <div className="flex items-start gap-3 min-w-0">
+                        <ImageWithFallback src={article.thumbnail} alt={article.title} className="w-14 h-10 rounded-lg object-cover flex-shrink-0" />
+                        <div className="min-w-0"><p className="text-gray-900 font-medium truncate">{article.title}</p><p className="text-xs text-gray-500 line-clamp-1 mt-0.5">{article.excerpt}</p></div>
+                      </div>
+                      <span className={`inline-block w-max px-2 py-0.5 rounded text-xs font-medium text-white ${getCategoryColor(article.category)}`}>{article.category}</span>
+                      <span className="text-gray-500 truncate">{article.author}</span>
+                      <span className="text-gray-500">{article.publishedAt ? new Date(article.publishedAt).toLocaleDateString('id-ID') : '-'}</span>
+                      <span className={`inline-block w-max px-2 py-0.5 rounded-full text-xs font-medium ${article.status === 'Published' ? 'bg-green-500 text-white' : 'bg-gray-400 text-white'}`}>{article.status ?? 'Draft'}</span>
+                      <span className="text-gray-500 text-center">{article.views?.toLocaleString() ?? 0}</span>
+                      <div className="flex items-center justify-center gap-1">
+                        <button onClick={() => openEditModal(article)} className="p-1.5 text-gray-400 hover:text-indigo-600 transition-colors outline-none rounded" aria-label="Edit"><Edit3 className="w-4 h-4" /></button>
+                        <button className="p-1.5 text-gray-400 hover:text-blue-600 transition-colors outline-none rounded" aria-label="Preview"><Eye className="w-4 h-4" /></button>
+                        <button onClick={() => setDeleteTarget(article)} disabled={isDeleting} className="p-1.5 text-gray-400 hover:text-red-500 transition-colors outline-none rounded disabled:opacity-50" aria-label="Hapus">
+                          {isDeleting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />}
+                        </button>
+                      </div>
+                    </DesktopRow>
                   </div>
                 )
               })}
@@ -298,4 +321,12 @@ export default function ArticleManagementPage() {
       )}
     </div>
   )
+}
+
+function MobileCard({ className, children }: { className?: string; children: React.ReactNode }) {
+  return <div className={`${className ?? ''} bg-white rounded-xl border border-border p-3 mx-3 my-2 shadow-sm`}>{children}</div>
+}
+
+function DesktopRow({ className, children }: { className?: string; children: React.ReactNode }) {
+  return <div className={`${className ?? ''} gap-3 p-4 items-center text-sm`}>{children}</div>
 }
