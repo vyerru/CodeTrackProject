@@ -30,7 +30,7 @@ export class MockAuthRepository implements IAuthRepository {
       id: crypto.randomUUID(),
       name: params.name,
       email: params.email,
-      role: params.role as 'student' | 'instructor' | 'admin',
+      role: params.role === 'Instructor' ? 'instructor' : 'student',
     }
   }
 }
