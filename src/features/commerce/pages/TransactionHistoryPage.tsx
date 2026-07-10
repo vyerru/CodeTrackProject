@@ -6,7 +6,7 @@ import { formatRupiah, getRelativeTime, getStatusColor } from '@/shared/utils'
 import type { Transaction, TransactionStatus } from '@/shared/types'
 import ErrorState from '@/shared/components/common/ErrorState'
 import EmptyState from '@/shared/components/common/EmptyState'
-import LoadingSpinner from '@/shared/components/common/LoadingSpinner'
+import HistorySkeleton from '../components/HistorySkeleton'
 
 const ITEMS_PER_PAGE = 5
 
@@ -19,7 +19,7 @@ export default function TransactionHistoryPage() {
   const [statusFilter, setStatusFilter] = useState<TransactionStatus | 'all'>('all')
   const [currentPage, setCurrentPage] = useState(1)
 
-  if (isLoading) return <LoadingSpinner fullPage />
+  if (isLoading) return <HistorySkeleton />
   if (error) return <ErrorState message={error} onRetry={refetch} />
   if (!transactions || transactions.length === 0) {
     return (

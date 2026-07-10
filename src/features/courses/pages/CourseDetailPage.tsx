@@ -6,7 +6,7 @@ import { repos } from '@/core/domain/di'
 import { formatRupiah } from '@/shared/utils'
 import LevelBadge from '@/shared/components/common/LevelBadge'
 import ErrorState from '@/shared/components/common/ErrorState'
-import PageSkeleton from '@/shared/components/common/PageSkeleton'
+import CourseDetailSkeleton from '../components/CourseDetailSkeleton'
 import ImageWithFallback from '@/shared/components/common/ImageWithFallback'
 import { useCartStore } from '@/features/commerce/store/cartStore'
 import { useAuthStore } from '@/features/auth/store/authStore'
@@ -73,7 +73,7 @@ export default function CourseDetailPage() {
     () => repos.course.findBySlug(slug || '')
   )
 
-  if (isLoading) return <PageSkeleton />
+  if (isLoading) return <CourseDetailSkeleton />
   if (error) return <ErrorState message={error} onRetry={refetch} />
   if (!course) {
     return (

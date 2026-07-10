@@ -6,8 +6,8 @@ import type { Course } from '@/shared/types'
 import CourseCategoryTabs from '../components/CourseCategoryTabs'
 import CourseFilter, { FilterForm } from '../components/CourseFilter'
 import CourseGrid from '../components/CourseGrid'
+import CourseCatalogSkeleton from '../components/CourseCatalogSkeleton'
 import ErrorState from '@/shared/components/common/ErrorState'
-import LoadingSpinner from '@/shared/components/common/LoadingSpinner'
 import {
   Sheet,
   SheetContent,
@@ -96,7 +96,7 @@ export default function CourseCatalogPage() {
     setFilters(defaultFilters)
   }
 
-  if (isLoading) return <LoadingSpinner fullPage />
+  if (isLoading) return <CourseCatalogSkeleton />
   if (error) return <ErrorState message={error} onRetry={refetch} />
 
   return (
